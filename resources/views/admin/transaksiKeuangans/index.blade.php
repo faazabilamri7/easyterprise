@@ -41,9 +41,6 @@
                             {{ trans('cruds.transaksiKeuangan.fields.jenis_pembayaran') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transaksiKeuangan.fields.produk') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.transaksiKeuangan.fields.qty') }}
                         </th>
                         <th>
@@ -51,6 +48,9 @@
                         </th>
                         <th>
                             {{ trans('cruds.transaksiKeuangan.fields.total') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transaksiKeuangan.fields.sales_product') }}
                         </th>
                         <th>
                             &nbsp;
@@ -82,9 +82,6 @@
                                 {{ $transaksiKeuangan->jenis_pembayaran ?? '' }}
                             </td>
                             <td>
-                                {{ $transaksiKeuangan->produk->nama_produk ?? '' }}
-                            </td>
-                            <td>
                                 {{ $transaksiKeuangan->qty ?? '' }}
                             </td>
                             <td>
@@ -92,6 +89,9 @@
                             </td>
                             <td>
                                 {{ $transaksiKeuangan->total ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transaksiKeuangan->sales_product->detail_order ?? '' }}
                             </td>
                             <td>
                                 @can('transaksi_keuangan_show')

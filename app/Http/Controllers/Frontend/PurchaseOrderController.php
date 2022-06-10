@@ -27,7 +27,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_purchase_quotations = PurchaseQuotation::pluck('material_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_purchase_quotations = PurchaseQuotation::pluck('id_purchase_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('frontend.purchaseOrders.create', compact('id_purchase_quotations'));
     }
@@ -43,7 +43,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_purchase_quotations = PurchaseQuotation::pluck('material_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_purchase_quotations = PurchaseQuotation::pluck('id_purchase_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $purchaseOrder->load('id_purchase_quotation');
 

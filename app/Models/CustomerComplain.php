@@ -21,7 +21,7 @@ class CustomerComplain extends Model
     ];
 
     protected $fillable = [
-        'id_customer_id',
+        'sales_order_id',
         'keluhan',
         'kritik',
         'saran',
@@ -30,9 +30,9 @@ class CustomerComplain extends Model
         'deleted_at',
     ];
 
-    public function id_customer()
+    public function sales_order()
     {
-        return $this->belongsTo(CrmCustomer::class, 'id_customer_id');
+        return $this->belongsTo(SalesOrder::class, 'sales_order_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

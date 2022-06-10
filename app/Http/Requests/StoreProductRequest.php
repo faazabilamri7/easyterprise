@@ -21,20 +21,18 @@ class StoreProductRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'price' => [
-                'required',
-            ],
             'categories.*' => [
                 'integer',
             ],
             'categories' => [
                 'array',
             ],
-            'tags.*' => [
+            'stok' => [
+                'required',
+                'nullable',
                 'integer',
-            ],
-            'tags' => [
-                'array',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

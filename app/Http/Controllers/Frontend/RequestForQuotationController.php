@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRequestForQuotationRequest;
 use App\Http\Requests\StoreRequestForQuotationRequest;
 use App\Http\Requests\UpdateRequestForQuotationRequest;
+use App\Models\PurchaseRequition;
 use App\Models\RequestForQuotation;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class RequestForQuotationController extends Controller
     {
         abort_if(Gate::denies('request_for_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $requestForQuotations = RequestForQuotation::all();
+        $requestForQuotations = RequestForQuotation::with(['id_purchase_requisition'])->get();
 
         return view('frontend.requestForQuotations.index', compact('requestForQuotations'));
     }
@@ -26,7 +27,9 @@ class RequestForQuotationController extends Controller
     {
         abort_if(Gate::denies('request_for_quotation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.requestForQuotations.create');
+        $id_purchase_requisitions = PurchaseRequition::pluck('id_purchase_requition', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.requestForQuotations.create', compact('id_purchase_requisitions'));
     }
 
     public function store(StoreRequestForQuotationRequest $request)
@@ -40,7 +43,11 @@ class RequestForQuotationController extends Controller
     {
         abort_if(Gate::denies('request_for_quotation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.requestForQuotations.edit', compact('requestForQuotation'));
+        $id_purchase_requisitions = PurchaseRequition::pluck('id_purchase_requition', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $requestForQuotation->load('id_purchase_requisition');
+
+        return view('frontend.requestForQuotations.edit', compact('id_purchase_requisitions', 'requestForQuotation'));
     }
 
     public function update(UpdateRequestForQuotationRequest $request, RequestForQuotation $requestForQuotation)
@@ -53,6 +60,8 @@ class RequestForQuotationController extends Controller
     public function show(RequestForQuotation $requestForQuotation)
     {
         abort_if(Gate::denies('request_for_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $requestForQuotation->load('id_purchase_requisition');
 
         return view('frontend.requestForQuotations.show', compact('requestForQuotation'));
     }

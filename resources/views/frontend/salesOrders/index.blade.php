@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.sales-orders.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.salesOrder.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'SalesOrder', 'route' => 'admin.sales-orders.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -26,25 +30,22 @@
                                         {{ trans('cruds.salesOrder.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.customer') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.qty') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.status') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.detail_order') }}
+                                        {{ trans('cruds.salesOrder.fields.no_sales_order') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.salesOrder.fields.tanggal') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.total') }}
+                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.salesQuotation.fields.status') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.salesOrder.fields.detail_order') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.salesOrder.fields.status') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -58,25 +59,24 @@
                                             {{ $salesOrder->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $salesOrder->customer->first_name ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $salesOrder->sales_quotation->harga ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $salesOrder->qty ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $salesOrder->detail_order ?? '' }}
+                                            {{ $salesOrder->no_sales_order ?? '' }}
                                         </td>
                                         <td>
                                             {{ $salesOrder->tanggal ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $salesOrder->total ?? '' }}
+                                            {{ $salesOrder->sales_quotation->harga ?? '' }}
+                                        </td>
+                                        <td>
+                                            @if($salesOrder->sales_quotation)
+                                                {{ $salesOrder->sales_quotation::STATUS_SELECT[$salesOrder->sales_quotation->status] ?? '' }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $salesOrder->detail_order ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
                                         </td>
                                         <td>
                                             @can('sales_order_show')

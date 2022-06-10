@@ -17,13 +17,13 @@ class UpdateTaskRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_production_plan' => [
+                'string',
+                'nullable',
+            ],
             'name' => [
                 'string',
                 'required',
-            ],
-            'status_id' => [
-                'required',
-                'integer',
             ],
             'tags.*' => [
                 'integer',

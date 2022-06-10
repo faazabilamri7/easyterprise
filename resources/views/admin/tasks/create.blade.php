@@ -10,6 +10,30 @@
         <form method="POST" action="{{ route("admin.tasks.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="id_production_plan">{{ trans('cruds.task.fields.id_production_plan') }}</label>
+                <input class="form-control {{ $errors->has('id_production_plan') ? 'is-invalid' : '' }}" type="text" name="id_production_plan" id="id_production_plan" value="{{ old('id_production_plan', '') }}">
+                @if($errors->has('id_production_plan'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_production_plan') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.id_production_plan_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="id_request_product_id">{{ trans('cruds.task.fields.id_request_product') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_request_product') ? 'is-invalid' : '' }}" name="id_request_product_id" id="id_request_product_id">
+                    @foreach($id_request_products as $id => $entry)
+                        <option value="{{ $id }}" {{ old('id_request_product_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('id_request_product'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_request_product') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.id_request_product_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.task.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}" required>
                 @if($errors->has('name'))
@@ -30,8 +54,8 @@
                 <span class="help-block">{{ trans('cruds.task.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="status_id">{{ trans('cruds.task.fields.status') }}</label>
-                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id" required>
+                <label for="status_id">{{ trans('cruds.task.fields.status') }}</label>
+                <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
                     @foreach($statuses as $id => $entry)
                         <option value="{{ $id }}" {{ old('status_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
@@ -81,20 +105,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.due_date_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="assigned_to_id">{{ trans('cruds.task.fields.assigned_to') }}</label>
-                <select class="form-control select2 {{ $errors->has('assigned_to') ? 'is-invalid' : '' }}" name="assigned_to_id" id="assigned_to_id">
-                    @foreach($assigned_tos as $id => $entry)
-                        <option value="{{ $id }}" {{ old('assigned_to_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('assigned_to'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('assigned_to') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.assigned_to_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

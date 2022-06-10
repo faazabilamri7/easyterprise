@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Sales Inquiry
     Route::delete('sales-inquiries/destroy', 'SalesInquiryController@massDestroy')->name('sales-inquiries.massDestroy');
+    Route::post('sales-inquiries/parse-csv-import', 'SalesInquiryController@parseCsvImport')->name('sales-inquiries.parseCsvImport');
+    Route::post('sales-inquiries/process-csv-import', 'SalesInquiryController@processCsvImport')->name('sales-inquiries.processCsvImport');
     Route::resource('sales-inquiries', 'SalesInquiryController');
 
     // Sales Quotation
@@ -29,25 +31,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Sales Order
     Route::delete('sales-orders/destroy', 'SalesOrderController@massDestroy')->name('sales-orders.massDestroy');
+    Route::post('sales-orders/parse-csv-import', 'SalesOrderController@parseCsvImport')->name('sales-orders.parseCsvImport');
+    Route::post('sales-orders/process-csv-import', 'SalesOrderController@processCsvImport')->name('sales-orders.processCsvImport');
     Route::resource('sales-orders', 'SalesOrderController');
 
     // Sales Report
     Route::delete('sales-reports/destroy', 'SalesReportController@massDestroy')->name('sales-reports.massDestroy');
+    Route::post('sales-reports/parse-csv-import', 'SalesReportController@parseCsvImport')->name('sales-reports.parseCsvImport');
+    Route::post('sales-reports/process-csv-import', 'SalesReportController@processCsvImport')->name('sales-reports.processCsvImport');
     Route::resource('sales-reports', 'SalesReportController');
 
     // Customer Complain
     Route::delete('customer-complains/destroy', 'CustomerComplainController@massDestroy')->name('customer-complains.massDestroy');
+    Route::post('customer-complains/parse-csv-import', 'CustomerComplainController@parseCsvImport')->name('customer-complains.parseCsvImport');
+    Route::post('customer-complains/process-csv-import', 'CustomerComplainController@processCsvImport')->name('customer-complains.processCsvImport');
     Route::resource('customer-complains', 'CustomerComplainController');
-
-    // Stok Produk
-    Route::delete('stok-produks/destroy', 'StokProdukController@massDestroy')->name('stok-produks.massDestroy');
-    Route::post('stok-produks/media', 'StokProdukController@storeMedia')->name('stok-produks.storeMedia');
-    Route::post('stok-produks/ckmedia', 'StokProdukController@storeCKEditorImages')->name('stok-produks.storeCKEditorImages');
-    Route::resource('stok-produks', 'StokProdukController');
-
-    // Stok Material
-    Route::delete('stok-materials/destroy', 'StokMaterialController@massDestroy')->name('stok-materials.massDestroy');
-    Route::resource('stok-materials', 'StokMaterialController');
 
     // Transfer Material
     Route::delete('transfer-materials/destroy', 'TransferMaterialController@massDestroy')->name('transfer-materials.massDestroy');
@@ -68,10 +66,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Machine Report
     Route::delete('machine-reports/destroy', 'MachineReportController@massDestroy')->name('machine-reports.massDestroy');
     Route::resource('machine-reports', 'MachineReportController');
-
-    // Purchas Req
-    Route::delete('purchas-reqs/destroy', 'PurchasReqController@massDestroy')->name('purchas-reqs.massDestroy');
-    Route::resource('purchas-reqs', 'PurchasReqController');
 
     // Purchase Inq
     Route::delete('purchase-inqs/destroy', 'PurchaseInqController@massDestroy')->name('purchase-inqs.massDestroy');
@@ -214,23 +208,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('user-alerts/read', 'UserAlertsController@read');
     Route::resource('user-alerts', 'UserAlertsController', ['except' => ['edit', 'update']]);
 
-    // Task Status
-    Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
-    Route::resource('task-statuses', 'TaskStatusController');
-
-    // Task Tag
-    Route::delete('task-tags/destroy', 'TaskTagController@massDestroy')->name('task-tags.massDestroy');
-    Route::resource('task-tags', 'TaskTagController');
-
-    // Task
-    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
-    Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
-    Route::post('tasks/ckmedia', 'TaskController@storeCKEditorImages')->name('tasks.storeCKEditorImages');
-    Route::resource('tasks', 'TaskController');
-
-    // Tasks Calendar
-    Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
     // Faq Category
     Route::delete('faq-categories/destroy', 'FaqCategoryController@massDestroy')->name('faq-categories.massDestroy');
     Route::resource('faq-categories', 'FaqCategoryController');
@@ -242,10 +219,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Request Stock Product
     Route::delete('request-stock-products/destroy', 'RequestStockProductController@massDestroy')->name('request-stock-products.massDestroy');
     Route::resource('request-stock-products', 'RequestStockProductController');
-
-    // Production Plan
-    Route::delete('production-plans/destroy', 'ProductionPlanController@massDestroy')->name('production-plans.massDestroy');
-    Route::resource('production-plans', 'ProductionPlanController');
 
     // Production Monitoring
     Route::delete('production-monitorings/destroy', 'ProductionMonitoringController@massDestroy')->name('production-monitorings.massDestroy');
@@ -290,6 +263,31 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Purchase Quotation
     Route::delete('purchase-quotations/destroy', 'PurchaseQuotationController@massDestroy')->name('purchase-quotations.massDestroy');
     Route::resource('purchase-quotations', 'PurchaseQuotationController');
+
+    // Task Status
+    Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
+    Route::resource('task-statuses', 'TaskStatusController');
+
+    // Task Tag
+    Route::delete('task-tags/destroy', 'TaskTagController@massDestroy')->name('task-tags.massDestroy');
+    Route::resource('task-tags', 'TaskTagController');
+
+    // Task
+    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
+    Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
+    Route::post('tasks/ckmedia', 'TaskController@storeCKEditorImages')->name('tasks.storeCKEditorImages');
+    Route::resource('tasks', 'TaskController');
+
+    // Tasks Calendar
+    Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Purchase Requition
+    Route::delete('purchase-requitions/destroy', 'PurchaseRequitionController@massDestroy')->name('purchase-requitions.massDestroy');
+    Route::resource('purchase-requitions', 'PurchaseRequitionController');
+
+    // Material Entry
+    Route::delete('material-entries/destroy', 'MaterialEntryController@massDestroy')->name('material-entries.massDestroy');
+    Route::resource('material-entries', 'MaterialEntryController');
 
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
@@ -346,16 +344,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('customer-complains/destroy', 'CustomerComplainController@massDestroy')->name('customer-complains.massDestroy');
     Route::resource('customer-complains', 'CustomerComplainController');
 
-    // Stok Produk
-    Route::delete('stok-produks/destroy', 'StokProdukController@massDestroy')->name('stok-produks.massDestroy');
-    Route::post('stok-produks/media', 'StokProdukController@storeMedia')->name('stok-produks.storeMedia');
-    Route::post('stok-produks/ckmedia', 'StokProdukController@storeCKEditorImages')->name('stok-produks.storeCKEditorImages');
-    Route::resource('stok-produks', 'StokProdukController');
-
-    // Stok Material
-    Route::delete('stok-materials/destroy', 'StokMaterialController@massDestroy')->name('stok-materials.massDestroy');
-    Route::resource('stok-materials', 'StokMaterialController');
-
     // Transfer Material
     Route::delete('transfer-materials/destroy', 'TransferMaterialController@massDestroy')->name('transfer-materials.massDestroy');
     Route::resource('transfer-materials', 'TransferMaterialController');
@@ -375,10 +363,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Machine Report
     Route::delete('machine-reports/destroy', 'MachineReportController@massDestroy')->name('machine-reports.massDestroy');
     Route::resource('machine-reports', 'MachineReportController');
-
-    // Purchas Req
-    Route::delete('purchas-reqs/destroy', 'PurchasReqController@massDestroy')->name('purchas-reqs.massDestroy');
-    Route::resource('purchas-reqs', 'PurchasReqController');
 
     // Purchase Inq
     Route::delete('purchase-inqs/destroy', 'PurchaseInqController@massDestroy')->name('purchase-inqs.massDestroy');
@@ -511,23 +495,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     Route::delete('user-alerts/destroy', 'UserAlertsController@massDestroy')->name('user-alerts.massDestroy');
     Route::resource('user-alerts', 'UserAlertsController', ['except' => ['edit', 'update']]);
 
-    // Task Status
-    Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
-    Route::resource('task-statuses', 'TaskStatusController');
-
-    // Task Tag
-    Route::delete('task-tags/destroy', 'TaskTagController@massDestroy')->name('task-tags.massDestroy');
-    Route::resource('task-tags', 'TaskTagController');
-
-    // Task
-    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
-    Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
-    Route::post('tasks/ckmedia', 'TaskController@storeCKEditorImages')->name('tasks.storeCKEditorImages');
-    Route::resource('tasks', 'TaskController');
-
-    // Tasks Calendar
-    Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
-
     // Faq Category
     Route::delete('faq-categories/destroy', 'FaqCategoryController@massDestroy')->name('faq-categories.massDestroy');
     Route::resource('faq-categories', 'FaqCategoryController');
@@ -539,10 +506,6 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Request Stock Product
     Route::delete('request-stock-products/destroy', 'RequestStockProductController@massDestroy')->name('request-stock-products.massDestroy');
     Route::resource('request-stock-products', 'RequestStockProductController');
-
-    // Production Plan
-    Route::delete('production-plans/destroy', 'ProductionPlanController@massDestroy')->name('production-plans.massDestroy');
-    Route::resource('production-plans', 'ProductionPlanController');
 
     // Production Monitoring
     Route::delete('production-monitorings/destroy', 'ProductionMonitoringController@massDestroy')->name('production-monitorings.massDestroy');
@@ -587,6 +550,31 @@ Route::group(['as' => 'frontend.', 'namespace' => 'Frontend', 'middleware' => ['
     // Purchase Quotation
     Route::delete('purchase-quotations/destroy', 'PurchaseQuotationController@massDestroy')->name('purchase-quotations.massDestroy');
     Route::resource('purchase-quotations', 'PurchaseQuotationController');
+
+    // Task Status
+    Route::delete('task-statuses/destroy', 'TaskStatusController@massDestroy')->name('task-statuses.massDestroy');
+    Route::resource('task-statuses', 'TaskStatusController');
+
+    // Task Tag
+    Route::delete('task-tags/destroy', 'TaskTagController@massDestroy')->name('task-tags.massDestroy');
+    Route::resource('task-tags', 'TaskTagController');
+
+    // Task
+    Route::delete('tasks/destroy', 'TaskController@massDestroy')->name('tasks.massDestroy');
+    Route::post('tasks/media', 'TaskController@storeMedia')->name('tasks.storeMedia');
+    Route::post('tasks/ckmedia', 'TaskController@storeCKEditorImages')->name('tasks.storeCKEditorImages');
+    Route::resource('tasks', 'TaskController');
+
+    // Tasks Calendar
+    Route::resource('tasks-calendars', 'TasksCalendarController', ['except' => ['create', 'store', 'edit', 'update', 'show', 'destroy']]);
+
+    // Purchase Requition
+    Route::delete('purchase-requitions/destroy', 'PurchaseRequitionController@massDestroy')->name('purchase-requitions.massDestroy');
+    Route::resource('purchase-requitions', 'PurchaseRequitionController');
+
+    // Material Entry
+    Route::delete('material-entries/destroy', 'MaterialEntryController@massDestroy')->name('material-entries.massDestroy');
+    Route::resource('material-entries', 'MaterialEntryController');
 
     Route::get('frontend/profile', 'ProfileController@index')->name('profile.index');
     Route::post('frontend/profile', 'ProfileController@update')->name('profile.update');

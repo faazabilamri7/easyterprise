@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.sales-reports.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.salesReport.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'SalesReport', 'route' => 'admin.sales-reports.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -26,7 +30,13 @@
                             {{ trans('cruds.salesReport.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.salesReport.fields.tanggal_laporan') }}
+                            {{ trans('cruds.salesReport.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.salesReport.fields.tgl_sales_order') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.salesReport.fields.no_sales_order') }}
                         </th>
                         <th>
                             &nbsp;
@@ -43,7 +53,13 @@
                                 {{ $salesReport->id ?? '' }}
                             </td>
                             <td>
-                                {{ $salesReport->tanggal_laporan ?? '' }}
+                                {{ $salesReport->status->status ?? '' }}
+                            </td>
+                            <td>
+                                {{ $salesReport->tgl_sales_order->tanggal ?? '' }}
+                            </td>
+                            <td>
+                                {{ $salesReport->no_sales_order->no_sales_order ?? '' }}
                             </td>
                             <td>
                                 @can('sales_report_show')

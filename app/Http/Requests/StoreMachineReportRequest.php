@@ -17,9 +17,9 @@ class StoreMachineReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'production_plan_id' => [
-                'required',
-                'integer',
+            'id_mesin' => [
+                'string',
+                'nullable',
             ],
             'nama_mesin' => [
                 'string',

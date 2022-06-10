@@ -17,9 +17,9 @@ class StoreProductionMonitoringRequest extends FormRequest
     public function rules()
     {
         return [
-            'production_plan_id' => [
-                'required',
-                'integer',
+            'id_production_monitoring' => [
+                'string',
+                'nullable',
             ],
         ];
     }

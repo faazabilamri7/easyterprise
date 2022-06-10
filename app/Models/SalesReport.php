@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use \DateTimeInterface;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,27 +15,33 @@ class SalesReport extends Model
     public $table = 'sales_reports';
 
     protected $dates = [
-        'tanggal_laporan',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'tanggal_laporan',
+        'status_id',
+        'tgl_sales_order_id',
+        'no_sales_order_id',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function getTanggalLaporanAttribute($value)
+    public function status()
     {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+        return $this->belongsTo(SalesOrder::class, 'status_id');
     }
 
-    public function setTanggalLaporanAttribute($value)
+    public function tgl_sales_order()
     {
-        $this->attributes['tanggal_laporan'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+        return $this->belongsTo(SalesOrder::class, 'tgl_sales_order_id');
+    }
+
+    public function no_sales_order()
+    {
+        return $this->belongsTo(SalesOrder::class, 'no_sales_order_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroyTransaksiKeuanganRequest;
 use App\Http\Requests\StoreTransaksiKeuanganRequest;
 use App\Http\Requests\UpdateTransaksiKeuanganRequest;
 use App\Models\KasBank;
-use App\Models\StokProduk;
+use App\Models\SalesOrder;
 use App\Models\TransaksiKeuangan;
 use Gate;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class TransaksiKeuanganController extends Controller
     {
         abort_if(Gate::denies('transaksi_keuangan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transaksiKeuangans = TransaksiKeuangan::with(['kas_bank', 'produk'])->get();
+        $transaksiKeuangans = TransaksiKeuangan::with(['kas_bank', 'sales_product'])->get();
 
         return view('frontend.transaksiKeuangans.index', compact('transaksiKeuangans'));
     }
@@ -30,9 +30,9 @@ class TransaksiKeuanganController extends Controller
 
         $kas_banks = KasBank::pluck('jumlah', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $produks = StokProduk::pluck('nama_produk', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $sales_products = SalesOrder::pluck('detail_order', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.transaksiKeuangans.create', compact('kas_banks', 'produks'));
+        return view('frontend.transaksiKeuangans.create', compact('kas_banks', 'sales_products'));
     }
 
     public function store(StoreTransaksiKeuanganRequest $request)
@@ -48,11 +48,11 @@ class TransaksiKeuanganController extends Controller
 
         $kas_banks = KasBank::pluck('jumlah', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $produks = StokProduk::pluck('nama_produk', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $sales_products = SalesOrder::pluck('detail_order', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $transaksiKeuangan->load('kas_bank', 'produk');
+        $transaksiKeuangan->load('kas_bank', 'sales_product');
 
-        return view('frontend.transaksiKeuangans.edit', compact('kas_banks', 'produks', 'transaksiKeuangan'));
+        return view('frontend.transaksiKeuangans.edit', compact('kas_banks', 'sales_products', 'transaksiKeuangan'));
     }
 
     public function update(UpdateTransaksiKeuanganRequest $request, TransaksiKeuangan $transaksiKeuangan)
@@ -66,7 +66,7 @@ class TransaksiKeuanganController extends Controller
     {
         abort_if(Gate::denies('transaksi_keuangan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transaksiKeuangan->load('kas_bank', 'produk');
+        $transaksiKeuangan->load('kas_bank', 'sales_product');
 
         return view('frontend.transaksiKeuangans.show', compact('transaksiKeuangan'));
     }

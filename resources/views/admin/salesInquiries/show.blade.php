@@ -25,18 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.salesInquiry.fields.id_customer') }}
+                            {{ trans('cruds.salesInquiry.fields.inquiry_kode') }}
                         </th>
                         <td>
-                            {{ $salesInquiry->id_customer->first_name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.inquiry') }}
-                        </th>
-                        <td>
-                            {{ App\Models\SalesInquiry::INQUIRY_SELECT[$salesInquiry->inquiry] ?? '' }}
+                            {{ $salesInquiry->inquiry_kode }}
                         </td>
                     </tr>
                     <tr>
@@ -49,10 +41,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.salesInquiry.fields.id_product') }}
+                            {{ trans('cruds.salesInquiry.fields.id_customer') }}
                         </th>
                         <td>
-                            {{ $salesInquiry->id_product->name ?? '' }}
+                            {{ $salesInquiry->id_customer->first_name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInquiry.fields.nama_produk') }}
+                        </th>
+                        <td>
+                            {{ $salesInquiry->nama_produk->name ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -69,6 +69,14 @@
                         </th>
                         <td>
                             {{ App\Models\SalesInquiry::STATUS_SELECT[$salesInquiry->status] ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInquiry.fields.catatan') }}
+                        </th>
+                        <td>
+                            {{ $salesInquiry->catatan }}
                         </td>
                     </tr>
                 </tbody>
@@ -92,10 +100,18 @@
                 {{ trans('cruds.requestStockProduct.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#kode_inquiry_sales_quotations" role="tab" data-toggle="tab">
+                {{ trans('cruds.salesQuotation.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="inquiry_request_stock_products">
             @includeIf('admin.salesInquiries.relationships.inquiryRequestStockProducts', ['requestStockProducts' => $salesInquiry->inquiryRequestStockProducts])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="kode_inquiry_sales_quotations">
+            @includeIf('admin.salesInquiries.relationships.kodeInquirySalesQuotations', ['salesQuotations' => $salesInquiry->kodeInquirySalesQuotations])
         </div>
     </div>
 </div>

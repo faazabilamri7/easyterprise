@@ -22,25 +22,25 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.salesInquiry.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.id_customer') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.inquiry') }}
+                            {{ trans('cruds.salesInquiry.fields.inquiry_kode') }}
                         </th>
                         <th>
                             {{ trans('cruds.salesInquiry.fields.tgl_inquiry') }}
                         </th>
                         <th>
-                            {{ trans('cruds.salesInquiry.fields.id_product') }}
+                            {{ trans('cruds.salesInquiry.fields.id_customer') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.salesInquiry.fields.nama_produk') }}
                         </th>
                         <th>
                             {{ trans('cruds.salesInquiry.fields.qty') }}
                         </th>
                         <th>
                             {{ trans('cruds.salesInquiry.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.salesInquiry.fields.catatan') }}
                         </th>
                         <th>
                             &nbsp;
@@ -54,25 +54,25 @@
 
                             </td>
                             <td>
-                                {{ $salesInquiry->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->id_customer->first_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Models\SalesInquiry::INQUIRY_SELECT[$salesInquiry->inquiry] ?? '' }}
+                                {{ $salesInquiry->inquiry_kode ?? '' }}
                             </td>
                             <td>
                                 {{ $salesInquiry->tgl_inquiry ?? '' }}
                             </td>
                             <td>
-                                {{ $salesInquiry->id_product->name ?? '' }}
+                                {{ $salesInquiry->id_customer->first_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $salesInquiry->nama_produk->name ?? '' }}
                             </td>
                             <td>
                                 {{ $salesInquiry->qty ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\SalesInquiry::STATUS_SELECT[$salesInquiry->status] ?? '' }}
+                            </td>
+                            <td>
+                                {{ $salesInquiry->catatan ?? '' }}
                             </td>
                             <td>
                                 @can('sales_inquiry_show')

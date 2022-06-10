@@ -7,7 +7,6 @@ use App\Http\Requests\MassDestroyMachineReportRequest;
 use App\Http\Requests\StoreMachineReportRequest;
 use App\Http\Requests\UpdateMachineReportRequest;
 use App\Models\MachineReport;
-use App\Models\ProductionPlan;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +17,7 @@ class MachineReportController extends Controller
     {
         abort_if(Gate::denies('machine_report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $machineReports = MachineReport::with(['production_plan'])->get();
+        $machineReports = MachineReport::all();
 
         return view('admin.machineReports.index', compact('machineReports'));
     }
@@ -27,9 +26,7 @@ class MachineReportController extends Controller
     {
         abort_if(Gate::denies('machine_report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('admin.machineReports.create', compact('production_plans'));
+        return view('admin.machineReports.create');
     }
 
     public function store(StoreMachineReportRequest $request)
@@ -43,11 +40,7 @@ class MachineReportController extends Controller
     {
         abort_if(Gate::denies('machine_report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $machineReport->load('production_plan');
-
-        return view('admin.machineReports.edit', compact('machineReport', 'production_plans'));
+        return view('admin.machineReports.edit', compact('machineReport'));
     }
 
     public function update(UpdateMachineReportRequest $request, MachineReport $machineReport)
@@ -60,8 +53,6 @@ class MachineReportController extends Controller
     public function show(MachineReport $machineReport)
     {
         abort_if(Gate::denies('machine_report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        $machineReport->load('production_plan');
 
         return view('admin.machineReports.show', compact('machineReport'));
     }

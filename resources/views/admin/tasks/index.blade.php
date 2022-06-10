@@ -26,6 +26,12 @@
                             {{ trans('cruds.task.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.task.fields.id_production_plan') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.task.fields.id_request_product') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.task.fields.name') }}
                         </th>
                         <th>
@@ -44,9 +50,6 @@
                             {{ trans('cruds.task.fields.due_date') }}
                         </th>
                         <th>
-                            {{ trans('cruds.task.fields.assigned_to') }}
-                        </th>
-                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -59,6 +62,12 @@
                             </td>
                             <td>
                                 {{ $task->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $task->id_production_plan ?? '' }}
+                            </td>
+                            <td>
+                                {{ $task->id_request_product->id_request_product ?? '' }}
                             </td>
                             <td>
                                 {{ $task->name ?? '' }}
@@ -83,9 +92,6 @@
                             </td>
                             <td>
                                 {{ $task->due_date ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->assigned_to->name ?? '' }}
                             </td>
                             <td>
                                 @can('task_show')

@@ -26,10 +26,22 @@
                                         {{ trans('cruds.requestStockProduct.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.requestStockProduct.fields.tanggal_request') }}
+                                        {{ trans('cruds.requestStockProduct.fields.id_request_product') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.requestStockProduct.fields.inquiry') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.tanggal_request') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.request_product') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.qty') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.status') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -43,10 +55,22 @@
                                             {{ $requestStockProduct->id ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $requestStockProduct->id_request_product ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $requestStockProduct->inquiry->inquiry_kode ?? '' }}
+                                        </td>
+                                        <td>
                                             {{ $requestStockProduct->tanggal_request ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $requestStockProduct->inquiry->inquiry ?? '' }}
+                                            {{ $requestStockProduct->request_product->name ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $requestStockProduct->qty ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ App\Models\RequestStockProduct::STATUS_SELECT[$requestStockProduct->status] ?? '' }}
                                         </td>
                                         <td>
                                             @can('request_stock_product_show')

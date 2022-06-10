@@ -26,11 +26,19 @@ class QualityControl extends Model
     ];
 
     protected $fillable = [
+        'id_quality_control',
+        'id_production_monitoring_id',
+        'qty',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function id_production_monitoring()
+    {
+        return $this->belongsTo(ProductionMonitoring::class, 'id_production_monitoring_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

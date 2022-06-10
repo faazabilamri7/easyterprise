@@ -25,34 +25,50 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.purchaseInq.fields.id_purchase_inquiry') }}
+                        </th>
+                        <td>
+                            {{ $purchaseInq->id_purchase_inquiry }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.purchaseInq.fields.id_request_for_quotation') }}
                         </th>
                         <td>
-                            {{ $purchaseInq->id_request_for_quotation->id_purchase_requisition ?? '' }}
+                            {{ $purchaseInq->id_request_for_quotation->id_request_for_quotation ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseInq.fields.date_purchase_inquiry') }}
+                            {{ trans('cruds.purchaseInq.fields.vendor_name') }}
                         </th>
                         <td>
-                            {{ $purchaseInq->date_purchase_inquiry }}
+                            {{ $purchaseInq->vendor_name->nama_vendor ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseInq.fields.material_name') }}
+                            {{ trans('cruds.purchaseInq.fields.date_puchase_inquiry') }}
                         </th>
                         <td>
-                            {{ $purchaseInq->material_name }}
+                            {{ $purchaseInq->date_puchase_inquiry }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseInq.fields.quantity') }}
+                            {{ trans('cruds.purchaseInq.fields.name_material') }}
                         </th>
                         <td>
-                            {{ $purchaseInq->quantity }}
+                            {{ $purchaseInq->name_material->name_material ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseInq.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $purchaseInq->qty }}
                         </td>
                     </tr>
                 </tbody>

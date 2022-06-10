@@ -28,42 +28,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.customer') }}
+                                        {{ trans('cruds.salesOrder.fields.no_sales_order') }}
                                     </th>
                                     <td>
-                                        {{ $salesOrder->customer->first_name ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
-                                    </th>
-                                    <td>
-                                        {{ $salesOrder->sales_quotation->harga ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.qty') }}
-                                    </th>
-                                    <td>
-                                        {{ $salesOrder->qty }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.status') }}
-                                    </th>
-                                    <td>
-                                        {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.detail_order') }}
-                                    </th>
-                                    <td>
-                                        {{ $salesOrder->detail_order }}
+                                        {{ $salesOrder->no_sales_order }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -76,10 +44,26 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.total') }}
+                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
                                     </th>
                                     <td>
-                                        {{ $salesOrder->total }}
+                                        {{ $salesOrder->sales_quotation->harga ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesOrder.fields.detail_order') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesOrder->detail_order }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesOrder.fields.status') }}
+                                    </th>
+                                    <td>
+                                        {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

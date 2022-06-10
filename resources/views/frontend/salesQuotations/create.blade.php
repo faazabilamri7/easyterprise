@@ -14,32 +14,18 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label class="required" for="id_sales_inquiry_id">{{ trans('cruds.salesQuotation.fields.id_sales_inquiry') }}</label>
-                            <select class="form-control select2" name="id_sales_inquiry_id" id="id_sales_inquiry_id" required>
-                                @foreach($id_sales_inquiries as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('id_sales_inquiry_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <label class="required" for="kode_inquiry_id">{{ trans('cruds.salesQuotation.fields.kode_inquiry') }}</label>
+                            <select class="form-control select2" name="kode_inquiry_id" id="kode_inquiry_id" required>
+                                @foreach($kode_inquiries as $id => $entry)
+                                    <option value="{{ $id }}" {{ old('kode_inquiry_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('id_sales_inquiry'))
+                            @if($errors->has('kode_inquiry'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('id_sales_inquiry') }}
+                                    {{ $errors->first('kode_inquiry') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.salesQuotation.fields.id_sales_inquiry_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="id_customer_id">{{ trans('cruds.salesQuotation.fields.id_customer') }}</label>
-                            <select class="form-control select2" name="id_customer_id" id="id_customer_id" required>
-                                @foreach($id_customers as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('id_customer_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('id_customer'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('id_customer') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.salesQuotation.fields.id_customer_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.salesQuotation.fields.kode_inquiry_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="harga">{{ trans('cruds.salesQuotation.fields.harga') }}</label>
@@ -52,8 +38,13 @@
                             <span class="help-block">{{ trans('cruds.salesQuotation.fields.harga_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="status">{{ trans('cruds.salesQuotation.fields.status') }}</label>
-                            <input class="form-control" type="text" name="status" id="status" value="{{ old('status', '') }}">
+                            <label>{{ trans('cruds.salesQuotation.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\SalesQuotation::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
                             @if($errors->has('status'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('status') }}

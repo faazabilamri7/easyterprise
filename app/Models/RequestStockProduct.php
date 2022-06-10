@@ -13,6 +13,15 @@ class RequestStockProduct extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const STATUS_SELECT = [
+        'Sales Inquiry Pending' => 'Sales Inquiry Pending',
+        'Requested'             => 'Requested by Warehouse',
+        'Accepted'              => 'Accepted by Production',
+        'On Process'            => 'Production Process',
+        'Completed'             => 'Production Completed',
+        'Pending'               => 'Production Pending',
+    ];
+
     public $table = 'request_stock_products';
 
     protected $dates = [
@@ -23,12 +32,26 @@ class RequestStockProduct extends Model
     ];
 
     protected $fillable = [
-        'tanggal_request',
+        'id_request_product',
         'inquiry_id',
+        'tanggal_request',
+        'request_product_id',
+        'qty',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function idRequestProductTasks()
+    {
+        return $this->hasMany(Task::class, 'id_request_product_id', 'id');
+    }
+
+    public function inquiry()
+    {
+        return $this->belongsTo(SalesInquiry::class, 'inquiry_id');
+    }
 
     public function getTanggalRequestAttribute($value)
     {
@@ -40,9 +63,9 @@ class RequestStockProduct extends Model
         $this->attributes['tanggal_request'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function inquiry()
+    public function request_product()
     {
-        return $this->belongsTo(SalesInquiry::class, 'inquiry_id');
+        return $this->belongsTo(Product::class, 'request_product_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -25,10 +25,18 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.productionMonitoring.fields.production_plan') }}
+                            {{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}
                         </th>
                         <td>
-                            {{ $productionMonitoring->production_plan->tugas ?? '' }}
+                            {{ $productionMonitoring->id_production_monitoring }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}
+                        </th>
+                        <td>
+                            {{ $productionMonitoring->id_list_of_material->id_list_of_material ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -50,6 +58,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#id_production_monitoring_quality_controls" role="tab" data-toggle="tab">
+                {{ trans('cruds.qualityControl.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="id_production_monitoring_quality_controls">
+            @includeIf('admin.productionMonitorings.relationships.idProductionMonitoringQualityControls', ['qualityControls' => $productionMonitoring->idProductionMonitoringQualityControls])
+        </div>
+    </div>
+</div>
 
 @endsection

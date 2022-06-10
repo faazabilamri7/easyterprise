@@ -17,17 +17,9 @@ class UpdateSalesQuotationRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_sales_inquiry_id' => [
+            'kode_inquiry_id' => [
                 'required',
                 'integer',
-            ],
-            'id_customer_id' => [
-                'required',
-                'integer',
-            ],
-            'status' => [
-                'string',
-                'nullable',
             ],
         ];
     }

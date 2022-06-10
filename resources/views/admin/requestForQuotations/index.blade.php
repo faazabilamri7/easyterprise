@@ -26,22 +26,13 @@
                             {{ trans('cruds.requestForQuotation.fields.id') }}
                         </th>
                         <th>
+                            {{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.id_company') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.requestForQuotation.fields.material_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.requestForQuotation.fields.quantity') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.requestForQuotation.fields.unit_price') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.requestForQuotation.fields.total_price') }}
+                            {{ trans('cruds.requestForQuotation.fields.description') }}
                         </th>
                         <th>
                             {{ trans('cruds.requestForQuotation.fields.status') }}
@@ -61,25 +52,16 @@
                                 {{ $requestForQuotation->id ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->id_purchase_requisition ?? '' }}
+                                {{ $requestForQuotation->id_request_for_quotation ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->id_company ?? '' }}
+                                {{ $requestForQuotation->id_purchase_requisition->id_purchase_requition ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->material_name ?? '' }}
+                                {{ $requestForQuotation->description ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->quantity ?? '' }}
-                            </td>
-                            <td>
-                                {{ $requestForQuotation->unit_price ?? '' }}
-                            </td>
-                            <td>
-                                {{ $requestForQuotation->total_price ?? '' }}
-                            </td>
-                            <td>
-                                {{ $requestForQuotation->status ?? '' }}
+                                {{ App\Models\RequestForQuotation::STATUS_SELECT[$requestForQuotation->status] ?? '' }}
                             </td>
                             <td>
                                 @can('request_for_quotation_show')

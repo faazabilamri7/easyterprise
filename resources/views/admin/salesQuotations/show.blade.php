@@ -25,18 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.salesQuotation.fields.id_sales_inquiry') }}
+                            {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
                         </th>
                         <td>
-                            {{ $salesQuotation->id_sales_inquiry->inquiry ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.id_customer') }}
-                        </th>
-                        <td>
-                            {{ $salesQuotation->id_customer->first_name ?? '' }}
+                            {{ $salesQuotation->kode_inquiry->inquiry_kode ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -52,7 +44,7 @@
                             {{ trans('cruds.salesQuotation.fields.status') }}
                         </th>
                         <td>
-                            {{ $salesQuotation->status }}
+                            {{ App\Models\SalesQuotation::STATUS_SELECT[$salesQuotation->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -66,6 +58,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#sales_quotation_sales_orders" role="tab" data-toggle="tab">
+                {{ trans('cruds.salesOrder.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="sales_quotation_sales_orders">
+            @includeIf('admin.salesQuotations.relationships.salesQuotationSalesOrders', ['salesOrders' => $salesQuotation->salesQuotationSalesOrders])
+        </div>
+    </div>
+</div>
 
 @endsection

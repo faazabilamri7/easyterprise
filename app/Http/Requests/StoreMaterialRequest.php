@@ -21,11 +21,14 @@ class StoreMaterialRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'price' => [
-                'required',
-            ],
             'photo' => [
                 'array',
+            ],
+            'stock' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

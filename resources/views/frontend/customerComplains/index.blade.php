@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.customer-complains.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.customerComplain.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'CustomerComplain', 'route' => 'admin.customer-complains.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -26,7 +30,7 @@
                                         {{ trans('cruds.customerComplain.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.customerComplain.fields.id_customer') }}
+                                        {{ trans('cruds.customerComplain.fields.sales_order') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.customerComplain.fields.keluhan') }}
@@ -49,7 +53,7 @@
                                             {{ $customerComplain->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $customerComplain->id_customer->first_name ?? '' }}
+                                            {{ $customerComplain->sales_order->no_sales_order ?? '' }}
                                         </td>
                                         <td>
                                             {{ $customerComplain->keluhan ?? '' }}

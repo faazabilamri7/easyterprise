@@ -27,18 +27,13 @@ class MachineReport extends Model
     ];
 
     protected $fillable = [
-        'production_plan_id',
+        'id_mesin',
         'nama_mesin',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
-    public function production_plan()
-    {
-        return $this->belongsTo(ProductionPlan::class, 'production_plan_id');
-    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

@@ -26,7 +26,13 @@
                             {{ trans('cruds.productionMonitoring.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.productionMonitoring.fields.production_plan') }}
+                            {{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.listOfMaterial.fields.id_list_of_material') }}
                         </th>
                         <th>
                             {{ trans('cruds.productionMonitoring.fields.status') }}
@@ -46,7 +52,13 @@
                                 {{ $productionMonitoring->id ?? '' }}
                             </td>
                             <td>
-                                {{ $productionMonitoring->production_plan->tugas ?? '' }}
+                                {{ $productionMonitoring->id_production_monitoring ?? '' }}
+                            </td>
+                            <td>
+                                {{ $productionMonitoring->id_list_of_material->id_list_of_material ?? '' }}
+                            </td>
+                            <td>
+                                {{ $productionMonitoring->id_list_of_material->id_list_of_material ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\ProductionMonitoring::STATUS_SELECT[$productionMonitoring->status] ?? '' }}

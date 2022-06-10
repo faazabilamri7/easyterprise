@@ -11,18 +11,14 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="production_plan_id">{{ trans('cruds.machineReport.fields.production_plan') }}</label>
-                <select class="form-control select2 {{ $errors->has('production_plan') ? 'is-invalid' : '' }}" name="production_plan_id" id="production_plan_id" required>
-                    @foreach($production_plans as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('production_plan_id') ? old('production_plan_id') : $machineReport->production_plan->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('production_plan'))
+                <label for="id_mesin">{{ trans('cruds.machineReport.fields.id_mesin') }}</label>
+                <input class="form-control {{ $errors->has('id_mesin') ? 'is-invalid' : '' }}" type="text" name="id_mesin" id="id_mesin" value="{{ old('id_mesin', $machineReport->id_mesin) }}">
+                @if($errors->has('id_mesin'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('production_plan') }}
+                        {{ $errors->first('id_mesin') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.machineReport.fields.production_plan_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.machineReport.fields.id_mesin_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="nama_mesin">{{ trans('cruds.machineReport.fields.nama_mesin') }}</label>

@@ -14,44 +14,29 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="tanggal_transaksi">{{ trans('cruds.transferMaterial.fields.tanggal_transaksi') }}</label>
-                            <input class="form-control date" type="text" name="tanggal_transaksi" id="tanggal_transaksi" value="{{ old('tanggal_transaksi') }}">
-                            @if($errors->has('tanggal_transaksi'))
+                            <label for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
+                            <input class="form-control" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', '') }}">
+                            @if($errors->has('id_transfer_material'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('tanggal_transaksi') }}
+                                    {{ $errors->first('id_transfer_material') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.tanggal_transaksi_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.id_transfer_material_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label>{{ trans('cruds.transferMaterial.fields.transfer_dari') }}</label>
-                            <select class="form-control" name="transfer_dari" id="transfer_dari">
-                                <option value disabled {{ old('transfer_dari', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                                @foreach(App\Models\TransferMaterial::TRANSFER_DARI_SELECT as $key => $label)
-                                    <option value="{{ $key }}" {{ old('transfer_dari', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                            <label>{{ trans('cruds.transferMaterial.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\TransferMaterial::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('transfer_dari'))
+                            @if($errors->has('status'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('transfer_dari') }}
+                                    {{ $errors->first('status') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.transfer_dari_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label>{{ trans('cruds.transferMaterial.fields.transfer_ke') }}</label>
-                            <select class="form-control" name="transfer_ke" id="transfer_ke">
-                                <option value disabled {{ old('transfer_ke', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                                @foreach(App\Models\TransferMaterial::TRANSFER_KE_SELECT as $key => $label)
-                                    <option value="{{ $key }}" {{ old('transfer_ke', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('transfer_ke'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('transfer_ke') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.transfer_ke_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.status_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

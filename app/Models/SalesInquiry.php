@@ -14,15 +14,9 @@ class SalesInquiry extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'Accepted'   => 'Accepted',
-        'On Process' => 'On Process',
-        'Pending'    => 'Pending',
-        'Completed'  => 'Completed',
-    ];
-
-    public const INQUIRY_SELECT = [
-        'Yakult Original 65 Ml Case of 7' => 'Yakult Original 65 Ml Case of 7',
-        'Yakult Light 65 Ml Case of 7'    => 'Yakult Light 65 Ml Case of 7',
+        'Requested' => 'Requested',
+        'Processed' => 'Processed',
+        'Completed' => 'Completed',
     ];
 
     public $table = 'sales_inquiries';
@@ -35,12 +29,13 @@ class SalesInquiry extends Model
     ];
 
     protected $fillable = [
-        'id_customer_id',
-        'inquiry',
+        'inquiry_kode',
         'tgl_inquiry',
-        'id_product_id',
+        'id_customer_id',
+        'nama_produk_id',
         'qty',
         'status',
+        'catatan',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -51,9 +46,9 @@ class SalesInquiry extends Model
         return $this->hasMany(RequestStockProduct::class, 'inquiry_id', 'id');
     }
 
-    public function id_customer()
+    public function kodeInquirySalesQuotations()
     {
-        return $this->belongsTo(CrmCustomer::class, 'id_customer_id');
+        return $this->hasMany(SalesQuotation::class, 'kode_inquiry_id', 'id');
     }
 
     public function getTglInquiryAttribute($value)
@@ -66,9 +61,14 @@ class SalesInquiry extends Model
         $this->attributes['tgl_inquiry'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function id_product()
+    public function id_customer()
     {
-        return $this->belongsTo(Product::class, 'id_product_id');
+        return $this->belongsTo(CrmCustomer::class, 'id_customer_id');
+    }
+
+    public function nama_produk()
+    {
+        return $this->belongsTo(Product::class, 'nama_produk_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

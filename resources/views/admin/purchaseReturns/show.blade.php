@@ -25,10 +25,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.id_order') }}
+                            {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
                         </th>
                         <td>
-                            {{ $purchaseReturn->id_order->material_name ?? '' }}
+                            {{ $purchaseReturn->purchase_return }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
+                        </th>
+                        <td>
+                            {{ $purchaseReturn->id_purchase_order->id_purchase_order ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.description') }}
+                        </th>
+                        <td>
+                            {{ $purchaseReturn->description }}
                         </td>
                     </tr>
                     <tr>
@@ -44,7 +60,7 @@
                             {{ trans('cruds.purchaseReturn.fields.status') }}
                         </th>
                         <td>
-                            {{ $purchaseReturn->status }}
+                            {{ App\Models\PurchaseReturn::STATUS_SELECT[$purchaseReturn->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

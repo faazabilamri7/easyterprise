@@ -11,18 +11,38 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="id_order_id">{{ trans('cruds.purchaseReturn.fields.id_order') }}</label>
-                <select class="form-control select2 {{ $errors->has('id_order') ? 'is-invalid' : '' }}" name="id_order_id" id="id_order_id">
-                    @foreach($id_orders as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('id_order_id') ? old('id_order_id') : $purchaseReturn->id_order->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('id_order'))
+                <label for="purchase_return">{{ trans('cruds.purchaseReturn.fields.purchase_return') }}</label>
+                <input class="form-control {{ $errors->has('purchase_return') ? 'is-invalid' : '' }}" type="text" name="purchase_return" id="purchase_return" value="{{ old('purchase_return', $purchaseReturn->purchase_return) }}">
+                @if($errors->has('purchase_return'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('id_order') }}
+                        {{ $errors->first('purchase_return') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.id_order_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.purchase_return_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="id_purchase_order_id">{{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_purchase_order') ? 'is-invalid' : '' }}" name="id_purchase_order_id" id="id_purchase_order_id">
+                    @foreach($id_purchase_orders as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('id_purchase_order_id') ? old('id_purchase_order_id') : $purchaseReturn->id_purchase_order->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('id_purchase_order'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_order') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.id_purchase_order_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ trans('cruds.purchaseReturn.fields.description') }}</label>
+                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $purchaseReturn->description) }}</textarea>
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="date_purchase_return">{{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}</label>
@@ -35,8 +55,13 @@
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.date_purchase_return_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="status">{{ trans('cruds.purchaseReturn.fields.status') }}</label>
-                <input class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ old('status', $purchaseReturn->status) }}">
+                <label>{{ trans('cruds.purchaseReturn.fields.status') }}</label>
+                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
+                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\PurchaseReturn::STATUS_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('status', $purchaseReturn->status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('status'))
                     <div class="invalid-feedback">
                         {{ $errors->first('status') }}

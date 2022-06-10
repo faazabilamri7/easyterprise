@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyVendorRequest;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
-use App\Models\PurchaseInq;
 use App\Models\Vendor;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $vendors = Vendor::with(['id_purchase_inquiry'])->get();
+        $vendors = Vendor::all();
 
         return view('frontend.vendors.index', compact('vendors'));
     }
@@ -27,9 +26,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_purchase_inquiries = PurchaseInq::pluck('date_purchase_inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('frontend.vendors.create', compact('id_purchase_inquiries'));
+        return view('frontend.vendors.create');
     }
 
     public function store(StoreVendorRequest $request)
@@ -43,11 +40,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_purchase_inquiries = PurchaseInq::pluck('date_purchase_inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        $vendor->load('id_purchase_inquiry');
-
-        return view('frontend.vendors.edit', compact('id_purchase_inquiries', 'vendor'));
+        return view('frontend.vendors.edit', compact('vendor'));
     }
 
     public function update(UpdateVendorRequest $request, Vendor $vendor)
@@ -61,7 +54,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $vendor->load('id_purchase_inquiry', 'perusahaanInvoicePembelians');
+        $vendor->load('perusahaanInvoicePembelians');
 
         return view('frontend.vendors.show', compact('vendor'));
     }

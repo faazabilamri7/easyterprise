@@ -29,13 +29,13 @@
                             {{ trans('cruds.material.fields.name_material') }}
                         </th>
                         <th>
-                            {{ trans('cruds.material.fields.price') }}
-                        </th>
-                        <th>
                             {{ trans('cruds.material.fields.descriptive') }}
                         </th>
                         <th>
                             {{ trans('cruds.material.fields.photo') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.material.fields.stock') }}
                         </th>
                         <th>
                             &nbsp;
@@ -55,9 +55,6 @@
                                 {{ $material->name_material ?? '' }}
                             </td>
                             <td>
-                                {{ $material->price ?? '' }}
-                            </td>
-                            <td>
                                 {{ $material->descriptive ?? '' }}
                             </td>
                             <td>
@@ -66,6 +63,9 @@
                                         <img src="{{ $media->getUrl('thumb') }}">
                                     </a>
                                 @endforeach
+                            </td>
+                            <td>
+                                {{ $material->stock ?? '' }}
                             </td>
                             <td>
                                 @can('material_show')

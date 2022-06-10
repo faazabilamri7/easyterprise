@@ -26,6 +26,12 @@
                                         {{ trans('cruds.purchaseQuotation.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.purchaseQuotation.fields.id_vendor') }}
                                     </th>
                                     <th>
@@ -44,9 +50,6 @@
                                         {{ trans('cruds.purchaseQuotation.fields.status') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.purchaseQuotation.fields.nego_purchase_quotation') }}
-                                    </th>
-                                    <th>
                                         &nbsp;
                                     </th>
                                 </tr>
@@ -58,10 +61,16 @@
                                             {{ $purchaseQuotation->id ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $purchaseQuotation->id_purchase_quotation ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $purchaseQuotation->id_purchase_inquiry->id_purchase_inquiry ?? '' }}
+                                        </td>
+                                        <td>
                                             {{ $purchaseQuotation->id_vendor->nama_vendor ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseQuotation->material_name ?? '' }}
+                                            {{ App\Models\PurchaseQuotation::MATERIAL_NAME_SELECT[$purchaseQuotation->material_name] ?? '' }}
                                         </td>
                                         <td>
                                             {{ $purchaseQuotation->unit_price ?? '' }}
@@ -73,10 +82,7 @@
                                             {{ App\Models\PurchaseQuotation::PAYMENT_METHOD_SELECT[$purchaseQuotation->payment_method] ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseQuotation->status ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $purchaseQuotation->nego_purchase_quotation ?? '' }}
+                                            {{ App\Models\PurchaseQuotation::STATUS_SELECT[$purchaseQuotation->status] ?? '' }}
                                         </td>
                                         <td>
                                             @can('purchase_quotation_show')

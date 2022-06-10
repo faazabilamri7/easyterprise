@@ -16,11 +16,6 @@ class UpdateSalesReportRequest extends FormRequest
 
     public function rules()
     {
-        return [
-            'tanggal_laporan' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
-        ];
+        return [];
     }
 }

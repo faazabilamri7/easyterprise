@@ -31,7 +31,7 @@ class Material extends Model implements HasMedia
     protected $fillable = [
         'name_material',
         'descriptive',
-        'price',
+        'stock',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -41,6 +41,36 @@ class Material extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function material1PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_1_id', 'id');
+    }
+
+    public function material2PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_2_id', 'id');
+    }
+
+    public function material3PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_3_id', 'id');
+    }
+
+    public function material4PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_4_id', 'id');
+    }
+
+    public function material6PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_6_id', 'id');
+    }
+
+    public function nameMaterialPurchaseInqs()
+    {
+        return $this->hasMany(PurchaseInq::class, 'name_material_id', 'id');
     }
 
     public function getPhotoAttribute()

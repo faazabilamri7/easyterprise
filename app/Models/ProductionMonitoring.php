@@ -13,8 +13,11 @@ class ProductionMonitoring extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'Done'        => 'Done',
-        'On Progress' => 'On Progress',
+        'pembibitan'               => 'Nursery',
+        'Fermentasi'               => 'Fermentation',
+        'Pencampuran Gula dan Air' => 'Materials Mixing',
+        'Pembuatan Botol'          => 'Bottle Making',
+        'Pengemasan'               => 'Packaging',
     ];
 
     public $table = 'production_monitorings';
@@ -26,16 +29,22 @@ class ProductionMonitoring extends Model
     ];
 
     protected $fillable = [
-        'production_plan_id',
+        'id_production_monitoring',
+        'id_list_of_material_id',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function production_plan()
+    public function idProductionMonitoringQualityControls()
     {
-        return $this->belongsTo(ProductionPlan::class, 'production_plan_id');
+        return $this->hasMany(QualityControl::class, 'id_production_monitoring_id', 'id');
+    }
+
+    public function id_list_of_material()
+    {
+        return $this->belongsTo(ListOfMaterial::class, 'id_list_of_material_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

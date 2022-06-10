@@ -17,6 +17,10 @@ class UpdatePurchaseOrderRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_purchase_order' => [
+                'string',
+                'nullable',
+            ],
             'date_purchase_order' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',

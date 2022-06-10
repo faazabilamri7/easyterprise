@@ -17,26 +17,20 @@ class StoreSalesOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_id' => [
-                'required',
-                'integer',
-            ],
-            'sales_quotation_id' => [
-                'required',
-                'integer',
-            ],
-            'qty' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'detail_order' => [
+            'no_sales_order' => [
                 'string',
                 'nullable',
             ],
             'tanggal' => [
                 'date_format:' . config('panel.date_format'),
+                'nullable',
+            ],
+            'sales_quotation_id' => [
+                'required',
+                'integer',
+            ],
+            'detail_order' => [
+                'string',
                 'nullable',
             ],
         ];

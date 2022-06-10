@@ -17,16 +17,24 @@ class StoreSalesInquiryRequest extends FormRequest
     public function rules()
     {
         return [
+            'inquiry_kode' => [
+                'string',
+                'nullable',
+            ],
             'tgl_inquiry' => [
                 'required',
                 'date_format:' . config('panel.date_format'),
             ],
-            'id_product_id' => [
+            'id_customer_id' => [
+                'required',
+                'integer',
+            ],
+            'nama_produk_id' => [
                 'required',
                 'integer',
             ],
             'qty' => [
-                'nullable',
+                'required',
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',

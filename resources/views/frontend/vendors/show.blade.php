@@ -28,14 +28,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.vendor.fields.id_purchase_inquiry') }}
-                                    </th>
-                                    <td>
-                                        {{ $vendor->id_purchase_inquiry->date_purchase_inquiry ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.vendor.fields.nama_vendor') }}
                                     </th>
                                     <td>

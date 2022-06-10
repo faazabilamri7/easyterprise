@@ -26,7 +26,7 @@
                             {{ trans('cruds.machineReport.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.machineReport.fields.production_plan') }}
+                            {{ trans('cruds.machineReport.fields.id_mesin') }}
                         </th>
                         <th>
                             {{ trans('cruds.machineReport.fields.nama_mesin') }}
@@ -49,7 +49,7 @@
                                 {{ $machineReport->id ?? '' }}
                             </td>
                             <td>
-                                {{ $machineReport->production_plan->tugas ?? '' }}
+                                {{ $machineReport->id_mesin ?? '' }}
                             </td>
                             <td>
                                 {{ $machineReport->nama_mesin ?? '' }}

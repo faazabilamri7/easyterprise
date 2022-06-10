@@ -10,8 +10,22 @@
         <form method="POST" action="{{ route("admin.request-for-quotations.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="id_purchase_requisition">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}</label>
-                <input class="form-control {{ $errors->has('id_purchase_requisition') ? 'is-invalid' : '' }}" type="number" name="id_purchase_requisition" id="id_purchase_requisition" value="{{ old('id_purchase_requisition', '') }}" step="1">
+                <label for="id_request_for_quotation">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}</label>
+                <input class="form-control {{ $errors->has('id_request_for_quotation') ? 'is-invalid' : '' }}" type="text" name="id_request_for_quotation" id="id_request_for_quotation" value="{{ old('id_request_for_quotation', '') }}">
+                @if($errors->has('id_request_for_quotation'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_request_for_quotation') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="id_purchase_requisition_id">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_purchase_requisition') ? 'is-invalid' : '' }}" name="id_purchase_requisition_id" id="id_purchase_requisition_id">
+                    @foreach($id_purchase_requisitions as $id => $entry)
+                        <option value="{{ $id }}" {{ old('id_purchase_requisition_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('id_purchase_requisition'))
                     <div class="invalid-feedback">
                         {{ $errors->first('id_purchase_requisition') }}
@@ -20,58 +34,23 @@
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="id_company">{{ trans('cruds.requestForQuotation.fields.id_company') }}</label>
-                <input class="form-control {{ $errors->has('id_company') ? 'is-invalid' : '' }}" type="number" name="id_company" id="id_company" value="{{ old('id_company', '') }}" step="1">
-                @if($errors->has('id_company'))
+                <label for="description">{{ trans('cruds.requestForQuotation.fields.description') }}</label>
+                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
+                @if($errors->has('description'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('id_company') }}
+                        {{ $errors->first('description') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_company_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="material_name">{{ trans('cruds.requestForQuotation.fields.material_name') }}</label>
-                <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', '') }}">
-                @if($errors->has('material_name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('material_name') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.material_name_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="quantity">{{ trans('cruds.requestForQuotation.fields.quantity') }}</label>
-                <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('quantity', '') }}" step="1">
-                @if($errors->has('quantity'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('quantity') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.quantity_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="unit_price">{{ trans('cruds.requestForQuotation.fields.unit_price') }}</label>
-                <input class="form-control {{ $errors->has('unit_price') ? 'is-invalid' : '' }}" type="number" name="unit_price" id="unit_price" value="{{ old('unit_price', '') }}" step="0.01">
-                @if($errors->has('unit_price'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('unit_price') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.unit_price_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="total_price">{{ trans('cruds.requestForQuotation.fields.total_price') }}</label>
-                <input class="form-control {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="number" name="total_price" id="total_price" value="{{ old('total_price', '') }}" step="0.01">
-                @if($errors->has('total_price'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('total_price') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.total_price_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="status">{{ trans('cruds.requestForQuotation.fields.status') }}</label>
-                <input class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ old('status', '') }}">
+                <label>{{ trans('cruds.requestForQuotation.fields.status') }}</label>
+                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
+                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\RequestForQuotation::STATUS_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('status'))
                     <div class="invalid-feedback">
                         {{ $errors->first('status') }}

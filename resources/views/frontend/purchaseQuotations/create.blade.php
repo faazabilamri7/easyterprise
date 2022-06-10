@@ -14,6 +14,30 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
+                            <label for="id_purchase_quotation">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}</label>
+                            <input class="form-control" type="text" name="id_purchase_quotation" id="id_purchase_quotation" value="{{ old('id_purchase_quotation', '') }}">
+                            @if($errors->has('id_purchase_quotation'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_purchase_quotation') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_purchase_inquiry_id">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry') }}</label>
+                            <select class="form-control select2" name="id_purchase_inquiry_id" id="id_purchase_inquiry_id">
+                                @foreach($id_purchase_inquiries as $id => $entry)
+                                    <option value="{{ $id }}" {{ old('id_purchase_inquiry_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('id_purchase_inquiry'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_purchase_inquiry') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="id_vendor_id">{{ trans('cruds.purchaseQuotation.fields.id_vendor') }}</label>
                             <select class="form-control select2" name="id_vendor_id" id="id_vendor_id">
                                 @foreach($id_vendors as $id => $entry)
@@ -28,8 +52,13 @@
                             <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_vendor_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="material_name">{{ trans('cruds.purchaseQuotation.fields.material_name') }}</label>
-                            <input class="form-control" type="text" name="material_name" id="material_name" value="{{ old('material_name', '') }}">
+                            <label>{{ trans('cruds.purchaseQuotation.fields.material_name') }}</label>
+                            <select class="form-control" name="material_name" id="material_name">
+                                <option value disabled {{ old('material_name', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\PurchaseQuotation::MATERIAL_NAME_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('material_name', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
                             @if($errors->has('material_name'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('material_name') }}
@@ -73,24 +102,19 @@
                             <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.payment_method_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="status">{{ trans('cruds.purchaseQuotation.fields.status') }}</label>
-                            <input class="form-control" type="text" name="status" id="status" value="{{ old('status', '') }}">
+                            <label>{{ trans('cruds.purchaseQuotation.fields.status') }}</label>
+                            <select class="form-control" name="status" id="status">
+                                <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                                @foreach(App\Models\PurchaseQuotation::STATUS_SELECT as $key => $label)
+                                    <option value="{{ $key }}" {{ old('status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                                @endforeach
+                            </select>
                             @if($errors->has('status'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('status') }}
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.status_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="nego_purchase_quotation">{{ trans('cruds.purchaseQuotation.fields.nego_purchase_quotation') }}</label>
-                            <input class="form-control" type="text" name="nego_purchase_quotation" id="nego_purchase_quotation" value="{{ old('nego_purchase_quotation', '') }}">
-                            @if($errors->has('nego_purchase_quotation'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('nego_purchase_quotation') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.nego_purchase_quotation_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

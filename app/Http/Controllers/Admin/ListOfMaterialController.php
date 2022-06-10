@@ -7,7 +7,7 @@ use App\Http\Requests\MassDestroyListOfMaterialRequest;
 use App\Http\Requests\StoreListOfMaterialRequest;
 use App\Http\Requests\UpdateListOfMaterialRequest;
 use App\Models\ListOfMaterial;
-use App\Models\ProductionPlan;
+use App\Models\Task;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class ListOfMaterialController extends Controller
     {
         abort_if(Gate::denies('list_of_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $listOfMaterials = ListOfMaterial::with(['production_plan'])->get();
+        $listOfMaterials = ListOfMaterial::with(['id_production_plan'])->get();
 
         return view('admin.listOfMaterials.index', compact('listOfMaterials'));
     }
@@ -27,9 +27,9 @@ class ListOfMaterialController extends Controller
     {
         abort_if(Gate::denies('list_of_material_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_production_plans = Task::pluck('id_production_plan', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.listOfMaterials.create', compact('production_plans'));
+        return view('admin.listOfMaterials.create', compact('id_production_plans'));
     }
 
     public function store(StoreListOfMaterialRequest $request)
@@ -43,11 +43,11 @@ class ListOfMaterialController extends Controller
     {
         abort_if(Gate::denies('list_of_material_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_production_plans = Task::pluck('id_production_plan', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $listOfMaterial->load('production_plan');
+        $listOfMaterial->load('id_production_plan');
 
-        return view('admin.listOfMaterials.edit', compact('listOfMaterial', 'production_plans'));
+        return view('admin.listOfMaterials.edit', compact('id_production_plans', 'listOfMaterial'));
     }
 
     public function update(UpdateListOfMaterialRequest $request, ListOfMaterial $listOfMaterial)
@@ -61,7 +61,7 @@ class ListOfMaterialController extends Controller
     {
         abort_if(Gate::denies('list_of_material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $listOfMaterial->load('production_plan');
+        $listOfMaterial->load('id_production_plan', 'idListOfMaterialPurchaseRequitions', 'idListOfMaterialProductionMonitorings');
 
         return view('admin.listOfMaterials.show', compact('listOfMaterial'));
     }

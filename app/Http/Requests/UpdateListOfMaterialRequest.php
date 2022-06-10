@@ -17,37 +17,45 @@ class UpdateListOfMaterialRequest extends FormRequest
     public function rules()
     {
         return [
-            'production_plan_id' => [
-                'required',
-                'integer',
-            ],
-            'tanggal_mulai' => [
-                'required',
-                'date_format:' . config('panel.date_format'),
-            ],
-            'tanggal_selesai' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
-            'pilihan_bahan_baku' => [
+            'id_list_of_material' => [
                 'string',
                 'nullable',
             ],
-            'qty' => [
-                'required',
+            'request_air' => [
+                'nullable',
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',
             ],
-            'harga_satuan' => [
-                'required',
+            'request_sukrosa' => [
+                'nullable',
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',
             ],
-            'total' => [
-                'string',
-                'required',
+            'request_dektrose' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'request_perisa_yakult' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'request_susu_bubuk_krim' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+            'request_polietilena_tereftalat' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
             'status' => [
                 'required',

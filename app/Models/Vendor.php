@@ -21,7 +21,6 @@ class Vendor extends Model
     ];
 
     protected $fillable = [
-        'id_purchase_inquiry_id',
         'nama_vendor',
         'telepon',
         'email',
@@ -37,9 +36,9 @@ class Vendor extends Model
         return $this->hasMany(InvoicePembelian::class, 'perusahaan_id', 'id');
     }
 
-    public function id_purchase_inquiry()
+    public function vendorNamePurchaseInqs()
     {
-        return $this->belongsTo(PurchaseInq::class, 'id_purchase_inquiry_id');
+        return $this->hasMany(PurchaseInq::class, 'vendor_name_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -23,28 +23,28 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.id') }}
+                                        {{ trans('cruds.listOfMaterial.fields.id_list_of_material') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.production_plan') }}
+                                        {{ trans('cruds.listOfMaterial.fields.id_production_plan') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.tanggal_mulai') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_air') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.tanggal_selesai') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_sukrosa') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.pilihan_bahan_baku') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_dektrose') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.qty') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_perisa_yakult') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.harga_satuan') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_susu_bubuk_krim') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.total') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_polietilena_tereftalat') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.listOfMaterial.fields.status') }}
@@ -58,28 +58,28 @@
                                 @foreach($listOfMaterials as $key => $listOfMaterial)
                                     <tr data-entry-id="{{ $listOfMaterial->id }}">
                                         <td>
-                                            {{ $listOfMaterial->id ?? '' }}
+                                            {{ $listOfMaterial->id_list_of_material ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->production_plan->tugas ?? '' }}
+                                            {{ $listOfMaterial->id_production_plan->id_production_plan ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->tanggal_mulai ?? '' }}
+                                            {{ $listOfMaterial->request_air ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->tanggal_selesai ?? '' }}
+                                            {{ $listOfMaterial->request_sukrosa ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->pilihan_bahan_baku ?? '' }}
+                                            {{ $listOfMaterial->request_dektrose ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->qty ?? '' }}
+                                            {{ $listOfMaterial->request_perisa_yakult ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->harga_satuan ?? '' }}
+                                            {{ $listOfMaterial->request_susu_bubuk_krim ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $listOfMaterial->total ?? '' }}
+                                            {{ $listOfMaterial->request_polietilena_tereftalat ?? '' }}
                                         </td>
                                         <td>
                                             {{ App\Models\ListOfMaterial::STATUS_SELECT[$listOfMaterial->status] ?? '' }}

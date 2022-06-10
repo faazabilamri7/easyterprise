@@ -10,18 +10,24 @@
         <form method="POST" action="{{ route("admin.sales-orders.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label class="required" for="customer_id">{{ trans('cruds.salesOrder.fields.customer') }}</label>
-                <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id" required>
-                    @foreach($customers as $id => $entry)
-                        <option value="{{ $id }}" {{ old('customer_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('customer'))
+                <label for="no_sales_order">{{ trans('cruds.salesOrder.fields.no_sales_order') }}</label>
+                <input class="form-control {{ $errors->has('no_sales_order') ? 'is-invalid' : '' }}" type="text" name="no_sales_order" id="no_sales_order" value="{{ old('no_sales_order', '') }}">
+                @if($errors->has('no_sales_order'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('customer') }}
+                        {{ $errors->first('no_sales_order') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.customer_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.salesOrder.fields.no_sales_order_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="tanggal">{{ trans('cruds.salesOrder.fields.tanggal') }}</label>
+                <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
+                @if($errors->has('tanggal'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.salesOrder.fields.tanggal_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="sales_quotation_id">{{ trans('cruds.salesOrder.fields.sales_quotation') }}</label>
@@ -38,14 +44,14 @@
                 <span class="help-block">{{ trans('cruds.salesOrder.fields.sales_quotation_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="qty">{{ trans('cruds.salesOrder.fields.qty') }}</label>
-                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1">
-                @if($errors->has('qty'))
+                <label for="detail_order">{{ trans('cruds.salesOrder.fields.detail_order') }}</label>
+                <input class="form-control {{ $errors->has('detail_order') ? 'is-invalid' : '' }}" type="text" name="detail_order" id="detail_order" value="{{ old('detail_order', '') }}">
+                @if($errors->has('detail_order'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('qty') }}
+                        {{ $errors->first('detail_order') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.qty_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.salesOrder.fields.detail_order_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.salesOrder.fields.status') }}</label>
@@ -61,36 +67,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesOrder.fields.status_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="detail_order">{{ trans('cruds.salesOrder.fields.detail_order') }}</label>
-                <input class="form-control {{ $errors->has('detail_order') ? 'is-invalid' : '' }}" type="text" name="detail_order" id="detail_order" value="{{ old('detail_order', '') }}">
-                @if($errors->has('detail_order'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('detail_order') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.detail_order_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="tanggal">{{ trans('cruds.salesOrder.fields.tanggal') }}</label>
-                <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
-                @if($errors->has('tanggal'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tanggal') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.tanggal_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="total">{{ trans('cruds.salesOrder.fields.total') }}</label>
-                <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total" id="total" value="{{ old('total', '') }}" step="0.01">
-                @if($errors->has('total'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('total') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.total_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">
