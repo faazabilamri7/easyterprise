@@ -17,9 +17,19 @@ class UpdateRequestStockProductRequest extends FormRequest
     public function rules()
     {
         return [
+            'id_request_product' => [
+                'string',
+                'nullable',
+            ],
             'tanggal_request' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',
+            ],
+            'qty' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

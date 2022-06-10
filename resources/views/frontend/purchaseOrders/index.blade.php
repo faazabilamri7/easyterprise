@@ -26,6 +26,9 @@
                                         {{ trans('cruds.purchaseOrder.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.purchaseOrder.fields.id_purchase_order') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.purchaseOrder.fields.id_purchase_quotation') }}
                                     </th>
                                     <th>
@@ -49,7 +52,10 @@
                                             {{ $purchaseOrder->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseOrder->id_purchase_quotation->material_name ?? '' }}
+                                            {{ $purchaseOrder->id_purchase_order ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $purchaseOrder->id_purchase_quotation->id_purchase_quotation ?? '' }}
                                         </td>
                                         <td>
                                             {{ $purchaseOrder->date_purchase_order ?? '' }}

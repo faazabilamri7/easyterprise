@@ -28,50 +28,26 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}
+                                    </th>
+                                    <td>
+                                        {{ $requestForQuotation->id_request_for_quotation }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}
                                     </th>
                                     <td>
-                                        {{ $requestForQuotation->id_purchase_requisition }}
+                                        {{ $requestForQuotation->id_purchase_requisition->id_purchase_requition ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.requestForQuotation.fields.id_company') }}
+                                        {{ trans('cruds.requestForQuotation.fields.description') }}
                                     </th>
                                     <td>
-                                        {{ $requestForQuotation->id_company }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.requestForQuotation.fields.material_name') }}
-                                    </th>
-                                    <td>
-                                        {{ $requestForQuotation->material_name }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.requestForQuotation.fields.quantity') }}
-                                    </th>
-                                    <td>
-                                        {{ $requestForQuotation->quantity }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.requestForQuotation.fields.unit_price') }}
-                                    </th>
-                                    <td>
-                                        {{ $requestForQuotation->unit_price }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.requestForQuotation.fields.total_price') }}
-                                    </th>
-                                    <td>
-                                        {{ $requestForQuotation->total_price }}
+                                        {{ $requestForQuotation->description }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -79,7 +55,7 @@
                                         {{ trans('cruds.requestForQuotation.fields.status') }}
                                     </th>
                                     <td>
-                                        {{ $requestForQuotation->status }}
+                                        {{ App\Models\RequestForQuotation::STATUS_SELECT[$requestForQuotation->status] ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

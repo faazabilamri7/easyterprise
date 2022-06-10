@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.customerComplain.fields.id_customer') }}
+                            {{ trans('cruds.customerComplain.fields.sales_order') }}
                         </th>
                         <td>
-                            {{ $customerComplain->id_customer->first_name ?? '' }}
+                            {{ $customerComplain->sales_order->no_sales_order ?? '' }}
                         </td>
                     </tr>
                     <tr>

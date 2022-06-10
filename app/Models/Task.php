@@ -31,11 +31,12 @@ class Task extends Model implements HasMedia
     ];
 
     protected $fillable = [
+        'id_production_plan',
+        'id_request_product_id',
         'name',
         'description',
         'status_id',
         'due_date',
-        'assigned_to_id',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -45,6 +46,16 @@ class Task extends Model implements HasMedia
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function idProductionPlanListOfMaterials()
+    {
+        return $this->hasMany(ListOfMaterial::class, 'id_production_plan_id', 'id');
+    }
+
+    public function id_request_product()
+    {
+        return $this->belongsTo(RequestStockProduct::class, 'id_request_product_id');
     }
 
     public function status()
@@ -70,11 +81,6 @@ class Task extends Model implements HasMedia
     public function setDueDateAttribute($value)
     {
         $this->attributes['due_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function assigned_to()
-    {
-        return $this->belongsTo(User::class, 'assigned_to_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

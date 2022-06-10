@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesInquiryRequest;
 use App\Http\Requests\StoreSalesInquiryRequest;
 use App\Http\Requests\UpdateSalesInquiryRequest;
@@ -15,11 +16,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SalesInquiryController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('sales_inquiry_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesInquiries = SalesInquiry::with(['id_customer', 'id_product'])->get();
+        $salesInquiries = SalesInquiry::with(['id_customer', 'nama_produk'])->get();
 
         return view('admin.salesInquiries.index', compact('salesInquiries'));
     }
@@ -30,9 +33,9 @@ class SalesInquiryController extends Controller
 
         $id_customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $id_products = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $nama_produks = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.salesInquiries.create', compact('id_customers', 'id_products'));
+        return view('admin.salesInquiries.create', compact('id_customers', 'nama_produks'));
     }
 
     public function store(StoreSalesInquiryRequest $request)
@@ -48,11 +51,11 @@ class SalesInquiryController extends Controller
 
         $id_customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $id_products = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $nama_produks = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $salesInquiry->load('id_customer', 'id_product');
+        $salesInquiry->load('id_customer', 'nama_produk');
 
-        return view('admin.salesInquiries.edit', compact('id_customers', 'id_products', 'salesInquiry'));
+        return view('admin.salesInquiries.edit', compact('id_customers', 'nama_produks', 'salesInquiry'));
     }
 
     public function update(UpdateSalesInquiryRequest $request, SalesInquiry $salesInquiry)
@@ -66,7 +69,7 @@ class SalesInquiryController extends Controller
     {
         abort_if(Gate::denies('sales_inquiry_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesInquiry->load('id_customer', 'id_product', 'inquiryRequestStockProducts');
+        $salesInquiry->load('id_customer', 'nama_produk', 'inquiryRequestStockProducts', 'kodeInquirySalesQuotations');
 
         return view('admin.salesInquiries.show', compact('salesInquiry'));
     }

@@ -16,10 +16,15 @@ class Product extends Model implements HasMedia
     use InteractsWithMedia;
     use HasFactory;
 
+    public const TAG_RADIO = [
+        'Available'    => 'Available',
+        'Out of Stock' => 'Out of Stock',
+    ];
+
     public $table = 'products';
 
     protected $appends = [
-        'photo',
+        'foto_produk',
     ];
 
     protected $dates = [
@@ -31,7 +36,9 @@ class Product extends Model implements HasMedia
     protected $fillable = [
         'name',
         'description',
-        'price',
+        'tag',
+        'stok',
+        'harga_jual',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -43,24 +50,19 @@ class Product extends Model implements HasMedia
         $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 
-    public function idProductSalesInquiries()
+    public function namaProdukSalesInquiries()
     {
-        return $this->hasMany(SalesInquiry::class, 'id_product_id', 'id');
+        return $this->hasMany(SalesInquiry::class, 'nama_produk_id', 'id');
     }
 
-    public function categories()
+    public function requestProductRequestStockProducts()
     {
-        return $this->belongsToMany(ProductCategory::class);
+        return $this->hasMany(RequestStockProduct::class, 'request_product_id', 'id');
     }
 
-    public function tags()
+    public function getFotoProdukAttribute()
     {
-        return $this->belongsToMany(ProductTag::class);
-    }
-
-    public function getPhotoAttribute()
-    {
-        $file = $this->getMedia('photo')->last();
+        $file = $this->getMedia('foto_produk')->last();
         if ($file) {
             $file->url       = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');
@@ -68,6 +70,11 @@ class Product extends Model implements HasMedia
         }
 
         return $file;
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(ProductCategory::class);
     }
 
     protected function serializeDate(DateTimeInterface $date)

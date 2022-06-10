@@ -28,10 +28,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.productionMonitoring.fields.production_plan') }}
+                                        {{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}
                                     </th>
                                     <td>
-                                        {{ $productionMonitoring->production_plan->tugas ?? '' }}
+                                        {{ $productionMonitoring->id_production_monitoring }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}
+                                    </th>
+                                    <td>
+                                        {{ $productionMonitoring->id_list_of_material->id_list_of_material ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>

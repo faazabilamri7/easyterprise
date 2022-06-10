@@ -26,7 +26,13 @@
                             {{ trans('cruds.purchaseReturn.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.id_order') }}
+                            {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.description') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
@@ -49,13 +55,19 @@
                                 {{ $purchaseReturn->id ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseReturn->id_order->material_name ?? '' }}
+                                {{ $purchaseReturn->purchase_return ?? '' }}
+                            </td>
+                            <td>
+                                {{ $purchaseReturn->id_purchase_order->id_purchase_order ?? '' }}
+                            </td>
+                            <td>
+                                {{ $purchaseReturn->description ?? '' }}
                             </td>
                             <td>
                                 {{ $purchaseReturn->date_purchase_return ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseReturn->status ?? '' }}
+                                {{ App\Models\PurchaseReturn::STATUS_SELECT[$purchaseReturn->status] ?? '' }}
                             </td>
                             <td>
                                 @can('purchase_return_show')

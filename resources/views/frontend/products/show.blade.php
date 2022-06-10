@@ -36,18 +36,22 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.product.fields.description') }}
+                                        {{ trans('cruds.product.fields.foto_produk') }}
                                     </th>
                                     <td>
-                                        {{ $product->description }}
+                                        @if($product->foto_produk)
+                                            <a href="{{ $product->foto_produk->getUrl() }}" target="_blank" style="display: inline-block">
+                                                <img src="{{ $product->foto_produk->getUrl('thumb') }}">
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.product.fields.price') }}
+                                        {{ trans('cruds.product.fields.description') }}
                                     </th>
                                     <td>
-                                        {{ $product->price }}
+                                        {{ $product->description }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -65,21 +69,23 @@
                                         {{ trans('cruds.product.fields.tag') }}
                                     </th>
                                     <td>
-                                        @foreach($product->tags as $key => $tag)
-                                            <span class="label label-info">{{ $tag->name }}</span>
-                                        @endforeach
+                                        {{ App\Models\Product::TAG_RADIO[$product->tag] ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.product.fields.photo') }}
+                                        {{ trans('cruds.product.fields.stok') }}
                                     </th>
                                     <td>
-                                        @if($product->photo)
-                                            <a href="{{ $product->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                                <img src="{{ $product->photo->getUrl('thumb') }}">
-                                            </a>
-                                        @endif
+                                        {{ $product->stok }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.product.fields.harga_jual') }}
+                                    </th>
+                                    <td>
+                                        {{ $product->harga_jual }}
                                     </td>
                                 </tr>
                             </tbody>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyRequestStockProductRequest;
 use App\Http\Requests\StoreRequestStockProductRequest;
 use App\Http\Requests\UpdateRequestStockProductRequest;
+use App\Models\Product;
 use App\Models\RequestStockProduct;
 use App\Models\SalesInquiry;
 use Gate;
@@ -18,7 +19,7 @@ class RequestStockProductController extends Controller
     {
         abort_if(Gate::denies('request_stock_product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $requestStockProducts = RequestStockProduct::with(['inquiry'])->get();
+        $requestStockProducts = RequestStockProduct::with(['inquiry', 'request_product'])->get();
 
         return view('admin.requestStockProducts.index', compact('requestStockProducts'));
     }
@@ -27,9 +28,11 @@ class RequestStockProductController extends Controller
     {
         abort_if(Gate::denies('request_stock_product_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $inquiries = SalesInquiry::pluck('inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $inquiries = SalesInquiry::pluck('inquiry_kode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.requestStockProducts.create', compact('inquiries'));
+        $request_products = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.requestStockProducts.create', compact('inquiries', 'request_products'));
     }
 
     public function store(StoreRequestStockProductRequest $request)
@@ -43,11 +46,13 @@ class RequestStockProductController extends Controller
     {
         abort_if(Gate::denies('request_stock_product_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $inquiries = SalesInquiry::pluck('inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $inquiries = SalesInquiry::pluck('inquiry_kode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $requestStockProduct->load('inquiry');
+        $request_products = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.requestStockProducts.edit', compact('inquiries', 'requestStockProduct'));
+        $requestStockProduct->load('inquiry', 'request_product');
+
+        return view('admin.requestStockProducts.edit', compact('inquiries', 'requestStockProduct', 'request_products'));
     }
 
     public function update(UpdateRequestStockProductRequest $request, RequestStockProduct $requestStockProduct)
@@ -61,7 +66,7 @@ class RequestStockProductController extends Controller
     {
         abort_if(Gate::denies('request_stock_product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $requestStockProduct->load('inquiry');
+        $requestStockProduct->load('inquiry', 'request_product', 'idRequestProductTasks');
 
         return view('admin.requestStockProducts.show', compact('requestStockProduct'));
     }

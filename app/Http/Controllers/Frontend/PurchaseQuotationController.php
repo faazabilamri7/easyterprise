@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyPurchaseQuotationRequest;
 use App\Http\Requests\StorePurchaseQuotationRequest;
 use App\Http\Requests\UpdatePurchaseQuotationRequest;
+use App\Models\PurchaseInq;
 use App\Models\PurchaseQuotation;
 use App\Models\Vendor;
 use Gate;
@@ -18,7 +19,7 @@ class PurchaseQuotationController extends Controller
     {
         abort_if(Gate::denies('purchase_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseQuotations = PurchaseQuotation::with(['id_vendor'])->get();
+        $purchaseQuotations = PurchaseQuotation::with(['id_purchase_inquiry', 'id_vendor'])->get();
 
         return view('frontend.purchaseQuotations.index', compact('purchaseQuotations'));
     }
@@ -27,9 +28,11 @@ class PurchaseQuotationController extends Controller
     {
         abort_if(Gate::denies('purchase_quotation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $id_purchase_inquiries = PurchaseInq::pluck('id_purchase_inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $id_vendors = Vendor::pluck('nama_vendor', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.purchaseQuotations.create', compact('id_vendors'));
+        return view('frontend.purchaseQuotations.create', compact('id_purchase_inquiries', 'id_vendors'));
     }
 
     public function store(StorePurchaseQuotationRequest $request)
@@ -43,11 +46,13 @@ class PurchaseQuotationController extends Controller
     {
         abort_if(Gate::denies('purchase_quotation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $id_purchase_inquiries = PurchaseInq::pluck('id_purchase_inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $id_vendors = Vendor::pluck('nama_vendor', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $purchaseQuotation->load('id_vendor');
+        $purchaseQuotation->load('id_purchase_inquiry', 'id_vendor');
 
-        return view('frontend.purchaseQuotations.edit', compact('id_vendors', 'purchaseQuotation'));
+        return view('frontend.purchaseQuotations.edit', compact('id_purchase_inquiries', 'id_vendors', 'purchaseQuotation'));
     }
 
     public function update(UpdatePurchaseQuotationRequest $request, PurchaseQuotation $purchaseQuotation)
@@ -61,7 +66,7 @@ class PurchaseQuotationController extends Controller
     {
         abort_if(Gate::denies('purchase_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseQuotation->load('id_vendor');
+        $purchaseQuotation->load('id_purchase_inquiry', 'id_vendor');
 
         return view('frontend.purchaseQuotations.show', compact('purchaseQuotation'));
     }

@@ -25,6 +25,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}
+                        </th>
+                        <td>
+                            {{ $purchaseQuotation->id_purchase_quotation }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry') }}
+                        </th>
+                        <td>
+                            {{ $purchaseQuotation->id_purchase_inquiry->id_purchase_inquiry ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.purchaseQuotation.fields.id_vendor') }}
                         </th>
                         <td>
@@ -36,7 +52,7 @@
                             {{ trans('cruds.purchaseQuotation.fields.material_name') }}
                         </th>
                         <td>
-                            {{ $purchaseQuotation->material_name }}
+                            {{ App\Models\PurchaseQuotation::MATERIAL_NAME_SELECT[$purchaseQuotation->material_name] ?? '' }}
                         </td>
                     </tr>
                     <tr>
@@ -68,15 +84,7 @@
                             {{ trans('cruds.purchaseQuotation.fields.status') }}
                         </th>
                         <td>
-                            {{ $purchaseQuotation->status }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.purchaseQuotation.fields.nego_purchase_quotation') }}
-                        </th>
-                        <td>
-                            {{ $purchaseQuotation->nego_purchase_quotation }}
+                            {{ App\Models\PurchaseQuotation::STATUS_SELECT[$purchaseQuotation->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

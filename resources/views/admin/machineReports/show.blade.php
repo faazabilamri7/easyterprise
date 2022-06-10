@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.machineReport.fields.production_plan') }}
+                            {{ trans('cruds.machineReport.fields.id_mesin') }}
                         </th>
                         <td>
-                            {{ $machineReport->production_plan->tugas ?? '' }}
+                            {{ $machineReport->id_mesin }}
                         </td>
                     </tr>
                     <tr>

@@ -29,19 +29,16 @@
                             {{ trans('cruds.product.fields.name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.product.fields.foto_produk') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.product.fields.description') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.price') }}
+                            {{ trans('cruds.product.fields.stok') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.category') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.product.fields.tag') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.product.fields.photo') }}
+                            {{ trans('cruds.product.fields.harga_jual') }}
                         </th>
                         <th>
                             &nbsp;
@@ -61,27 +58,20 @@
                                 {{ $product->name ?? '' }}
                             </td>
                             <td>
+                                @if($product->foto_produk)
+                                    <a href="{{ $product->foto_produk->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $product->foto_produk->getUrl('thumb') }}">
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
                                 {{ $product->description ?? '' }}
                             </td>
                             <td>
-                                {{ $product->price ?? '' }}
+                                {{ $product->stok ?? '' }}
                             </td>
                             <td>
-                                @foreach($product->categories as $key => $item)
-                                    <span class="badge badge-info">{{ $item->name }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($product->tags as $key => $item)
-                                    <span class="badge badge-info">{{ $item->name }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                @if($product->photo)
-                                    <a href="{{ $product->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $product->photo->getUrl('thumb') }}">
-                                    </a>
-                                @endif
+                                {{ $product->harga_jual ?? '' }}
                             </td>
                             <td>
                                 @can('product_show')

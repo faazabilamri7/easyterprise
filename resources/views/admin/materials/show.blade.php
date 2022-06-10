@@ -33,14 +33,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.material.fields.price') }}
-                        </th>
-                        <td>
-                            {{ $material->price }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.material.fields.descriptive') }}
                         </th>
                         <td>
@@ -59,6 +51,14 @@
                             @endforeach
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.material.fields.stock') }}
+                        </th>
+                        <td>
+                            {{ $material->stock }}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -70,6 +70,62 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#material1_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material2_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material3_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material4_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material6_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#name_material_purchase_inqs" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseInq.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="material1_purchase_requitions">
+            @includeIf('admin.materials.relationships.material1PurchaseRequitions', ['purchaseRequitions' => $material->material1PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material2_purchase_requitions">
+            @includeIf('admin.materials.relationships.material2PurchaseRequitions', ['purchaseRequitions' => $material->material2PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material3_purchase_requitions">
+            @includeIf('admin.materials.relationships.material3PurchaseRequitions', ['purchaseRequitions' => $material->material3PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material4_purchase_requitions">
+            @includeIf('admin.materials.relationships.material4PurchaseRequitions', ['purchaseRequitions' => $material->material4PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material6_purchase_requitions">
+            @includeIf('admin.materials.relationships.material6PurchaseRequitions', ['purchaseRequitions' => $material->material6PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="name_material_purchase_inqs">
+            @includeIf('admin.materials.relationships.nameMaterialPurchaseInqs', ['purchaseInqs' => $material->nameMaterialPurchaseInqs])
+        </div>
+    </div>
+</div>
 
 @endsection

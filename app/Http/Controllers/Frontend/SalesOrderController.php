@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesOrderRequest;
 use App\Http\Requests\StoreSalesOrderRequest;
 use App\Http\Requests\UpdateSalesOrderRequest;
-use App\Models\CrmCustomer;
 use App\Models\SalesOrder;
 use App\Models\SalesQuotation;
 use Gate;
@@ -15,11 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SalesOrderController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('sales_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrders = SalesOrder::with(['customer', 'sales_quotation'])->get();
+        $salesOrders = SalesOrder::with(['sales_quotation'])->get();
 
         return view('frontend.salesOrders.index', compact('salesOrders'));
     }
@@ -28,11 +30,9 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $sales_quotations = SalesQuotation::pluck('harga', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.salesOrders.create', compact('customers', 'sales_quotations'));
+        return view('frontend.salesOrders.create', compact('sales_quotations'));
     }
 
     public function store(StoreSalesOrderRequest $request)
@@ -46,13 +46,11 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
         $sales_quotations = SalesQuotation::pluck('harga', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $salesOrder->load('customer', 'sales_quotation');
+        $salesOrder->load('sales_quotation');
 
-        return view('frontend.salesOrders.edit', compact('customers', 'salesOrder', 'sales_quotations'));
+        return view('frontend.salesOrders.edit', compact('salesOrder', 'sales_quotations'));
     }
 
     public function update(UpdateSalesOrderRequest $request, SalesOrder $salesOrder)
@@ -66,7 +64,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrder->load('customer', 'sales_quotation');
+        $salesOrder->load('sales_quotation', 'salesOrderCustomerComplains', 'statusSalesReports', 'tglSalesOrderSalesReports', 'salesProductTransaksiKeuangans');
 
         return view('frontend.salesOrders.show', compact('salesOrder'));
     }

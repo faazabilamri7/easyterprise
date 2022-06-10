@@ -7,7 +7,6 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesQuotationRequest;
 use App\Http\Requests\StoreSalesQuotationRequest;
 use App\Http\Requests\UpdateSalesQuotationRequest;
-use App\Models\CrmCustomer;
 use App\Models\SalesInquiry;
 use App\Models\SalesQuotation;
 use Gate;
@@ -22,7 +21,7 @@ class SalesQuotationController extends Controller
     {
         abort_if(Gate::denies('sales_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesQuotations = SalesQuotation::with(['id_sales_inquiry', 'id_customer'])->get();
+        $salesQuotations = SalesQuotation::with(['kode_inquiry'])->get();
 
         return view('frontend.salesQuotations.index', compact('salesQuotations'));
     }
@@ -31,11 +30,9 @@ class SalesQuotationController extends Controller
     {
         abort_if(Gate::denies('sales_quotation_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_sales_inquiries = SalesInquiry::pluck('inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $kode_inquiries = SalesInquiry::pluck('inquiry_kode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $id_customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('frontend.salesQuotations.create', compact('id_customers', 'id_sales_inquiries'));
+        return view('frontend.salesQuotations.create', compact('kode_inquiries'));
     }
 
     public function store(StoreSalesQuotationRequest $request)
@@ -49,13 +46,11 @@ class SalesQuotationController extends Controller
     {
         abort_if(Gate::denies('sales_quotation_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $id_sales_inquiries = SalesInquiry::pluck('inquiry', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $kode_inquiries = SalesInquiry::pluck('inquiry_kode', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $id_customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $salesQuotation->load('kode_inquiry');
 
-        $salesQuotation->load('id_sales_inquiry', 'id_customer');
-
-        return view('frontend.salesQuotations.edit', compact('id_customers', 'id_sales_inquiries', 'salesQuotation'));
+        return view('frontend.salesQuotations.edit', compact('kode_inquiries', 'salesQuotation'));
     }
 
     public function update(UpdateSalesQuotationRequest $request, SalesQuotation $salesQuotation)
@@ -69,7 +64,7 @@ class SalesQuotationController extends Controller
     {
         abort_if(Gate::denies('sales_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesQuotation->load('id_sales_inquiry', 'id_customer');
+        $salesQuotation->load('kode_inquiry', 'salesQuotationSalesOrders');
 
         return view('frontend.salesQuotations.show', compact('salesQuotation'));
     }

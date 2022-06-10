@@ -14,6 +14,16 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
+                            <label for="id_purchase_order">{{ trans('cruds.purchaseOrder.fields.id_purchase_order') }}</label>
+                            <input class="form-control" type="text" name="id_purchase_order" id="id_purchase_order" value="{{ old('id_purchase_order', $purchaseOrder->id_purchase_order) }}">
+                            @if($errors->has('id_purchase_order'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_purchase_order') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.purchaseOrder.fields.id_purchase_order_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="id_purchase_quotation_id">{{ trans('cruds.purchaseOrder.fields.id_purchase_quotation') }}</label>
                             <select class="form-control select2" name="id_purchase_quotation_id" id="id_purchase_quotation_id">
                                 @foreach($id_purchase_quotations as $id => $entry)

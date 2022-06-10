@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesReportRequest;
 use App\Http\Requests\StoreSalesReportRequest;
 use App\Http\Requests\UpdateSalesReportRequest;
+use App\Models\SalesOrder;
 use App\Models\SalesReport;
 use Gate;
 use Illuminate\Http\Request;
@@ -13,11 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SalesReportController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('sales_report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesReports = SalesReport::all();
+        $salesReports = SalesReport::with(['status', 'tgl_sales_order', 'no_sales_order'])->get();
 
         return view('admin.salesReports.index', compact('salesReports'));
     }
@@ -26,7 +30,13 @@ class SalesReportController extends Controller
     {
         abort_if(Gate::denies('sales_report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.salesReports.create');
+        $statuses = SalesOrder::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $tgl_sales_orders = SalesOrder::pluck('tanggal', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $no_sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.salesReports.create', compact('no_sales_orders', 'statuses', 'tgl_sales_orders'));
     }
 
     public function store(StoreSalesReportRequest $request)
@@ -40,7 +50,15 @@ class SalesReportController extends Controller
     {
         abort_if(Gate::denies('sales_report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.salesReports.edit', compact('salesReport'));
+        $statuses = SalesOrder::pluck('status', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $tgl_sales_orders = SalesOrder::pluck('tanggal', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $no_sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $salesReport->load('status', 'tgl_sales_order', 'no_sales_order');
+
+        return view('admin.salesReports.edit', compact('no_sales_orders', 'salesReport', 'statuses', 'tgl_sales_orders'));
     }
 
     public function update(UpdateSalesReportRequest $request, SalesReport $salesReport)
@@ -53,6 +71,8 @@ class SalesReportController extends Controller
     public function show(SalesReport $salesReport)
     {
         abort_if(Gate::denies('sales_report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $salesReport->load('status', 'tgl_sales_order', 'no_sales_order');
 
         return view('admin.salesReports.show', compact('salesReport'));
     }

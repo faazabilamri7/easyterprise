@@ -25,6 +25,30 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.qualityControl.fields.id_quality_control') }}
+                        </th>
+                        <td>
+                            {{ $qualityControl->id_quality_control }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.qualityControl.fields.id_production_monitoring') }}
+                        </th>
+                        <td>
+                            {{ $qualityControl->id_production_monitoring->id_production_monitoring ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.qualityControl.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $qualityControl->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.qualityControl.fields.status') }}
                         </th>
                         <td>

@@ -68,14 +68,6 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transaksiKeuangan.fields.produk') }}
-                                    </th>
-                                    <td>
-                                        {{ $transaksiKeuangan->produk->nama_produk ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
                                         {{ trans('cruds.transaksiKeuangan.fields.qty') }}
                                     </th>
                                     <td>
@@ -96,6 +88,14 @@
                                     </th>
                                     <td>
                                         {{ $transaksiKeuangan->total }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.transaksiKeuangan.fields.sales_product') }}
+                                    </th>
+                                    <td>
+                                        {{ $transaksiKeuangan->sales_product->detail_order ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

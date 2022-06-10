@@ -11,33 +11,14 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="id_customer_id">{{ trans('cruds.salesInquiry.fields.id_customer') }}</label>
-                <select class="form-control select2 {{ $errors->has('id_customer') ? 'is-invalid' : '' }}" name="id_customer_id" id="id_customer_id">
-                    @foreach($id_customers as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('id_customer_id') ? old('id_customer_id') : $salesInquiry->id_customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('id_customer'))
+                <label for="inquiry_kode">{{ trans('cruds.salesInquiry.fields.inquiry_kode') }}</label>
+                <input class="form-control {{ $errors->has('inquiry_kode') ? 'is-invalid' : '' }}" type="text" name="inquiry_kode" id="inquiry_kode" value="{{ old('inquiry_kode', $salesInquiry->inquiry_kode) }}">
+                @if($errors->has('inquiry_kode'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('id_customer') }}
+                        {{ $errors->first('inquiry_kode') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.salesInquiry.fields.id_customer_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label>{{ trans('cruds.salesInquiry.fields.inquiry') }}</label>
-                <select class="form-control {{ $errors->has('inquiry') ? 'is-invalid' : '' }}" name="inquiry" id="inquiry">
-                    <option value disabled {{ old('inquiry', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\SalesInquiry::INQUIRY_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('inquiry', $salesInquiry->inquiry) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('inquiry'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('inquiry') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesInquiry.fields.inquiry_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.salesInquiry.fields.inquiry_kode_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="tgl_inquiry">{{ trans('cruds.salesInquiry.fields.tgl_inquiry') }}</label>
@@ -50,22 +31,36 @@
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.tgl_inquiry_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="id_product_id">{{ trans('cruds.salesInquiry.fields.id_product') }}</label>
-                <select class="form-control select2 {{ $errors->has('id_product') ? 'is-invalid' : '' }}" name="id_product_id" id="id_product_id" required>
-                    @foreach($id_products as $id => $entry)
-                        <option value="{{ $id }}" {{ (old('id_product_id') ? old('id_product_id') : $salesInquiry->id_product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label class="required" for="id_customer_id">{{ trans('cruds.salesInquiry.fields.id_customer') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_customer') ? 'is-invalid' : '' }}" name="id_customer_id" id="id_customer_id" required>
+                    @foreach($id_customers as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('id_customer_id') ? old('id_customer_id') : $salesInquiry->id_customer->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('id_product'))
+                @if($errors->has('id_customer'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('id_product') }}
+                        {{ $errors->first('id_customer') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.salesInquiry.fields.id_product_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.salesInquiry.fields.id_customer_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="qty">{{ trans('cruds.salesInquiry.fields.qty') }}</label>
-                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $salesInquiry->qty) }}" step="1">
+                <label class="required" for="nama_produk_id">{{ trans('cruds.salesInquiry.fields.nama_produk') }}</label>
+                <select class="form-control select2 {{ $errors->has('nama_produk') ? 'is-invalid' : '' }}" name="nama_produk_id" id="nama_produk_id" required>
+                    @foreach($nama_produks as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('nama_produk_id') ? old('nama_produk_id') : $salesInquiry->nama_produk->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('nama_produk'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nama_produk') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.salesInquiry.fields.nama_produk_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="qty">{{ trans('cruds.salesInquiry.fields.qty') }}</label>
+                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $salesInquiry->qty) }}" step="1" required>
                 @if($errors->has('qty'))
                     <div class="invalid-feedback">
                         {{ $errors->first('qty') }}
@@ -87,6 +82,16 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.status_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="catatan">{{ trans('cruds.salesInquiry.fields.catatan') }}</label>
+                <textarea class="form-control {{ $errors->has('catatan') ? 'is-invalid' : '' }}" name="catatan" id="catatan">{{ old('catatan', $salesInquiry->catatan) }}</textarea>
+                @if($errors->has('catatan'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('catatan') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.salesInquiry.fields.catatan_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

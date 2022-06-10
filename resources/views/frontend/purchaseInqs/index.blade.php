@@ -26,16 +26,22 @@
                                         {{ trans('cruds.purchaseInq.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.purchaseInq.fields.id_purchase_inquiry') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.purchaseInq.fields.id_request_for_quotation') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.purchaseInq.fields.date_purchase_inquiry') }}
+                                        {{ trans('cruds.purchaseInq.fields.vendor_name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.purchaseInq.fields.material_name') }}
+                                        {{ trans('cruds.purchaseInq.fields.date_puchase_inquiry') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.purchaseInq.fields.quantity') }}
+                                        {{ trans('cruds.purchaseInq.fields.name_material') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.purchaseInq.fields.qty') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -49,16 +55,22 @@
                                             {{ $purchaseInq->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseInq->id_request_for_quotation->id_purchase_requisition ?? '' }}
+                                            {{ $purchaseInq->id_purchase_inquiry ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseInq->date_purchase_inquiry ?? '' }}
+                                            {{ $purchaseInq->id_request_for_quotation->id_request_for_quotation ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseInq->material_name ?? '' }}
+                                            {{ $purchaseInq->vendor_name->nama_vendor ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseInq->quantity ?? '' }}
+                                            {{ $purchaseInq->date_puchase_inquiry ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $purchaseInq->name_material->name_material ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $purchaseInq->qty ?? '' }}
                                         </td>
                                         <td>
                                             @can('purchase_inq_show')

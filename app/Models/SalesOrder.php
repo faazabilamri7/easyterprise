@@ -14,9 +14,9 @@ class SalesOrder extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'Done'       => 'Done',
-        'On Process' => 'On Process',
         'Received'   => 'Received',
+        'On Process' => 'On Process',
+        'Done'       => 'Done',
     ];
 
     public $table = 'sales_orders';
@@ -29,26 +29,34 @@ class SalesOrder extends Model
     ];
 
     protected $fillable = [
-        'customer_id',
-        'sales_quotation_id',
-        'qty',
-        'status',
-        'detail_order',
+        'no_sales_order',
         'tanggal',
-        'total',
+        'sales_quotation_id',
+        'detail_order',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function customer()
+    public function salesOrderCustomerComplains()
     {
-        return $this->belongsTo(CrmCustomer::class, 'customer_id');
+        return $this->hasMany(CustomerComplain::class, 'sales_order_id', 'id');
     }
 
-    public function sales_quotation()
+    public function statusSalesReports()
     {
-        return $this->belongsTo(SalesQuotation::class, 'sales_quotation_id');
+        return $this->hasMany(SalesReport::class, 'status_id', 'id');
+    }
+
+    public function tglSalesOrderSalesReports()
+    {
+        return $this->hasMany(SalesReport::class, 'tgl_sales_order_id', 'id');
+    }
+
+    public function salesProductTransaksiKeuangans()
+    {
+        return $this->hasMany(TransaksiKeuangan::class, 'sales_product_id', 'id');
     }
 
     public function getTanggalAttribute($value)
@@ -59,6 +67,11 @@ class SalesOrder extends Model
     public function setTanggalAttribute($value)
     {
         $this->attributes['tanggal'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function sales_quotation()
+    {
+        return $this->belongsTo(SalesQuotation::class, 'sales_quotation_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

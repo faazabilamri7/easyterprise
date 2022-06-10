@@ -28,26 +28,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transferMaterial.fields.tanggal_transaksi') }}
+                                        {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
                                     </th>
                                     <td>
-                                        {{ $transferMaterial->tanggal_transaksi }}
+                                        {{ $transferMaterial->id_transfer_material }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transferMaterial.fields.transfer_dari') }}
+                                        {{ trans('cruds.transferMaterial.fields.status') }}
                                     </th>
                                     <td>
-                                        {{ App\Models\TransferMaterial::TRANSFER_DARI_SELECT[$transferMaterial->transfer_dari] ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.transferMaterial.fields.transfer_ke') }}
-                                    </th>
-                                    <td>
-                                        {{ App\Models\TransferMaterial::TRANSFER_KE_SELECT[$transferMaterial->transfer_ke] ?? '' }}
+                                        {{ App\Models\TransferMaterial::STATUS_SELECT[$transferMaterial->status] ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

@@ -26,9 +26,6 @@
                                         {{ trans('cruds.vendor.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.vendor.fields.id_purchase_inquiry') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.vendor.fields.nama_vendor') }}
                                     </th>
                                     <th>
@@ -53,9 +50,6 @@
                                     <tr data-entry-id="{{ $vendor->id }}">
                                         <td>
                                             {{ $vendor->id ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $vendor->id_purchase_inquiry->date_purchase_inquiry ?? '' }}
                                         </td>
                                         <td>
                                             {{ $vendor->nama_vendor ?? '' }}

@@ -7,10 +7,10 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Models\RequestStockProduct;
 use App\Models\Task;
 use App\Models\TaskStatus;
 use App\Models\TaskTag;
-use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -24,7 +24,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $tasks = Task::with(['status', 'tags', 'assigned_to', 'media'])->get();
+        $tasks = Task::with(['id_request_product', 'status', 'tags', 'media'])->get();
 
         return view('frontend.tasks.index', compact('tasks'));
     }
@@ -33,13 +33,13 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $id_request_products = RequestStockProduct::pluck('id_request_product', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $statuses = TaskStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $tags = TaskTag::pluck('name', 'id');
 
-        $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
-
-        return view('frontend.tasks.create', compact('assigned_tos', 'statuses', 'tags'));
+        return view('frontend.tasks.create', compact('id_request_products', 'statuses', 'tags'));
     }
 
     public function store(StoreTaskRequest $request)
@@ -61,15 +61,15 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+        $id_request_products = RequestStockProduct::pluck('id_request_product', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $statuses = TaskStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $tags = TaskTag::pluck('name', 'id');
 
-        $assigned_tos = User::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $task->load('id_request_product', 'status', 'tags');
 
-        $task->load('status', 'tags', 'assigned_to');
-
-        return view('frontend.tasks.edit', compact('assigned_tos', 'statuses', 'tags', 'task'));
+        return view('frontend.tasks.edit', compact('id_request_products', 'statuses', 'tags', 'task'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
@@ -94,7 +94,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task->load('status', 'tags', 'assigned_to');
+        $task->load('id_request_product', 'status', 'tags', 'idProductionPlanListOfMaterials');
 
         return view('frontend.tasks.show', compact('task'));
     }

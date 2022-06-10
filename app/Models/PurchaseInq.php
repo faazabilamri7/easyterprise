@@ -16,17 +16,19 @@ class PurchaseInq extends Model
     public $table = 'purchase_inqs';
 
     protected $dates = [
-        'date_purchase_inquiry',
+        'date_puchase_inquiry',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
+        'id_purchase_inquiry',
         'id_request_for_quotation_id',
-        'date_purchase_inquiry',
-        'material_name',
-        'quantity',
+        'vendor_name_id',
+        'date_puchase_inquiry',
+        'name_material_id',
+        'qty',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -37,14 +39,24 @@ class PurchaseInq extends Model
         return $this->belongsTo(RequestForQuotation::class, 'id_request_for_quotation_id');
     }
 
-    public function getDatePurchaseInquiryAttribute($value)
+    public function vendor_name()
+    {
+        return $this->belongsTo(Vendor::class, 'vendor_name_id');
+    }
+
+    public function getDatePuchaseInquiryAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
     }
 
-    public function setDatePurchaseInquiryAttribute($value)
+    public function setDatePuchaseInquiryAttribute($value)
     {
-        $this->attributes['date_purchase_inquiry'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+        $this->attributes['date_puchase_inquiry'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function name_material()
+    {
+        return $this->belongsTo(Material::class, 'name_material_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

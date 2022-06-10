@@ -23,6 +23,7 @@ class PurchaseOrder extends Model
     ];
 
     protected $fillable = [
+        'id_purchase_order',
         'id_purchase_quotation_id',
         'date_purchase_order',
         'material_name',
@@ -31,6 +32,16 @@ class PurchaseOrder extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function idPurchaseOrderMaterialEntries()
+    {
+        return $this->hasMany(MaterialEntry::class, 'id_purchase_order_id', 'id');
+    }
+
+    public function idPurchaseOrderPurchaseReturns()
+    {
+        return $this->hasMany(PurchaseReturn::class, 'id_purchase_order_id', 'id');
+    }
 
     public function id_purchase_quotation()
     {

@@ -13,6 +13,11 @@ class PurchaseReturn extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const STATUS_SELECT = [
+        'On_delivery_to_vendor' => 'On delivery to Vendor',
+        'delivered_to_vendor'   => 'Delivered to Vendor',
+    ];
+
     public $table = 'purchase_returns';
 
     protected $dates = [
@@ -23,7 +28,9 @@ class PurchaseReturn extends Model
     ];
 
     protected $fillable = [
-        'id_order_id',
+        'purchase_return',
+        'id_purchase_order_id',
+        'description',
         'date_purchase_return',
         'status',
         'created_at',
@@ -31,9 +38,9 @@ class PurchaseReturn extends Model
         'deleted_at',
     ];
 
-    public function id_order()
+    public function id_purchase_order()
     {
-        return $this->belongsTo(PurchaseOrder::class, 'id_order_id');
+        return $this->belongsTo(PurchaseOrder::class, 'id_purchase_order_id');
     }
 
     public function getDatePurchaseReturnAttribute($value)

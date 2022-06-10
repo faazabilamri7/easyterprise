@@ -17,29 +17,7 @@ class UpdateRequestForQuotationRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_purchase_requisition' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'id_company' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'material_name' => [
-                'string',
-                'nullable',
-            ],
-            'quantity' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
-            'status' => [
+            'id_request_for_quotation' => [
                 'string',
                 'nullable',
             ],

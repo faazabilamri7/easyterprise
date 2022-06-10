@@ -30,10 +30,7 @@
                             {{ trans('cruds.salesQuotation.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.salesQuotation.fields.id_sales_inquiry') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.id_customer') }}
+                            {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
                         </th>
                         <th>
                             {{ trans('cruds.salesQuotation.fields.harga') }}
@@ -56,16 +53,13 @@
                                 {{ $salesQuotation->id ?? '' }}
                             </td>
                             <td>
-                                {{ $salesQuotation->id_sales_inquiry->inquiry ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesQuotation->id_customer->first_name ?? '' }}
+                                {{ $salesQuotation->kode_inquiry->inquiry_kode ?? '' }}
                             </td>
                             <td>
                                 {{ $salesQuotation->harga ?? '' }}
                             </td>
                             <td>
-                                {{ $salesQuotation->status ?? '' }}
+                                {{ App\Models\SalesQuotation::STATUS_SELECT[$salesQuotation->status] ?? '' }}
                             </td>
                             <td>
                                 @can('sales_quotation_show')

@@ -28,6 +28,22 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.requestStockProduct.fields.id_request_product') }}
+                                    </th>
+                                    <td>
+                                        {{ $requestStockProduct->id_request_product }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.inquiry') }}
+                                    </th>
+                                    <td>
+                                        {{ $requestStockProduct->inquiry->inquiry_kode ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.requestStockProduct.fields.tanggal_request') }}
                                     </th>
                                     <td>
@@ -36,10 +52,26 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.requestStockProduct.fields.inquiry') }}
+                                        {{ trans('cruds.requestStockProduct.fields.request_product') }}
                                     </th>
                                     <td>
-                                        {{ $requestStockProduct->inquiry->inquiry ?? '' }}
+                                        {{ $requestStockProduct->request_product->name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.qty') }}
+                                    </th>
+                                    <td>
+                                        {{ $requestStockProduct->qty }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.requestStockProduct.fields.status') }}
+                                    </th>
+                                    <td>
+                                        {{ App\Models\RequestStockProduct::STATUS_SELECT[$requestStockProduct->status] ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

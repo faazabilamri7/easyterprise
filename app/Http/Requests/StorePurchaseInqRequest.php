@@ -17,15 +17,15 @@ class StorePurchaseInqRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_purchase_inquiry' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
-            'material_name' => [
+            'id_purchase_inquiry' => [
                 'string',
                 'nullable',
             ],
-            'quantity' => [
+            'date_puchase_inquiry' => [
+                'date_format:' . config('panel.date_format'),
+                'nullable',
+            ],
+            'qty' => [
                 'nullable',
                 'integer',
                 'min:-2147483648',

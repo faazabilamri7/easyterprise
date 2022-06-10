@@ -14,18 +14,18 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="id_customer_id">{{ trans('cruds.customerComplain.fields.id_customer') }}</label>
-                            <select class="form-control select2" name="id_customer_id" id="id_customer_id">
-                                @foreach($id_customers as $id => $entry)
-                                    <option value="{{ $id }}" {{ old('id_customer_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                            <label for="sales_order_id">{{ trans('cruds.customerComplain.fields.sales_order') }}</label>
+                            <select class="form-control select2" name="sales_order_id" id="sales_order_id">
+                                @foreach($sales_orders as $id => $entry)
+                                    <option value="{{ $id }}" {{ old('sales_order_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
                             </select>
-                            @if($errors->has('id_customer'))
+                            @if($errors->has('sales_order'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('id_customer') }}
+                                    {{ $errors->first('sales_order') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.customerComplain.fields.id_customer_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.customerComplain.fields.sales_order_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="keluhan">{{ trans('cruds.customerComplain.fields.keluhan') }}</label>

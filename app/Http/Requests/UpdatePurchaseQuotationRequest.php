@@ -17,15 +17,7 @@ class UpdatePurchaseQuotationRequest extends FormRequest
     public function rules()
     {
         return [
-            'material_name' => [
-                'string',
-                'nullable',
-            ],
-            'status' => [
-                'string',
-                'nullable',
-            ],
-            'nego_purchase_quotation' => [
+            'id_purchase_quotation' => [
                 'string',
                 'nullable',
             ],

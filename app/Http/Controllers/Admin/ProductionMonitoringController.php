@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyProductionMonitoringRequest;
 use App\Http\Requests\StoreProductionMonitoringRequest;
 use App\Http\Requests\UpdateProductionMonitoringRequest;
+use App\Models\ListOfMaterial;
 use App\Models\ProductionMonitoring;
-use App\Models\ProductionPlan;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class ProductionMonitoringController extends Controller
     {
         abort_if(Gate::denies('production_monitoring_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productionMonitorings = ProductionMonitoring::with(['production_plan'])->get();
+        $productionMonitorings = ProductionMonitoring::with(['id_list_of_material'])->get();
 
         return view('admin.productionMonitorings.index', compact('productionMonitorings'));
     }
@@ -27,9 +27,9 @@ class ProductionMonitoringController extends Controller
     {
         abort_if(Gate::denies('production_monitoring_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.productionMonitorings.create', compact('production_plans'));
+        return view('admin.productionMonitorings.create', compact('id_list_of_materials'));
     }
 
     public function store(StoreProductionMonitoringRequest $request)
@@ -43,11 +43,11 @@ class ProductionMonitoringController extends Controller
     {
         abort_if(Gate::denies('production_monitoring_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $production_plans = ProductionPlan::pluck('tugas', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $productionMonitoring->load('production_plan');
+        $productionMonitoring->load('id_list_of_material');
 
-        return view('admin.productionMonitorings.edit', compact('productionMonitoring', 'production_plans'));
+        return view('admin.productionMonitorings.edit', compact('id_list_of_materials', 'productionMonitoring'));
     }
 
     public function update(UpdateProductionMonitoringRequest $request, ProductionMonitoring $productionMonitoring)
@@ -61,7 +61,7 @@ class ProductionMonitoringController extends Controller
     {
         abort_if(Gate::denies('production_monitoring_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productionMonitoring->load('production_plan');
+        $productionMonitoring->load('id_list_of_material', 'idProductionMonitoringQualityControls');
 
         return view('admin.productionMonitorings.show', compact('productionMonitoring'));
     }

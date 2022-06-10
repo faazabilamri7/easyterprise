@@ -28,58 +28,66 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.production_plan') }}
+                                        {{ trans('cruds.listOfMaterial.fields.id_list_of_material') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->production_plan->tugas ?? '' }}
+                                        {{ $listOfMaterial->id_list_of_material }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.tanggal_mulai') }}
+                                        {{ trans('cruds.listOfMaterial.fields.id_production_plan') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->tanggal_mulai }}
+                                        {{ $listOfMaterial->id_production_plan->id_production_plan ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.tanggal_selesai') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_air') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->tanggal_selesai }}
+                                        {{ $listOfMaterial->request_air }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.pilihan_bahan_baku') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_sukrosa') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->pilihan_bahan_baku }}
+                                        {{ $listOfMaterial->request_sukrosa }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.qty') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_dektrose') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->qty }}
+                                        {{ $listOfMaterial->request_dektrose }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.harga_satuan') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_perisa_yakult') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->harga_satuan }}
+                                        {{ $listOfMaterial->request_perisa_yakult }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.listOfMaterial.fields.total') }}
+                                        {{ trans('cruds.listOfMaterial.fields.request_susu_bubuk_krim') }}
                                     </th>
                                     <td>
-                                        {{ $listOfMaterial->total }}
+                                        {{ $listOfMaterial->request_susu_bubuk_krim }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.listOfMaterial.fields.request_polietilena_tereftalat') }}
+                                    </th>
+                                    <td>
+                                        {{ $listOfMaterial->request_polietilena_tereftalat }}
                                     </td>
                                 </tr>
                                 <tr>

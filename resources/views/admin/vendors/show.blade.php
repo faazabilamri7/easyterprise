@@ -25,14 +25,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.vendor.fields.id_purchase_inquiry') }}
-                        </th>
-                        <td>
-                            {{ $vendor->id_purchase_inquiry->date_purchase_inquiry ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.vendor.fields.nama_vendor') }}
                         </th>
                         <td>
@@ -92,10 +84,18 @@
                 {{ trans('cruds.invoicePembelian.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#vendor_name_purchase_inqs" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseInq.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="perusahaan_invoice_pembelians">
             @includeIf('admin.vendors.relationships.perusahaanInvoicePembelians', ['invoicePembelians' => $vendor->perusahaanInvoicePembelians])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="vendor_name_purchase_inqs">
+            @includeIf('admin.vendors.relationships.vendorNamePurchaseInqs', ['purchaseInqs' => $vendor->vendorNamePurchaseInqs])
         </div>
     </div>
 </div>

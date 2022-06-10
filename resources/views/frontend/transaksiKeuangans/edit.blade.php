@@ -68,20 +68,6 @@
                             <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.jenis_pembayaran_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="produk_id">{{ trans('cruds.transaksiKeuangan.fields.produk') }}</label>
-                            <select class="form-control select2" name="produk_id" id="produk_id">
-                                @foreach($produks as $id => $entry)
-                                    <option value="{{ $id }}" {{ (old('produk_id') ? old('produk_id') : $transaksiKeuangan->produk->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('produk'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('produk') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.produk_helper') }}</span>
-                        </div>
-                        <div class="form-group">
                             <label for="qty">{{ trans('cruds.transaksiKeuangan.fields.qty') }}</label>
                             <input class="form-control" type="number" name="qty" id="qty" value="{{ old('qty', $transaksiKeuangan->qty) }}" step="1">
                             @if($errors->has('qty'))
@@ -110,6 +96,20 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.total_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="sales_product_id">{{ trans('cruds.transaksiKeuangan.fields.sales_product') }}</label>
+                            <select class="form-control select2" name="sales_product_id" id="sales_product_id" required>
+                                @foreach($sales_products as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('sales_product_id') ? old('sales_product_id') : $transaksiKeuangan->sales_product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('sales_product'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('sales_product') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.sales_product_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

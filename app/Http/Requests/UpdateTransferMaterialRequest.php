@@ -17,8 +17,8 @@ class UpdateTransferMaterialRequest extends FormRequest
     public function rules()
     {
         return [
-            'tanggal_transaksi' => [
-                'date_format:' . config('panel.date_format'),
+            'id_transfer_material' => [
+                'string',
                 'nullable',
             ],
         ];

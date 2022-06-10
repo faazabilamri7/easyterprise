@@ -25,6 +25,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.task.fields.id_production_plan') }}
+                        </th>
+                        <td>
+                            {{ $task->id_production_plan }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.task.fields.id_request_product') }}
+                        </th>
+                        <td>
+                            {{ $task->id_request_product->id_request_product ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.task.fields.name') }}
                         </th>
                         <td>
@@ -77,14 +93,6 @@
                             {{ $task->due_date }}
                         </td>
                     </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.task.fields.assigned_to') }}
-                        </th>
-                        <td>
-                            {{ $task->assigned_to->name ?? '' }}
-                        </td>
-                    </tr>
                 </tbody>
             </table>
             <div class="form-group">
@@ -96,6 +104,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#id_production_plan_list_of_materials" role="tab" data-toggle="tab">
+                {{ trans('cruds.listOfMaterial.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="id_production_plan_list_of_materials">
+            @includeIf('admin.tasks.relationships.idProductionPlanListOfMaterials', ['listOfMaterials' => $task->idProductionPlanListOfMaterials])
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -25,6 +25,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.requestStockProduct.fields.id_request_product') }}
+                        </th>
+                        <td>
+                            {{ $requestStockProduct->id_request_product }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestStockProduct.fields.inquiry') }}
+                        </th>
+                        <td>
+                            {{ $requestStockProduct->inquiry->inquiry_kode ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.requestStockProduct.fields.tanggal_request') }}
                         </th>
                         <td>
@@ -33,10 +49,26 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.requestStockProduct.fields.inquiry') }}
+                            {{ trans('cruds.requestStockProduct.fields.request_product') }}
                         </th>
                         <td>
-                            {{ $requestStockProduct->inquiry->inquiry ?? '' }}
+                            {{ $requestStockProduct->request_product->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestStockProduct.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $requestStockProduct->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestStockProduct.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\RequestStockProduct::STATUS_SELECT[$requestStockProduct->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
@@ -50,6 +82,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#id_request_product_tasks" role="tab" data-toggle="tab">
+                {{ trans('cruds.task.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="id_request_product_tasks">
+            @includeIf('admin.requestStockProducts.relationships.idRequestProductTasks', ['tasks' => $requestStockProduct->idRequestProductTasks])
+        </div>
+    </div>
+</div>
 
 @endsection

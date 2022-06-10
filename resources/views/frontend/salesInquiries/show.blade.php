@@ -28,18 +28,10 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesInquiry.fields.id_customer') }}
+                                        {{ trans('cruds.salesInquiry.fields.inquiry_kode') }}
                                     </th>
                                     <td>
-                                        {{ $salesInquiry->id_customer->first_name ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.salesInquiry.fields.inquiry') }}
-                                    </th>
-                                    <td>
-                                        {{ App\Models\SalesInquiry::INQUIRY_SELECT[$salesInquiry->inquiry] ?? '' }}
+                                        {{ $salesInquiry->inquiry_kode }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -52,10 +44,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesInquiry.fields.id_product') }}
+                                        {{ trans('cruds.salesInquiry.fields.id_customer') }}
                                     </th>
                                     <td>
-                                        {{ $salesInquiry->id_product->name ?? '' }}
+                                        {{ $salesInquiry->id_customer->first_name ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesInquiry.fields.nama_produk') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesInquiry->nama_produk->name ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -72,6 +72,14 @@
                                     </th>
                                     <td>
                                         {{ App\Models\SalesInquiry::STATUS_SELECT[$salesInquiry->status] ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesInquiry.fields.catatan') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesInquiry->catatan }}
                                     </td>
                                 </tr>
                             </tbody>

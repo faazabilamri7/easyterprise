@@ -16,6 +16,17 @@ class UpdateQualityControlRequest extends FormRequest
 
     public function rules()
     {
-        return [];
+        return [
+            'id_quality_control' => [
+                'string',
+                'nullable',
+            ],
+            'qty' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
+        ];
     }
 }

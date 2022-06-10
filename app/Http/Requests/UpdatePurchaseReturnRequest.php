@@ -17,12 +17,12 @@ class UpdatePurchaseReturnRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_purchase_return' => [
-                'date_format:' . config('panel.date_format'),
+            'purchase_return' => [
+                'string',
                 'nullable',
             ],
-            'status' => [
-                'string',
+            'date_purchase_return' => [
+                'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
         ];

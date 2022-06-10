@@ -28,10 +28,26 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesReport.fields.tanggal_laporan') }}
+                                        {{ trans('cruds.salesReport.fields.status') }}
                                     </th>
                                     <td>
-                                        {{ $salesReport->tanggal_laporan }}
+                                        {{ $salesReport->status->status ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesReport.fields.tgl_sales_order') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesReport->tgl_sales_order->tanggal ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.salesReport.fields.no_sales_order') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesReport->no_sales_order->no_sales_order ?? '' }}
                                     </td>
                                 </tr>
                             </tbody>

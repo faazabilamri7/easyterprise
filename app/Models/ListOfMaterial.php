@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use \DateTimeInterface;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -15,56 +14,46 @@ class ListOfMaterial extends Model
 
     public const STATUS_SELECT = [
         'requested' => 'Requested',
+        'processed' => 'Processed',
         'delivered' => 'Delivered',
     ];
 
     public $table = 'list_of_materials';
 
     protected $dates = [
-        'tanggal_mulai',
-        'tanggal_selesai',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'production_plan_id',
-        'tanggal_mulai',
-        'tanggal_selesai',
-        'pilihan_bahan_baku',
-        'qty',
-        'harga_satuan',
-        'total',
+        'id_list_of_material',
+        'id_production_plan_id',
+        'request_air',
+        'request_sukrosa',
+        'request_dektrose',
+        'request_perisa_yakult',
+        'request_susu_bubuk_krim',
+        'request_polietilena_tereftalat',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function production_plan()
+    public function idListOfMaterialPurchaseRequitions()
     {
-        return $this->belongsTo(ProductionPlan::class, 'production_plan_id');
+        return $this->hasMany(PurchaseRequition::class, 'id_list_of_material_id', 'id');
     }
 
-    public function getTanggalMulaiAttribute($value)
+    public function idListOfMaterialProductionMonitorings()
     {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+        return $this->hasMany(ProductionMonitoring::class, 'id_list_of_material_id', 'id');
     }
 
-    public function setTanggalMulaiAttribute($value)
+    public function id_production_plan()
     {
-        $this->attributes['tanggal_mulai'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function getTanggalSelesaiAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setTanggalSelesaiAttribute($value)
-    {
-        $this->attributes['tanggal_selesai'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+        return $this->belongsTo(Task::class, 'id_production_plan_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -12,6 +12,11 @@ class RequestForQuotation extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const STATUS_SELECT = [
+        'Request Permission'  => 'Request Permission',
+        'Approved by Manager' => 'Approved by Manager',
+    ];
+
     public $table = 'request_for_quotations';
 
     protected $dates = [
@@ -21,17 +26,24 @@ class RequestForQuotation extends Model
     ];
 
     protected $fillable = [
-        'id_purchase_requisition',
-        'id_company',
-        'material_name',
-        'quantity',
-        'unit_price',
-        'total_price',
+        'id_request_for_quotation',
+        'id_purchase_requisition_id',
+        'description',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function idRequestForQuotationPurchaseInqs()
+    {
+        return $this->hasMany(PurchaseInq::class, 'id_request_for_quotation_id', 'id');
+    }
+
+    public function id_purchase_requisition()
+    {
+        return $this->belongsTo(PurchaseRequition::class, 'id_purchase_requisition_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

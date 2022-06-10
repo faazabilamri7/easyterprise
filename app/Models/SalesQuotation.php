@@ -12,6 +12,13 @@ class SalesQuotation extends Model
     use SoftDeletes;
     use HasFactory;
 
+    public const STATUS_SELECT = [
+        'Requested' => 'Requested',
+        'Accepted'  => 'Accepted',
+        'Pending'   => 'Pending',
+        'Completed' => 'Completed',
+    ];
+
     public $table = 'sales_quotations';
 
     protected $dates = [
@@ -21,8 +28,7 @@ class SalesQuotation extends Model
     ];
 
     protected $fillable = [
-        'id_sales_inquiry_id',
-        'id_customer_id',
+        'kode_inquiry_id',
         'harga',
         'status',
         'created_at',
@@ -30,14 +36,14 @@ class SalesQuotation extends Model
         'deleted_at',
     ];
 
-    public function id_sales_inquiry()
+    public function salesQuotationSalesOrders()
     {
-        return $this->belongsTo(SalesInquiry::class, 'id_sales_inquiry_id');
+        return $this->hasMany(SalesOrder::class, 'sales_quotation_id', 'id');
     }
 
-    public function id_customer()
+    public function kode_inquiry()
     {
-        return $this->belongsTo(CrmCustomer::class, 'id_customer_id');
+        return $this->belongsTo(SalesInquiry::class, 'kode_inquiry_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)
