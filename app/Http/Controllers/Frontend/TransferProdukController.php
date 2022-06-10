@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyTransferProdukRequest;
 use App\Http\Requests\StoreTransferProdukRequest;
 use App\Http\Requests\UpdateTransferProdukRequest;
+use App\Models\Product;
+use App\Models\QualityControl;
 use App\Models\TransferProduk;
 use Gate;
 use Illuminate\Http\Request;
@@ -17,7 +19,7 @@ class TransferProdukController extends Controller
     {
         abort_if(Gate::denies('transfer_produk_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transferProduks = TransferProduk::all();
+        $transferProduks = TransferProduk::with(['id_quality_control', 'product_name'])->get();
 
         return view('frontend.transferProduks.index', compact('transferProduks'));
     }
@@ -26,7 +28,11 @@ class TransferProdukController extends Controller
     {
         abort_if(Gate::denies('transfer_produk_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.transferProduks.create');
+        $id_quality_controls = QualityControl::pluck('id_quality_control', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $product_names = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.transferProduks.create', compact('id_quality_controls', 'product_names'));
     }
 
     public function store(StoreTransferProdukRequest $request)
@@ -40,7 +46,13 @@ class TransferProdukController extends Controller
     {
         abort_if(Gate::denies('transfer_produk_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.transferProduks.edit', compact('transferProduk'));
+        $id_quality_controls = QualityControl::pluck('id_quality_control', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $product_names = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $transferProduk->load('id_quality_control', 'product_name');
+
+        return view('frontend.transferProduks.edit', compact('id_quality_controls', 'product_names', 'transferProduk'));
     }
 
     public function update(UpdateTransferProdukRequest $request, TransferProduk $transferProduk)
@@ -53,6 +65,8 @@ class TransferProdukController extends Controller
     public function show(TransferProduk $transferProduk)
     {
         abort_if(Gate::denies('transfer_produk_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transferProduk->load('id_quality_control', 'product_name');
 
         return view('frontend.transferProduks.show', compact('transferProduk'));
     }

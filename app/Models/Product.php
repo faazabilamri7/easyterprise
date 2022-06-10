@@ -60,6 +60,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(RequestStockProduct::class, 'request_product_id', 'id');
     }
 
+    public function productNameTransferProduks()
+    {
+        return $this->hasMany(TransferProduk::class, 'product_name_id', 'id');
+    }
+
     public function getFotoProdukAttribute()
     {
         $file = $this->getMedia('foto_produk')->last();

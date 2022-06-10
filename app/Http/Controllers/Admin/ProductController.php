@@ -84,7 +84,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts');
+        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts', 'productNameTransferProduks');
 
         return view('admin.products.show', compact('product'));
     }

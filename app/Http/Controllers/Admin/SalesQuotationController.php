@@ -64,7 +64,7 @@ class SalesQuotationController extends Controller
     {
         abort_if(Gate::denies('sales_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesQuotation->load('kode_inquiry', 'salesQuotationSalesOrders');
+        $salesQuotation->load('kode_inquiry', 'idSalesQuotationSalesOrders');
 
         return view('admin.salesQuotations.show', compact('salesQuotation'));
     }

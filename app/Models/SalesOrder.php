@@ -30,8 +30,8 @@ class SalesOrder extends Model
 
     protected $fillable = [
         'no_sales_order',
+        'id_sales_quotation_id',
         'tanggal',
-        'sales_quotation_id',
         'detail_order',
         'status',
         'created_at',
@@ -59,6 +59,11 @@ class SalesOrder extends Model
         return $this->hasMany(TransaksiKeuangan::class, 'sales_product_id', 'id');
     }
 
+    public function id_sales_quotation()
+    {
+        return $this->belongsTo(SalesQuotation::class, 'id_sales_quotation_id');
+    }
+
     public function getTanggalAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
@@ -67,11 +72,6 @@ class SalesOrder extends Model
     public function setTanggalAttribute($value)
     {
         $this->attributes['tanggal'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function sales_quotation()
-    {
-        return $this->belongsTo(SalesQuotation::class, 'sales_quotation_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -14,6 +14,16 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
+                            <label for="id_sales_quotation">{{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}</label>
+                            <input class="form-control" type="text" name="id_sales_quotation" id="id_sales_quotation" value="{{ old('id_sales_quotation', $salesQuotation->id_sales_quotation) }}">
+                            @if($errors->has('id_sales_quotation'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_sales_quotation') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.salesQuotation.fields.id_sales_quotation_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="kode_inquiry_id">{{ trans('cruds.salesQuotation.fields.kode_inquiry') }}</label>
                             <select class="form-control select2" name="kode_inquiry_id" id="kode_inquiry_id" required>
                                 @foreach($kode_inquiries as $id => $entry)

@@ -28,6 +28,7 @@ class SalesQuotation extends Model
     ];
 
     protected $fillable = [
+        'id_sales_quotation',
         'kode_inquiry_id',
         'harga',
         'status',
@@ -36,9 +37,9 @@ class SalesQuotation extends Model
         'deleted_at',
     ];
 
-    public function salesQuotationSalesOrders()
+    public function idSalesQuotationSalesOrders()
     {
-        return $this->hasMany(SalesOrder::class, 'sales_quotation_id', 'id');
+        return $this->hasMany(SalesOrder::class, 'id_sales_quotation_id', 'id');
     }
 
     public function kode_inquiry()

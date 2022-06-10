@@ -35,6 +35,11 @@ class QualityControl extends Model
         'deleted_at',
     ];
 
+    public function idQualityControlTransferProduks()
+    {
+        return $this->hasMany(TransferProduk::class, 'id_quality_control_id', 'id');
+    }
+
     public function id_production_monitoring()
     {
         return $this->belongsTo(ProductionMonitoring::class, 'id_production_monitoring_id');

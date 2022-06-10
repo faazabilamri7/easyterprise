@@ -25,10 +25,6 @@ class UpdateSalesOrderRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
-            'sales_quotation_id' => [
-                'required',
-                'integer',
-            ],
             'detail_order' => [
                 'string',
                 'nullable',
