@@ -1,44 +1,46 @@
-@extends('layouts.admin')
-@section('content')
-@can('transfer_produk_create')
+@can('sales_order_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.transfer-produks.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.transferProduk.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.sales-orders.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.salesOrder.title_singular') }}
             </a>
         </div>
     </div>
 @endcan
+
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.transferProduk.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.salesOrder.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-TransferProduk">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-idSalesQuotationSalesOrders">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.id') }}
+                            {{ trans('cruds.salesOrder.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.id_transfer_produk') }}
+                            {{ trans('cruds.salesOrder.fields.no_sales_order') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.id_quality_control') }}
+                            {{ trans('cruds.salesOrder.fields.id_sales_quotation') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.product_name') }}
+                            {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.qty') }}
+                            {{ trans('cruds.salesOrder.fields.tanggal') }}
                         </th>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.status') }}
+                            {{ trans('cruds.salesOrder.fields.detail_order') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.salesOrder.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -46,44 +48,47 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($transferProduks as $key => $transferProduk)
-                        <tr data-entry-id="{{ $transferProduk->id }}">
+                    @foreach($salesOrders as $key => $salesOrder)
+                        <tr data-entry-id="{{ $salesOrder->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $transferProduk->id ?? '' }}
+                                {{ $salesOrder->id ?? '' }}
                             </td>
                             <td>
-                                {{ $transferProduk->id_transfer_produk ?? '' }}
+                                {{ $salesOrder->no_sales_order ?? '' }}
                             </td>
                             <td>
-                                {{ $transferProduk->id_quality_control->id_quality_control ?? '' }}
+                                {{ $salesOrder->id_sales_quotation->id_sales_quotation ?? '' }}
                             </td>
                             <td>
-                                {{ $transferProduk->product_name->name ?? '' }}
+                                {{ $salesOrder->id_sales_quotation->id_sales_quotation ?? '' }}
                             </td>
                             <td>
-                                {{ $transferProduk->qty ?? '' }}
+                                {{ $salesOrder->tanggal ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\TransferProduk::STATUS_SELECT[$transferProduk->status] ?? '' }}
+                                {{ $salesOrder->detail_order ?? '' }}
                             </td>
                             <td>
-                                @can('transfer_produk_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transfer-produks.show', $transferProduk->id) }}">
+                                {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
+                            </td>
+                            <td>
+                                @can('sales_order_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.sales-orders.show', $salesOrder->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('transfer_produk_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transfer-produks.edit', $transferProduk->id) }}">
+                                @can('sales_order_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.sales-orders.edit', $salesOrder->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('transfer_produk_delete')
-                                    <form action="{{ route('admin.transfer-produks.destroy', $transferProduk->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('sales_order_delete')
+                                    <form action="{{ route('admin.sales-orders.destroy', $salesOrder->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -100,19 +105,16 @@
     </div>
 </div>
 
-
-
-@endsection
 @section('scripts')
 @parent
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('transfer_produk_delete')
+@can('sales_order_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.transfer-produks.massDestroy') }}",
+    url: "{{ route('admin.sales-orders.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -143,7 +145,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-TransferProduk:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-idSalesQuotationSalesOrders:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

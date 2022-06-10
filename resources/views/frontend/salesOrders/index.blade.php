@@ -33,13 +33,13 @@
                                         {{ trans('cruds.salesOrder.fields.no_sales_order') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.salesOrder.fields.id_sales_quotation') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.salesOrder.fields.tanggal') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.salesQuotation.fields.status') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.salesOrder.fields.detail_order') }}
@@ -62,15 +62,13 @@
                                             {{ $salesOrder->no_sales_order ?? '' }}
                                         </td>
                                         <td>
+                                            {{ $salesOrder->id_sales_quotation->id_sales_quotation ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $salesOrder->id_sales_quotation->id_sales_quotation ?? '' }}
+                                        </td>
+                                        <td>
                                             {{ $salesOrder->tanggal ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $salesOrder->sales_quotation->harga ?? '' }}
-                                        </td>
-                                        <td>
-                                            @if($salesOrder->sales_quotation)
-                                                {{ $salesOrder->sales_quotation::STATUS_SELECT[$salesOrder->sales_quotation->status] ?? '' }}
-                                            @endif
                                         </td>
                                         <td>
                                             {{ $salesOrder->detail_order ?? '' }}

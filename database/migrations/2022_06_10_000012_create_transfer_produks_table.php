@@ -10,9 +10,9 @@ class CreateTransferProduksTable extends Migration
     {
         Schema::create('transfer_produks', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nama_produk')->nullable();
-            $table->string('transfer_dari')->nullable();
-            $table->string('transfer_ke')->nullable();
+            $table->string('id_transfer_produk')->nullable();
+            $table->integer('qty')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

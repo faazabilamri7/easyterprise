@@ -28,6 +28,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
+                                    </th>
+                                    <td>
+                                        {{ $salesQuotation->id_sales_quotation }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
                                     </th>
                                     <td>

@@ -9,8 +9,8 @@ class AddRelationshipFieldsToSalesOrdersTable extends Migration
     public function up()
     {
         Schema::table('sales_orders', function (Blueprint $table) {
-            $table->unsignedBigInteger('sales_quotation_id')->nullable();
-            $table->foreign('sales_quotation_id', 'sales_quotation_fk_6577463')->references('id')->on('sales_quotations');
+            $table->unsignedBigInteger('id_sales_quotation_id')->nullable();
+            $table->foreign('id_sales_quotation_id', 'id_sales_quotation_fk_6769598')->references('id')->on('sales_quotations');
         });
     }
 }

@@ -61,7 +61,7 @@ class QualityControlController extends Controller
     {
         abort_if(Gate::denies('quality_control_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualityControl->load('id_production_monitoring');
+        $qualityControl->load('id_production_monitoring', 'idQualityControlTransferProduks');
 
         return view('admin.qualityControls.show', compact('qualityControl'));
     }

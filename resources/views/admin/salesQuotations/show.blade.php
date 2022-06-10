@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
+                        </th>
+                        <td>
+                            {{ $salesQuotation->id_sales_quotation }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
                         </th>
                         <td>
@@ -64,14 +72,14 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#sales_quotation_sales_orders" role="tab" data-toggle="tab">
+            <a class="nav-link" href="#id_sales_quotation_sales_orders" role="tab" data-toggle="tab">
                 {{ trans('cruds.salesOrder.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="sales_quotation_sales_orders">
-            @includeIf('admin.salesQuotations.relationships.salesQuotationSalesOrders', ['salesOrders' => $salesQuotation->salesQuotationSalesOrders])
+        <div class="tab-pane" role="tabpanel" id="id_sales_quotation_sales_orders">
+            @includeIf('admin.salesQuotations.relationships.idSalesQuotationSalesOrders', ['salesOrders' => $salesQuotation->idSalesQuotationSalesOrders])
         </div>
     </div>
 </div>

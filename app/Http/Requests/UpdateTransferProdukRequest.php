@@ -17,9 +17,15 @@ class UpdateTransferProdukRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_produk' => [
+            'id_transfer_produk' => [
                 'string',
                 'nullable',
+            ],
+            'qty' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

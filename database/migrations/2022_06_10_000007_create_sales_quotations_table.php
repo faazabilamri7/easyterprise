@@ -10,6 +10,7 @@ class CreateSalesQuotationsTable extends Migration
     {
         Schema::create('sales_quotations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('id_sales_quotation')->nullable();
             $table->decimal('harga', 15, 2)->nullable();
             $table->string('status')->nullable();
             $table->timestamps();

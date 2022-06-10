@@ -66,6 +66,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#id_quality_control_transfer_produks" role="tab" data-toggle="tab">
+                {{ trans('cruds.transferProduk.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="id_quality_control_transfer_produks">
+            @includeIf('admin.qualityControls.relationships.idQualityControlTransferProduks', ['transferProduks' => $qualityControl->idQualityControlTransferProduks])
+        </div>
+    </div>
+</div>
 
 @endsection
