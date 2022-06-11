@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProductionMonitoringRequest;
 use App\Http\Requests\StoreProductionMonitoringRequest;
 use App\Http\Requests\UpdateProductionMonitoringRequest;
@@ -11,16 +12,58 @@ use App\Models\ProductionMonitoring;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductionMonitoringController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('production_monitoring_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $productionMonitorings = ProductionMonitoring::with(['id_list_of_material'])->get();
+        if ($request->ajax()) {
+            $query = ProductionMonitoring::with(['id_list_of_material'])->select(sprintf('%s.*', (new ProductionMonitoring())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.productionMonitorings.index', compact('productionMonitorings'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'production_monitoring_show';
+                $editGate = 'production_monitoring_edit';
+                $deleteGate = 'production_monitoring_delete';
+                $crudRoutePart = 'production-monitorings';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_production_monitoring', function ($row) {
+                return $row->id_production_monitoring ? $row->id_production_monitoring : '';
+            });
+            $table->addColumn('id_list_of_material_id_list_of_material', function ($row) {
+                return $row->id_list_of_material ? $row->id_list_of_material->id_list_of_material : '';
+            });
+
+            $table->editColumn('id_list_of_material.id_list_of_material', function ($row) {
+                return $row->id_list_of_material ? (is_string($row->id_list_of_material) ? $row->id_list_of_material : $row->id_list_of_material->id_list_of_material) : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? ProductionMonitoring::STATUS_SELECT[$row->status] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_list_of_material']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.productionMonitorings.index');
     }
 
     public function create()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyProductionMonitoringRequest;
 use App\Http\Requests\StoreProductionMonitoringRequest;
 use App\Http\Requests\UpdateProductionMonitoringRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ProductionMonitoringController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('production_monitoring_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

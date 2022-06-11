@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyListOfMaterialRequest;
 use App\Http\Requests\StoreListOfMaterialRequest;
 use App\Http\Requests\UpdateListOfMaterialRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ListOfMaterialController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('list_of_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

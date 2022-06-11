@@ -42,6 +42,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#category_faq_questions" role="tab" data-toggle="tab">
+                {{ trans('cruds.faqQuestion.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="category_faq_questions">
+            @includeIf('admin.faqCategories.relationships.categoryFaqQuestions', ['faqQuestions' => $faqCategory->categoryFaqQuestions])
+        </div>
+    </div>
+</div>
 
 @endsection

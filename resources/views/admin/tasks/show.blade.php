@@ -41,6 +41,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.task.fields.id_mesin') }}
+                        </th>
+                        <td>
+                            {{ $task->id_mesin->id_mesin ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.task.fields.name') }}
                         </th>
                         <td>

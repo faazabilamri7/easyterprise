@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.production-monitorings.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.productionMonitoring.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'ProductionMonitoring', 'route' => 'admin.production-monitorings.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-ProductionMonitoring">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.productionMonitoring.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}
                                     </th>
@@ -45,9 +46,6 @@
                             <tbody>
                                 @foreach($productionMonitorings as $key => $productionMonitoring)
                                     <tr data-entry-id="{{ $productionMonitoring->id }}">
-                                        <td>
-                                            {{ $productionMonitoring->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $productionMonitoring->id_production_monitoring ?? '' }}
                                         </td>

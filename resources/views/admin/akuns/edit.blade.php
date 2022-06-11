@@ -14,9 +14,7 @@
                 <label for="nama">{{ trans('cruds.akun.fields.nama') }}</label>
                 <input class="form-control {{ $errors->has('nama') ? 'is-invalid' : '' }}" type="text" name="nama" id="nama" value="{{ old('nama', $akun->nama) }}">
                 @if($errors->has('nama'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('nama') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('nama') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.akun.fields.nama_helper') }}</span>
             </div>
@@ -24,9 +22,7 @@
                 <label for="jenis_akun">{{ trans('cruds.akun.fields.jenis_akun') }}</label>
                 <input class="form-control {{ $errors->has('jenis_akun') ? 'is-invalid' : '' }}" type="text" name="jenis_akun" id="jenis_akun" value="{{ old('jenis_akun', $akun->jenis_akun) }}">
                 @if($errors->has('jenis_akun'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('jenis_akun') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('jenis_akun') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.akun.fields.jenis_akun_helper') }}</span>
             </div>

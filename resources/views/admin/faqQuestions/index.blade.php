@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.faq-questions.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.faqQuestion.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'FaqQuestion', 'route' => 'admin.faq-questions.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -15,76 +19,30 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-FaqQuestion">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-FaqQuestion">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.faqQuestion.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.faqQuestion.fields.category') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.faqQuestion.fields.question') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.faqQuestion.fields.answer') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($faqQuestions as $key => $faqQuestion)
-                        <tr data-entry-id="{{ $faqQuestion->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $faqQuestion->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $faqQuestion->category->category ?? '' }}
-                            </td>
-                            <td>
-                                {{ $faqQuestion->question ?? '' }}
-                            </td>
-                            <td>
-                                {{ $faqQuestion->answer ?? '' }}
-                            </td>
-                            <td>
-                                @can('faq_question_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.faq-questions.show', $faqQuestion->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('faq_question_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.faq-questions.edit', $faqQuestion->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('faq_question_delete')
-                                    <form action="{{ route('admin.faq-questions.destroy', $faqQuestion->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.faqQuestion.fields.id') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.faqQuestion.fields.category') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.faqQuestion.fields.question') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.faqQuestion.fields.answer') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -97,14 +55,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('faq_question_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.faq-questions.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -126,18 +84,32 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.faq-questions.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id', name: 'id' },
+{ data: 'category_category', name: 'category.category' },
+{ data: 'question', name: 'question' },
+{ data: 'answer', name: 'answer' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-FaqQuestion:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-FaqQuestion').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

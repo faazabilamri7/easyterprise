@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ExpenseCategory extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'expense_categories';
@@ -26,6 +28,11 @@ class ExpenseCategory extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function expenseCategoryExpenses()
+    {
+        return $this->hasMany(Expense::class, 'expense_category_id', 'id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

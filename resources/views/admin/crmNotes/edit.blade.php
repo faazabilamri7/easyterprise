@@ -18,19 +18,39 @@
                     @endforeach
                 </select>
                 @if($errors->has('customer'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('customer') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('customer') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.crmNote.fields.customer_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="keluhan">{{ trans('cruds.crmNote.fields.keluhan') }}</label>
+                <input class="form-control {{ $errors->has('keluhan') ? 'is-invalid' : '' }}" type="text" name="keluhan" id="keluhan" value="{{ old('keluhan', $crmNote->keluhan) }}">
+                @if($errors->has('keluhan'))
+                    <span class="text-danger">{{ $errors->first('keluhan') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.crmNote.fields.keluhan_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="kritik">{{ trans('cruds.crmNote.fields.kritik') }}</label>
+                <input class="form-control {{ $errors->has('kritik') ? 'is-invalid' : '' }}" type="text" name="kritik" id="kritik" value="{{ old('kritik', $crmNote->kritik) }}">
+                @if($errors->has('kritik'))
+                    <span class="text-danger">{{ $errors->first('kritik') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.crmNote.fields.kritik_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="saran">{{ trans('cruds.crmNote.fields.saran') }}</label>
+                <input class="form-control {{ $errors->has('saran') ? 'is-invalid' : '' }}" type="text" name="saran" id="saran" value="{{ old('saran', $crmNote->saran) }}">
+                @if($errors->has('saran'))
+                    <span class="text-danger">{{ $errors->first('saran') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.crmNote.fields.saran_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="note">{{ trans('cruds.crmNote.fields.note') }}</label>
                 <textarea class="form-control {{ $errors->has('note') ? 'is-invalid' : '' }}" name="note" id="note" required>{{ old('note', $crmNote->note) }}</textarea>
                 @if($errors->has('note'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('note') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('note') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.crmNote.fields.note_helper') }}</span>
             </div>

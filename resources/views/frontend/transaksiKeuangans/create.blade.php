@@ -14,8 +14,8 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="kas_bank_id">{{ trans('cruds.transaksiKeuangan.fields.kas_bank') }}</label>
-                            <select class="form-control select2" name="kas_bank_id" id="kas_bank_id">
+                            <label class="required" for="kas_bank_id">{{ trans('cruds.transaksiKeuangan.fields.kas_bank') }}</label>
+                            <select class="form-control select2" name="kas_bank_id" id="kas_bank_id" required>
                                 @foreach($kas_banks as $id => $entry)
                                     <option value="{{ $id }}" {{ old('kas_bank_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

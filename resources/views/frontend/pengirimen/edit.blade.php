@@ -14,14 +14,28 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="nama_customer">{{ trans('cruds.pengiriman.fields.nama_customer') }}</label>
-                            <input class="form-control" type="text" name="nama_customer" id="nama_customer" value="{{ old('nama_customer', $pengiriman->nama_customer) }}">
-                            @if($errors->has('nama_customer'))
+                            <label class="required" for="id_pengiriman">{{ trans('cruds.pengiriman.fields.id_pengiriman') }}</label>
+                            <input class="form-control" type="text" name="id_pengiriman" id="id_pengiriman" value="{{ old('id_pengiriman', $pengiriman->id_pengiriman) }}" required>
+                            @if($errors->has('id_pengiriman'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('nama_customer') }}
+                                    {{ $errors->first('id_pengiriman') }}
                                 </div>
                             @endif
-                            <span class="help-block">{{ trans('cruds.pengiriman.fields.nama_customer_helper') }}</span>
+                            <span class="help-block">{{ trans('cruds.pengiriman.fields.id_pengiriman_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="no_sales_order_id">{{ trans('cruds.pengiriman.fields.no_sales_order') }}</label>
+                            <select class="form-control select2" name="no_sales_order_id" id="no_sales_order_id" required>
+                                @foreach($no_sales_orders as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('no_sales_order_id') ? old('no_sales_order_id') : $pengiriman->no_sales_order->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('no_sales_order'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('no_sales_order') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.pengiriman.fields.no_sales_order_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('cruds.pengiriman.fields.status_pengiriman') }}</label>
@@ -37,16 +51,6 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.pengiriman.fields.status_pengiriman_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label for="alamat_pengiriman">{{ trans('cruds.pengiriman.fields.alamat_pengiriman') }}</label>
-                            <textarea class="form-control" name="alamat_pengiriman" id="alamat_pengiriman">{{ old('alamat_pengiriman', $pengiriman->alamat_pengiriman) }}</textarea>
-                            @if($errors->has('alamat_pengiriman'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('alamat_pengiriman') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.pengiriman.fields.alamat_pengiriman_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-danger" type="submit">

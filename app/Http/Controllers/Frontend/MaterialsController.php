@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyMaterialRequest;
 use App\Http\Requests\StoreMaterialRequest;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MaterialsController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {
@@ -79,6 +81,8 @@ class MaterialsController extends Controller
     public function show(Material $material)
     {
         abort_if(Gate::denies('material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $material->load('material1PurchaseRequitions', 'material2PurchaseRequitions', 'material3PurchaseRequitions', 'material4PurchaseRequitions', 'material5PurchaseRequitions', 'material6PurchaseRequitions', 'nameMaterialPurchaseInqs');
 
         return view('frontend.materials.show', compact('material'));
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TaskTag extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'task_tags';
@@ -26,6 +28,11 @@ class TaskTag extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function tagTasks()
+    {
+        return $this->belongsToMany(Task::class);
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

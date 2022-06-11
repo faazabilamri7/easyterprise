@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyJurnalUmumRequest;
 use App\Http\Requests\StoreJurnalUmumRequest;
 use App\Http\Requests\UpdateJurnalUmumRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class JurnalUmumController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('jurnal_umum_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

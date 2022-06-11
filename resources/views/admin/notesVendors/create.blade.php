@@ -17,9 +17,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('vendor'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('vendor') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('vendor') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.notesVendor.fields.vendor_helper') }}</span>
             </div>
@@ -27,9 +25,7 @@
                 <label class="required" for="note">{{ trans('cruds.notesVendor.fields.note') }}</label>
                 <textarea class="form-control {{ $errors->has('note') ? 'is-invalid' : '' }}" name="note" id="note" required>{{ old('note') }}</textarea>
                 @if($errors->has('note'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('note') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('note') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.notesVendor.fields.note_helper') }}</span>
             </div>

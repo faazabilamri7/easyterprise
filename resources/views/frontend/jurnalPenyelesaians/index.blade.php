@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.jurnal-penyelesaians.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.jurnalPenyelesaian.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'JurnalPenyelesaian', 'route' => 'admin.jurnal-penyelesaians.parseCsvImport'])
                     </div>
                 </div>
             @endcan

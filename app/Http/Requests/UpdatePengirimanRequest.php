@@ -17,9 +17,13 @@ class UpdatePengirimanRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_customer' => [
+            'id_pengiriman' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'no_sales_order_id' => [
+                'required',
+                'integer',
             ],
         ];
     }

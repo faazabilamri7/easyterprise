@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,15 +12,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RequestStockProduct extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'Sales Inquiry Pending' => 'Sales Inquiry Pending',
-        'Requested'             => 'Requested by Warehouse',
-        'Accepted'              => 'Accepted by Production',
-        'On Process'            => 'Production Process',
-        'Completed'             => 'Production Completed',
-        'Pending'               => 'Production Pending',
+        'Requested'  => 'Requested by Warehouse',
+        'Accepted'   => 'Accepted by Production',
+        'On Process' => 'Production Process',
+        'Completed'  => 'Production Completed',
+        'Pending'    => 'Production Pending',
     ];
 
     public $table = 'request_stock_products';

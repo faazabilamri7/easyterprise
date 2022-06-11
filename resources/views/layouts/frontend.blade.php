@@ -97,16 +97,6 @@
                                             {{ trans('cruds.salesOrder.title') }}
                                         </a>
                                     @endcan
-                                    @can('sales_report_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.sales-reports.index') }}">
-                                            {{ trans('cruds.salesReport.title') }}
-                                        </a>
-                                    @endcan
-                                    @can('customer_complain_access')
-                                        <a class="dropdown-item ml-3" href="{{ route('frontend.customer-complains.index') }}">
-                                            {{ trans('cruds.customerComplain.title') }}
-                                        </a>
-                                    @endcan
                                     @can('product_management_access')
                                         <a class="dropdown-item disabled" href="#">
                                             {{ trans('cruds.productManagement.title') }}

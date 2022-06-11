@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_request_for_quotation">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}</label>
-                            <input class="form-control" type="text" name="id_request_for_quotation" id="id_request_for_quotation" value="{{ old('id_request_for_quotation', $requestForQuotation->id_request_for_quotation) }}">
+                            <label class="required" for="id_request_for_quotation">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}</label>
+                            <input class="form-control" type="text" name="id_request_for_quotation" id="id_request_for_quotation" value="{{ old('id_request_for_quotation', $requestForQuotation->id_request_for_quotation) }}" required>
                             @if($errors->has('id_request_for_quotation'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_request_for_quotation') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_purchase_requisition_id">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}</label>
-                            <select class="form-control select2" name="id_purchase_requisition_id" id="id_purchase_requisition_id">
+                            <label class="required" for="id_purchase_requisition_id">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}</label>
+                            <select class="form-control select2" name="id_purchase_requisition_id" id="id_purchase_requisition_id" required>
                                 @foreach($id_purchase_requisitions as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_purchase_requisition_id') ? old('id_purchase_requisition_id') : $requestForQuotation->id_purchase_requisition->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.transaksi-keuangans.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.transaksiKeuangan.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'TransaksiKeuangan', 'route' => 'admin.transaksi-keuangans.parseCsvImport'])
                     </div>
                 </div>
             @endcan

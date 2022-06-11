@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CrmNote extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'crm_notes';
@@ -22,6 +24,9 @@ class CrmNote extends Model
 
     protected $fillable = [
         'customer_id',
+        'keluhan',
+        'kritik',
+        'saran',
         'note',
         'created_at',
         'updated_at',

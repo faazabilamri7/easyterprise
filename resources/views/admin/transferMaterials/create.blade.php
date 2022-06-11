@@ -10,12 +10,10 @@
         <form method="POST" action="{{ route("admin.transfer-materials.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
-                <input class="form-control {{ $errors->has('id_transfer_material') ? 'is-invalid' : '' }}" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', '') }}">
+                <label class="required" for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
+                <input class="form-control {{ $errors->has('id_transfer_material') ? 'is-invalid' : '' }}" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', '') }}" required>
                 @if($errors->has('id_transfer_material'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_transfer_material') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_transfer_material') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferMaterial.fields.id_transfer_material_helper') }}</span>
             </div>
@@ -28,9 +26,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferMaterial.fields.status_helper') }}</span>
             </div>

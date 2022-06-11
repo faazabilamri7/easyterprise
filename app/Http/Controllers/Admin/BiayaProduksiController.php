@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyBiayaProduksiRequest;
 use App\Http\Requests\StoreBiayaProduksiRequest;
 use App\Http\Requests\UpdateBiayaProduksiRequest;
@@ -10,16 +11,55 @@ use App\Models\BiayaProduksi;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class BiayaProduksiController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('biaya_produksi_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $biayaProduksis = BiayaProduksi::all();
+        if ($request->ajax()) {
+            $query = BiayaProduksi::query()->select(sprintf('%s.*', (new BiayaProduksi())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.biayaProduksis.index', compact('biayaProduksis'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'biaya_produksi_show';
+                $editGate = 'biaya_produksi_edit';
+                $deleteGate = 'biaya_produksi_delete';
+                $crudRoutePart = 'biaya-produksis';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+
+            $table->editColumn('periode', function ($row) {
+                return $row->periode ? $row->periode : '';
+            });
+            $table->editColumn('desc', function ($row) {
+                return $row->desc ? $row->desc : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.biayaProduksis.index');
     }
 
     public function create()

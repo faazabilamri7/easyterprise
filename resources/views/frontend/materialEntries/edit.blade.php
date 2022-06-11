@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_material_entry">{{ trans('cruds.materialEntry.fields.id_material_entry') }}</label>
-                            <input class="form-control" type="text" name="id_material_entry" id="id_material_entry" value="{{ old('id_material_entry', $materialEntry->id_material_entry) }}">
+                            <label class="required" for="id_material_entry">{{ trans('cruds.materialEntry.fields.id_material_entry') }}</label>
+                            <input class="form-control" type="text" name="id_material_entry" id="id_material_entry" value="{{ old('id_material_entry', $materialEntry->id_material_entry) }}" required>
                             @if($errors->has('id_material_entry'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_material_entry') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.materialEntry.fields.id_material_entry_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_purchase_order_id">{{ trans('cruds.materialEntry.fields.id_purchase_order') }}</label>
-                            <select class="form-control select2" name="id_purchase_order_id" id="id_purchase_order_id">
+                            <label class="required" for="id_purchase_order_id">{{ trans('cruds.materialEntry.fields.id_purchase_order') }}</label>
+                            <select class="form-control select2" name="id_purchase_order_id" id="id_purchase_order_id" required>
                                 @foreach($id_purchase_orders as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_purchase_order_id') ? old('id_purchase_order_id') : $materialEntry->id_purchase_order->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

@@ -28,10 +28,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.pengiriman.fields.nama_customer') }}
+                                        {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
                                     </th>
                                     <td>
-                                        {{ $pengiriman->nama_customer }}
+                                        {{ $pengiriman->id_pengiriman }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        {{ trans('cruds.pengiriman.fields.no_sales_order') }}
+                                    </th>
+                                    <td>
+                                        {{ $pengiriman->no_sales_order->no_sales_order ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -40,14 +48,6 @@
                                     </th>
                                     <td>
                                         {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        {{ trans('cruds.pengiriman.fields.alamat_pengiriman') }}
-                                    </th>
-                                    <td>
-                                        {{ $pengiriman->alamat_pengiriman }}
                                     </td>
                                 </tr>
                             </tbody>

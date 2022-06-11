@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SalesOrder extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_SELECT = [
@@ -34,29 +36,20 @@ class SalesOrder extends Model
         'tanggal',
         'detail_order',
         'status',
+        'finance',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
-    public function salesOrderCustomerComplains()
-    {
-        return $this->hasMany(CustomerComplain::class, 'sales_order_id', 'id');
-    }
-
-    public function statusSalesReports()
-    {
-        return $this->hasMany(SalesReport::class, 'status_id', 'id');
-    }
-
-    public function tglSalesOrderSalesReports()
-    {
-        return $this->hasMany(SalesReport::class, 'tgl_sales_order_id', 'id');
-    }
-
     public function salesProductTransaksiKeuangans()
     {
         return $this->hasMany(TransaksiKeuangan::class, 'sales_product_id', 'id');
+    }
+
+    public function noSalesOrderPengirimen()
+    {
+        return $this->hasMany(Pengiriman::class, 'no_sales_order_id', 'id');
     }
 
     public function id_sales_quotation()

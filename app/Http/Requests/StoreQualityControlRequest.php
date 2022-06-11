@@ -19,7 +19,11 @@ class StoreQualityControlRequest extends FormRequest
         return [
             'id_quality_control' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_production_monitoring_id' => [
+                'required',
+                'integer',
             ],
             'qty' => [
                 'nullable',

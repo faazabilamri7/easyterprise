@@ -25,6 +25,7 @@ class UpdateProductRequest extends FormRequest
                 'integer',
             ],
             'categories' => [
+                'required',
                 'array',
             ],
             'stok' => [

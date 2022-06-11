@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.request-stock-products.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.requestStockProduct.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'RequestStockProduct', 'route' => 'admin.request-stock-products.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-RequestStockProduct">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.requestStockProduct.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.requestStockProduct.fields.id_request_product') }}
                                     </th>
@@ -51,9 +52,6 @@
                             <tbody>
                                 @foreach($requestStockProducts as $key => $requestStockProduct)
                                     <tr data-entry-id="{{ $requestStockProduct->id }}">
-                                        <td>
-                                            {{ $requestStockProduct->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $requestStockProduct->id_request_product ?? '' }}
                                         </td>

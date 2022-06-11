@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyKasBankRequest;
 use App\Http\Requests\StoreKasBankRequest;
 use App\Http\Requests\UpdateKasBankRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class KasBankController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('kas_bank_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

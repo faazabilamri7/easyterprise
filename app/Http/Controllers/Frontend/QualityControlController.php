@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyQualityControlRequest;
 use App\Http\Requests\StoreQualityControlRequest;
 use App\Http\Requests\UpdateQualityControlRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class QualityControlController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('quality_control_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -61,7 +64,7 @@ class QualityControlController extends Controller
     {
         abort_if(Gate::denies('quality_control_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $qualityControl->load('id_production_monitoring');
+        $qualityControl->load('id_production_monitoring', 'idQualityControlTransferProduks');
 
         return view('frontend.qualityControls.show', compact('qualityControl'));
     }

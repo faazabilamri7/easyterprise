@@ -25,6 +25,7 @@ class StoreProductRequest extends FormRequest
                 'integer',
             ],
             'categories' => [
+                'required',
                 'array',
             ],
             'stok' => [

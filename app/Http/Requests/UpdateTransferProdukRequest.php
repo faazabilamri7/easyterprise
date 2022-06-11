@@ -19,7 +19,15 @@ class UpdateTransferProdukRequest extends FormRequest
         return [
             'id_transfer_produk' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_quality_control_id' => [
+                'required',
+                'integer',
+            ],
+            'product_name_id' => [
+                'required',
+                'integer',
             ],
             'qty' => [
                 'nullable',

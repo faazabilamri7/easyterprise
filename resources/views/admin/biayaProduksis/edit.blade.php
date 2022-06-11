@@ -14,9 +14,7 @@
                 <label for="tanggal">{{ trans('cruds.biayaProduksi.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $biayaProduksi->tanggal) }}">
                 @if($errors->has('tanggal'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tanggal') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.tanggal_helper') }}</span>
             </div>
@@ -24,9 +22,7 @@
                 <label for="periode">{{ trans('cruds.biayaProduksi.fields.periode') }}</label>
                 <input class="form-control {{ $errors->has('periode') ? 'is-invalid' : '' }}" type="text" name="periode" id="periode" value="{{ old('periode', $biayaProduksi->periode) }}">
                 @if($errors->has('periode'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('periode') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('periode') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.periode_helper') }}</span>
             </div>
@@ -34,9 +30,7 @@
                 <label for="desc">{{ trans('cruds.biayaProduksi.fields.desc') }}</label>
                 <input class="form-control {{ $errors->has('desc') ? 'is-invalid' : '' }}" type="text" name="desc" id="desc" value="{{ old('desc', $biayaProduksi->desc) }}">
                 @if($errors->has('desc'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('desc') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('desc') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.desc_helper') }}</span>
             </div>

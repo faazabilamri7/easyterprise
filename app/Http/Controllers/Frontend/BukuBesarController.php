@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyBukuBesarRequest;
 use App\Http\Requests\StoreBukuBesarRequest;
 use App\Http\Requests\UpdateBukuBesarRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class BukuBesarController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('buku_besar_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

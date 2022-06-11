@@ -17,6 +17,10 @@ class StoreIncomeRequest extends FormRequest
     public function rules()
     {
         return [
+            'income_category_id' => [
+                'required',
+                'integer',
+            ],
             'entry_date' => [
                 'required',
                 'date_format:' . config('panel.date_format'),

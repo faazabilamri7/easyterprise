@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransferProdukRequest;
 use App\Http\Requests\StoreTransferProdukRequest;
 use App\Http\Requests\UpdateTransferProdukRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TransferProdukController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('transfer_produk_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

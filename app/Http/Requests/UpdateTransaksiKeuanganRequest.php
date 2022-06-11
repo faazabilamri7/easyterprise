@@ -17,6 +17,10 @@ class UpdateTransaksiKeuanganRequest extends FormRequest
     public function rules()
     {
         return [
+            'kas_bank_id' => [
+                'required',
+                'integer',
+            ],
             'tanggal' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',

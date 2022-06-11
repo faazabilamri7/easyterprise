@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.permissions.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.permission.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Permission', 'route' => 'admin.permissions.parseCsvImport'])
                     </div>
                 </div>
             @endcan

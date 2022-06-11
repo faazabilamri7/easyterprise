@@ -42,6 +42,30 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#location_assets" role="tab" data-toggle="tab">
+                {{ trans('cruds.asset.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#location_assets_histories" role="tab" data-toggle="tab">
+                {{ trans('cruds.assetsHistory.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="location_assets">
+            @includeIf('admin.assetLocations.relationships.locationAssets', ['assets' => $assetLocation->locationAssets])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="location_assets_histories">
+            @includeIf('admin.assetLocations.relationships.locationAssetsHistories', ['assetsHistories' => $assetLocation->locationAssetsHistories])
+        </div>
+    </div>
+</div>
 
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyFaqCategoryRequest;
 use App\Http\Requests\StoreFaqCategoryRequest;
 use App\Http\Requests\UpdateFaqCategoryRequest;
@@ -10,16 +11,51 @@ use App\Models\FaqCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class FaqCategoryController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('faq_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $faqCategories = FaqCategory::all();
+        if ($request->ajax()) {
+            $query = FaqCategory::query()->select(sprintf('%s.*', (new FaqCategory())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.faqCategories.index', compact('faqCategories'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'faq_category_show';
+                $editGate = 'faq_category_edit';
+                $deleteGate = 'faq_category_delete';
+                $crudRoutePart = 'faq-categories';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('category', function ($row) {
+                return $row->category ? $row->category : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.faqCategories.index');
     }
 
     public function create()
@@ -53,6 +89,8 @@ class FaqCategoryController extends Controller
     public function show(FaqCategory $faqCategory)
     {
         abort_if(Gate::denies('faq_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $faqCategory->load('categoryFaqQuestions');
 
         return view('admin.faqCategories.show', compact('faqCategory'));
     }

@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_list_of_material">{{ trans('cruds.listOfMaterial.fields.id_list_of_material') }}</label>
-                            <input class="form-control" type="text" name="id_list_of_material" id="id_list_of_material" value="{{ old('id_list_of_material', $listOfMaterial->id_list_of_material) }}">
+                            <label class="required" for="id_list_of_material">{{ trans('cruds.listOfMaterial.fields.id_list_of_material') }}</label>
+                            <input class="form-control" type="text" name="id_list_of_material" id="id_list_of_material" value="{{ old('id_list_of_material', $listOfMaterial->id_list_of_material) }}" required>
                             @if($errors->has('id_list_of_material'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_list_of_material') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.listOfMaterial.fields.id_list_of_material_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_production_plan_id">{{ trans('cruds.listOfMaterial.fields.id_production_plan') }}</label>
-                            <select class="form-control select2" name="id_production_plan_id" id="id_production_plan_id">
+                            <label class="required" for="id_production_plan_id">{{ trans('cruds.listOfMaterial.fields.id_production_plan') }}</label>
+                            <select class="form-control select2" name="id_production_plan_id" id="id_production_plan_id" required>
                                 @foreach($id_production_plans as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_production_plan_id') ? old('id_production_plan_id') : $listOfMaterial->id_production_plan->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use \DateTimeInterface;
 use App\Notifications\VerifyUserNotification;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Auth\Notifications\ResetPassword;
@@ -18,6 +19,7 @@ class User extends Authenticatable
 {
     use SoftDeletes;
     use Notifiable;
+    use Auditable;
     use HasFactory;
 
     public $table = 'users';
@@ -80,6 +82,16 @@ class User extends Authenticatable
     public function getIsAdminAttribute()
     {
         return $this->roles()->where('id', 1)->exists();
+    }
+
+    public function assignedToAssets()
+    {
+        return $this->hasMany(Asset::class, 'assigned_to_id', 'id');
+    }
+
+    public function assignedUserAssetsHistories()
+    {
+        return $this->hasMany(AssetsHistory::class, 'assigned_user_id', 'id');
     }
 
     public function userUserAlerts()

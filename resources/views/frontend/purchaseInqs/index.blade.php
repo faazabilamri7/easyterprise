@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.purchase-inqs.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.purchaseInq.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'PurchaseInq', 'route' => 'admin.purchase-inqs.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-PurchaseInq">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.purchaseInq.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.purchaseInq.fields.id_purchase_inquiry') }}
                                     </th>
@@ -51,9 +52,6 @@
                             <tbody>
                                 @foreach($purchaseInqs as $key => $purchaseInq)
                                     <tr data-entry-id="{{ $purchaseInq->id }}">
-                                        <td>
-                                            {{ $purchaseInq->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $purchaseInq->id_purchase_inquiry ?? '' }}
                                         </td>

@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.necaraSaldo.fields.tanggal_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="akun_id">{{ trans('cruds.necaraSaldo.fields.akun') }}</label>
-                            <select class="form-control select2" name="akun_id" id="akun_id">
+                            <label class="required" for="akun_id">{{ trans('cruds.necaraSaldo.fields.akun') }}</label>
+                            <select class="form-control select2" name="akun_id" id="akun_id" required>
                                 @foreach($akuns as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('akun_id') ? old('akun_id') : $necaraSaldo->akun->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_transfer_produk">{{ trans('cruds.transferProduk.fields.id_transfer_produk') }}</label>
-                            <input class="form-control" type="text" name="id_transfer_produk" id="id_transfer_produk" value="{{ old('id_transfer_produk', $transferProduk->id_transfer_produk) }}">
+                            <label class="required" for="id_transfer_produk">{{ trans('cruds.transferProduk.fields.id_transfer_produk') }}</label>
+                            <input class="form-control" type="text" name="id_transfer_produk" id="id_transfer_produk" value="{{ old('id_transfer_produk', $transferProduk->id_transfer_produk) }}" required>
                             @if($errors->has('id_transfer_produk'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_transfer_produk') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.transferProduk.fields.id_transfer_produk_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_quality_control_id">{{ trans('cruds.transferProduk.fields.id_quality_control') }}</label>
-                            <select class="form-control select2" name="id_quality_control_id" id="id_quality_control_id">
+                            <label class="required" for="id_quality_control_id">{{ trans('cruds.transferProduk.fields.id_quality_control') }}</label>
+                            <select class="form-control select2" name="id_quality_control_id" id="id_quality_control_id" required>
                                 @foreach($id_quality_controls as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_quality_control_id') ? old('id_quality_control_id') : $transferProduk->id_quality_control->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
@@ -38,8 +38,8 @@
                             <span class="help-block">{{ trans('cruds.transferProduk.fields.id_quality_control_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="product_name_id">{{ trans('cruds.transferProduk.fields.product_name') }}</label>
-                            <select class="form-control select2" name="product_name_id" id="product_name_id">
+                            <label class="required" for="product_name_id">{{ trans('cruds.transferProduk.fields.product_name') }}</label>
+                            <select class="form-control select2" name="product_name_id" id="product_name_id" required>
                                 @foreach($product_names as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('product_name_id') ? old('product_name_id') : $transferProduk->product_name->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

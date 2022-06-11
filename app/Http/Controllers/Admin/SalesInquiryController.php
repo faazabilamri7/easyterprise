@@ -13,18 +13,66 @@ use App\Models\SalesInquiry;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalesInquiryController extends Controller
 {
     use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('sales_inquiry_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesInquiries = SalesInquiry::with(['id_customer', 'nama_produk'])->get();
+        if ($request->ajax()) {
+            $query = SalesInquiry::with(['id_customer', 'nama_produk'])->select(sprintf('%s.*', (new SalesInquiry())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.salesInquiries.index', compact('salesInquiries'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'sales_inquiry_show';
+                $editGate = 'sales_inquiry_edit';
+                $deleteGate = 'sales_inquiry_delete';
+                $crudRoutePart = 'sales-inquiries';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('inquiry_kode', function ($row) {
+                return $row->inquiry_kode ? $row->inquiry_kode : '';
+            });
+
+            $table->addColumn('id_customer_first_name', function ($row) {
+                return $row->id_customer ? $row->id_customer->first_name : '';
+            });
+
+            $table->addColumn('nama_produk_name', function ($row) {
+                return $row->nama_produk ? $row->nama_produk->name : '';
+            });
+
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? SalesInquiry::STATUS_SELECT[$row->status] : '';
+            });
+            $table->editColumn('catatan', function ($row) {
+                return $row->catatan ? $row->catatan : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_customer', 'nama_produk']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.salesInquiries.index');
     }
 
     public function create()

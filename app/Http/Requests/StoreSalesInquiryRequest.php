@@ -19,7 +19,7 @@ class StoreSalesInquiryRequest extends FormRequest
         return [
             'inquiry_kode' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'tgl_inquiry' => [
                 'required',

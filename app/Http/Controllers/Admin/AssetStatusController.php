@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyAssetStatusRequest;
 use App\Http\Requests\StoreAssetStatusRequest;
 use App\Http\Requests\UpdateAssetStatusRequest;
@@ -10,16 +11,51 @@ use App\Models\AssetStatus;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class AssetStatusController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('asset_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assetStatuses = AssetStatus::all();
+        if ($request->ajax()) {
+            $query = AssetStatus::query()->select(sprintf('%s.*', (new AssetStatus())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.assetStatuses.index', compact('assetStatuses'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'asset_status_show';
+                $editGate = 'asset_status_edit';
+                $deleteGate = 'asset_status_delete';
+                $crudRoutePart = 'asset-statuses';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.assetStatuses.index');
     }
 
     public function create()
@@ -53,6 +89,8 @@ class AssetStatusController extends Controller
     public function show(AssetStatus $assetStatus)
     {
         abort_if(Gate::denies('asset_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $assetStatus->load('statusAssets', 'statusAssetsHistories');
 
         return view('admin.assetStatuses.show', compact('assetStatus'));
     }

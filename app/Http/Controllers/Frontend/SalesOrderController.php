@@ -64,7 +64,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrder->load('id_sales_quotation', 'salesOrderCustomerComplains', 'statusSalesReports', 'tglSalesOrderSalesReports', 'salesProductTransaksiKeuangans');
+        $salesOrder->load('id_sales_quotation', 'salesProductTransaksiKeuangans', 'noSalesOrderPengirimen');
 
         return view('frontend.salesOrders.show', compact('salesOrder'));
     }

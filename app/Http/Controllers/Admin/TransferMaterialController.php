@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransferMaterialRequest;
 use App\Http\Requests\StoreTransferMaterialRequest;
 use App\Http\Requests\UpdateTransferMaterialRequest;
@@ -10,16 +11,51 @@ use App\Models\TransferMaterial;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransferMaterialController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('transfer_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transferMaterials = TransferMaterial::all();
+        if ($request->ajax()) {
+            $query = TransferMaterial::query()->select(sprintf('%s.*', (new TransferMaterial())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.transferMaterials.index', compact('transferMaterials'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'transfer_material_show';
+                $editGate = 'transfer_material_edit';
+                $deleteGate = 'transfer_material_delete';
+                $crudRoutePart = 'transfer-materials';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_transfer_material', function ($row) {
+                return $row->id_transfer_material ? $row->id_transfer_material : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? TransferMaterial::STATUS_SELECT[$row->status] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.transferMaterials.index');
     }
 
     public function create()

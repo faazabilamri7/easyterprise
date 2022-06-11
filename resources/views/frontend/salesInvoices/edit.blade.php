@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_invoice">{{ trans('cruds.salesInvoice.fields.id_invoice') }}</label>
-                            <input class="form-control" type="number" name="id_invoice" id="id_invoice" value="{{ old('id_invoice', $salesInvoice->id_invoice) }}" step="1">
+                            <label class="required" for="id_invoice">{{ trans('cruds.salesInvoice.fields.id_invoice') }}</label>
+                            <input class="form-control" type="number" name="id_invoice" id="id_invoice" value="{{ old('id_invoice', $salesInvoice->id_invoice) }}" step="1" required>
                             @if($errors->has('id_invoice'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_invoice') }}

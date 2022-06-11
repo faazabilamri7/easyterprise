@@ -19,7 +19,15 @@ class UpdatePurchaseQuotationRequest extends FormRequest
         return [
             'id_purchase_quotation' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_purchase_inquiry_id' => [
+                'required',
+                'integer',
+            ],
+            'id_vendor_id' => [
+                'required',
+                'integer',
             ],
         ];
     }

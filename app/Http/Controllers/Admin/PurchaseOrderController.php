@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseOrderRequest;
 use App\Http\Requests\StorePurchaseOrderRequest;
 use App\Http\Requests\UpdatePurchaseOrderRequest;
@@ -11,16 +12,58 @@ use App\Models\PurchaseQuotation;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseOrderController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('purchase_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseOrders = PurchaseOrder::with(['id_purchase_quotation'])->get();
+        if ($request->ajax()) {
+            $query = PurchaseOrder::with(['id_purchase_quotation'])->select(sprintf('%s.*', (new PurchaseOrder())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.purchaseOrders.index', compact('purchaseOrders'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'purchase_order_show';
+                $editGate = 'purchase_order_edit';
+                $deleteGate = 'purchase_order_delete';
+                $crudRoutePart = 'purchase-orders';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_purchase_order', function ($row) {
+                return $row->id_purchase_order ? $row->id_purchase_order : '';
+            });
+            $table->addColumn('id_purchase_quotation_id_purchase_quotation', function ($row) {
+                return $row->id_purchase_quotation ? $row->id_purchase_quotation->id_purchase_quotation : '';
+            });
+
+            $table->editColumn('material_name', function ($row) {
+                return $row->material_name ? $row->material_name : '';
+            });
+            $table->editColumn('quantity', function ($row) {
+                return $row->quantity ? $row->quantity : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_purchase_quotation']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.purchaseOrders.index');
     }
 
     public function create()

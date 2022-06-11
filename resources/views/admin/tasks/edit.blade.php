@@ -11,36 +11,42 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="id_production_plan">{{ trans('cruds.task.fields.id_production_plan') }}</label>
-                <input class="form-control {{ $errors->has('id_production_plan') ? 'is-invalid' : '' }}" type="text" name="id_production_plan" id="id_production_plan" value="{{ old('id_production_plan', $task->id_production_plan) }}">
+                <label class="required" for="id_production_plan">{{ trans('cruds.task.fields.id_production_plan') }}</label>
+                <input class="form-control {{ $errors->has('id_production_plan') ? 'is-invalid' : '' }}" type="text" name="id_production_plan" id="id_production_plan" value="{{ old('id_production_plan', $task->id_production_plan) }}" required>
                 @if($errors->has('id_production_plan'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_production_plan') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_production_plan') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.id_production_plan_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="id_request_product_id">{{ trans('cruds.task.fields.id_request_product') }}</label>
-                <select class="form-control select2 {{ $errors->has('id_request_product') ? 'is-invalid' : '' }}" name="id_request_product_id" id="id_request_product_id">
+                <label class="required" for="id_request_product_id">{{ trans('cruds.task.fields.id_request_product') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_request_product') ? 'is-invalid' : '' }}" name="id_request_product_id" id="id_request_product_id" required>
                     @foreach($id_request_products as $id => $entry)
                         <option value="{{ $id }}" {{ (old('id_request_product_id') ? old('id_request_product_id') : $task->id_request_product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('id_request_product'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_request_product') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_request_product') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.id_request_product_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="id_mesin_id">{{ trans('cruds.task.fields.id_mesin') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_mesin') ? 'is-invalid' : '' }}" name="id_mesin_id" id="id_mesin_id">
+                    @foreach($id_mesins as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('id_mesin_id') ? old('id_mesin_id') : $task->id_mesin->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('id_mesin'))
+                    <span class="text-danger">{{ $errors->first('id_mesin') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.id_mesin_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="name">{{ trans('cruds.task.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $task->name) }}" required>
                 @if($errors->has('name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('name') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.name_helper') }}</span>
             </div>
@@ -48,9 +54,7 @@
                 <label for="description">{{ trans('cruds.task.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $task->description) }}</textarea>
                 @if($errors->has('description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('description') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('description') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.description_helper') }}</span>
             </div>
@@ -62,9 +66,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.status_helper') }}</span>
             </div>
@@ -80,9 +82,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('tags'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tags') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('tags') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.tag_helper') }}</span>
             </div>
@@ -91,9 +91,7 @@
                 <div class="needsclick dropzone {{ $errors->has('attachment') ? 'is-invalid' : '' }}" id="attachment-dropzone">
                 </div>
                 @if($errors->has('attachment'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('attachment') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('attachment') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.attachment_helper') }}</span>
             </div>
@@ -101,9 +99,7 @@
                 <label for="due_date">{{ trans('cruds.task.fields.due_date') }}</label>
                 <input class="form-control date {{ $errors->has('due_date') ? 'is-invalid' : '' }}" type="text" name="due_date" id="due_date" value="{{ old('due_date', $task->due_date) }}">
                 @if($errors->has('due_date'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('due_date') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('due_date') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.due_date_helper') }}</span>
             </div>

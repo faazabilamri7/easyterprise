@@ -88,14 +88,38 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
+            <a class="nav-link" href="#customer_crm_notes" role="tab" data-toggle="tab">
+                {{ trans('cruds.crmNote.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#customer_crm_documents" role="tab" data-toggle="tab">
+                {{ trans('cruds.crmDocument.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#id_customer_sales_inquiries" role="tab" data-toggle="tab">
                 {{ trans('cruds.salesInquiry.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#customer_invoice_pembelians" role="tab" data-toggle="tab">
+                {{ trans('cruds.invoicePembelian.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="customer_crm_notes">
+            @includeIf('admin.crmCustomers.relationships.customerCrmNotes', ['crmNotes' => $crmCustomer->customerCrmNotes])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="customer_crm_documents">
+            @includeIf('admin.crmCustomers.relationships.customerCrmDocuments', ['crmDocuments' => $crmCustomer->customerCrmDocuments])
+        </div>
         <div class="tab-pane" role="tabpanel" id="id_customer_sales_inquiries">
             @includeIf('admin.crmCustomers.relationships.idCustomerSalesInquiries', ['salesInquiries' => $crmCustomer->idCustomerSalesInquiries])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="customer_invoice_pembelians">
+            @includeIf('admin.crmCustomers.relationships.customerInvoicePembelians', ['invoicePembelians' => $crmCustomer->customerInvoicePembelians])
         </div>
     </div>
 </div>
