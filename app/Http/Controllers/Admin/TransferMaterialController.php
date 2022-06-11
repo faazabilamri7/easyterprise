@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransferMaterialRequest;
 use App\Http\Requests\StoreTransferMaterialRequest;
 use App\Http\Requests\UpdateTransferMaterialRequest;
+use App\Models\ListOfMaterial;
 use App\Models\TransferMaterial;
 use Gate;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class TransferMaterialController extends Controller
         abort_if(Gate::denies('transfer_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = TransferMaterial::query()->select(sprintf('%s.*', (new TransferMaterial())->table));
+            $query = TransferMaterial::with(['id_list_of_material'])->select(sprintf('%s.*', (new TransferMaterial())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -46,11 +47,15 @@ class TransferMaterialController extends Controller
             $table->editColumn('id_transfer_material', function ($row) {
                 return $row->id_transfer_material ? $row->id_transfer_material : '';
             });
+            $table->addColumn('id_list_of_material_id_list_of_material', function ($row) {
+                return $row->id_list_of_material ? $row->id_list_of_material->id_list_of_material : '';
+            });
+
             $table->editColumn('status', function ($row) {
                 return $row->status ? TransferMaterial::STATUS_SELECT[$row->status] : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->rawColumns(['actions', 'placeholder', 'id_list_of_material']);
 
             return $table->make(true);
         }
@@ -62,7 +67,9 @@ class TransferMaterialController extends Controller
     {
         abort_if(Gate::denies('transfer_material_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.transferMaterials.create');
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.transferMaterials.create', compact('id_list_of_materials'));
     }
 
     public function store(StoreTransferMaterialRequest $request)
@@ -76,7 +83,11 @@ class TransferMaterialController extends Controller
     {
         abort_if(Gate::denies('transfer_material_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.transferMaterials.edit', compact('transferMaterial'));
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $transferMaterial->load('id_list_of_material');
+
+        return view('admin.transferMaterials.edit', compact('id_list_of_materials', 'transferMaterial'));
     }
 
     public function update(UpdateTransferMaterialRequest $request, TransferMaterial $transferMaterial)
@@ -89,6 +100,8 @@ class TransferMaterialController extends Controller
     public function show(TransferMaterial $transferMaterial)
     {
         abort_if(Gate::denies('transfer_material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transferMaterial->load('id_list_of_material');
 
         return view('admin.transferMaterials.show', compact('transferMaterial'));
     }

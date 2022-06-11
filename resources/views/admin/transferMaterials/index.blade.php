@@ -29,6 +29,9 @@
                         {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
                     </th>
                     <th>
+                        {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.transferMaterial.fields.status') }}
                     </th>
                     <th>
@@ -88,6 +91,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id_transfer_material', name: 'id_transfer_material' },
+{ data: 'id_list_of_material_id_list_of_material', name: 'id_list_of_material.id_list_of_material' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

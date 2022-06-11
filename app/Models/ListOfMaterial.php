@@ -53,6 +53,11 @@ class ListOfMaterial extends Model
         return $this->hasMany(ProductionMonitoring::class, 'id_list_of_material_id', 'id');
     }
 
+    public function idListOfMaterialTransferMaterials()
+    {
+        return $this->hasMany(TransferMaterial::class, 'id_list_of_material_id', 'id');
+    }
+
     public function id_production_plan()
     {
         return $this->belongsTo(Task::class, 'id_production_plan_id');

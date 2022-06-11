@@ -119,7 +119,7 @@ class ListOfMaterialController extends Controller
     {
         abort_if(Gate::denies('list_of_material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $listOfMaterial->load('id_production_plan', 'idListOfMaterialPurchaseRequitions', 'idListOfMaterialProductionMonitorings');
+        $listOfMaterial->load('id_production_plan', 'idListOfMaterialPurchaseRequitions', 'idListOfMaterialProductionMonitorings', 'idListOfMaterialTransferMaterials');
 
         return view('admin.listOfMaterials.show', compact('listOfMaterial'));
     }

@@ -15,6 +15,8 @@ class TransferMaterial extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
+        'On Delivery' => 'On Delivery',
+        'Delivered'   => 'Delivered',
     ];
 
     public $table = 'transfer_materials';
@@ -27,11 +29,17 @@ class TransferMaterial extends Model
 
     protected $fillable = [
         'id_transfer_material',
+        'id_list_of_material_id',
         'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function id_list_of_material()
+    {
+        return $this->belongsTo(ListOfMaterial::class, 'id_list_of_material_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {
