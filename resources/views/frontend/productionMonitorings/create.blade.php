@@ -14,8 +14,8 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="id_production_monitoring">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}</label>
-                            <input class="form-control" type="text" name="id_production_monitoring" id="id_production_monitoring" value="{{ old('id_production_monitoring', '') }}">
+                            <label class="required" for="id_production_monitoring">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}</label>
+                            <input class="form-control" type="text" name="id_production_monitoring" id="id_production_monitoring" value="{{ old('id_production_monitoring', '') }}" required>
                             @if($errors->has('id_production_monitoring'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_production_monitoring') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_list_of_material_id">{{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}</label>
-                            <select class="form-control select2" name="id_list_of_material_id" id="id_list_of_material_id">
+                            <label class="required" for="id_list_of_material_id">{{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}</label>
+                            <select class="form-control select2" name="id_list_of_material_id" id="id_list_of_material_id" required>
                                 @foreach($id_list_of_materials as $id => $entry)
                                     <option value="{{ $id }}" {{ old('id_list_of_material_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

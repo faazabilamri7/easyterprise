@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.quality-controls.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.qualityControl.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'QualityControl', 'route' => 'admin.quality-controls.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-QualityControl">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.qualityControl.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.qualityControl.fields.id_quality_control') }}
                                     </th>
@@ -45,9 +46,6 @@
                             <tbody>
                                 @foreach($qualityControls as $key => $qualityControl)
                                     <tr data-entry-id="{{ $qualityControl->id }}">
-                                        <td>
-                                            {{ $qualityControl->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $qualityControl->id_quality_control ?? '' }}
                                         </td>

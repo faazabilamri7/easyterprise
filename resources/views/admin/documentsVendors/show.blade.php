@@ -25,14 +25,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.documentsVendor.fields.vendor') }}
-                        </th>
-                        <td>
-                            {{ $documentsVendor->vendor->nama_vendor ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.documentsVendor.fields.document_file') }}
                         </th>
                         <td>
@@ -41,6 +33,14 @@
                                     {{ trans('global.view_file') }}
                                 </a>
                             @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.vendor') }}
+                        </th>
+                        <td>
+                            {{ $documentsVendor->vendor->nama_vendor ?? '' }}
                         </td>
                     </tr>
                     <tr>

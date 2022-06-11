@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.tasks.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.task.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Task', 'route' => 'admin.tasks.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -23,13 +27,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.task.fields.id') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.task.fields.id_production_plan') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.task.fields.id_request_product') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.task.fields.id_mesin') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.task.fields.name') }}
@@ -58,13 +62,13 @@
                                 @foreach($tasks as $key => $task)
                                     <tr data-entry-id="{{ $task->id }}">
                                         <td>
-                                            {{ $task->id ?? '' }}
-                                        </td>
-                                        <td>
                                             {{ $task->id_production_plan ?? '' }}
                                         </td>
                                         <td>
                                             {{ $task->id_request_product->id_request_product ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $task->id_mesin->id_mesin ?? '' }}
                                         </td>
                                         <td>
                                             {{ $task->name ?? '' }}

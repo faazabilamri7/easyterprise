@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.asset-categories.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.assetCategory.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'AssetCategory', 'route' => 'admin.asset-categories.parseCsvImport'])
                     </div>
                 </div>
             @endcan

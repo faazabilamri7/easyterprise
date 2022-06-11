@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransferMaterialRequest;
 use App\Http\Requests\StoreTransferMaterialRequest;
 use App\Http\Requests\UpdateTransferMaterialRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TransferMaterialController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('transfer_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

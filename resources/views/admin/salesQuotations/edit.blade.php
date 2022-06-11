@@ -11,12 +11,10 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="id_sales_quotation">{{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}</label>
-                <input class="form-control {{ $errors->has('id_sales_quotation') ? 'is-invalid' : '' }}" type="text" name="id_sales_quotation" id="id_sales_quotation" value="{{ old('id_sales_quotation', $salesQuotation->id_sales_quotation) }}">
+                <label class="required" for="id_sales_quotation">{{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}</label>
+                <input class="form-control {{ $errors->has('id_sales_quotation') ? 'is-invalid' : '' }}" type="text" name="id_sales_quotation" id="id_sales_quotation" value="{{ old('id_sales_quotation', $salesQuotation->id_sales_quotation) }}" required>
                 @if($errors->has('id_sales_quotation'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_sales_quotation') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_sales_quotation') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesQuotation.fields.id_sales_quotation_helper') }}</span>
             </div>
@@ -28,9 +26,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('kode_inquiry'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('kode_inquiry') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('kode_inquiry') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesQuotation.fields.kode_inquiry_helper') }}</span>
             </div>
@@ -38,9 +34,7 @@
                 <label for="harga">{{ trans('cruds.salesQuotation.fields.harga') }}</label>
                 <input class="form-control {{ $errors->has('harga') ? 'is-invalid' : '' }}" type="number" name="harga" id="harga" value="{{ old('harga', $salesQuotation->harga) }}" step="0.01">
                 @if($errors->has('harga'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('harga') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('harga') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesQuotation.fields.harga_helper') }}</span>
             </div>
@@ -53,9 +47,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesQuotation.fields.status_helper') }}</span>
             </div>

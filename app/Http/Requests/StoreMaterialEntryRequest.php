@@ -19,7 +19,11 @@ class StoreMaterialEntryRequest extends FormRequest
         return [
             'id_material_entry' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_purchase_order_id' => [
+                'required',
+                'integer',
             ],
             'date_material_entry' => [
                 'date_format:' . config('panel.date_format'),

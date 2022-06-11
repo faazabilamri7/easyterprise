@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.material-entries.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.materialEntry.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'MaterialEntry', 'route' => 'admin.material-entries.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-MaterialEntry">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.materialEntry.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.materialEntry.fields.id_material_entry') }}
                                     </th>
@@ -51,9 +52,6 @@
                             <tbody>
                                 @foreach($materialEntries as $key => $materialEntry)
                                     <tr data-entry-id="{{ $materialEntry->id }}">
-                                        <td>
-                                            {{ $materialEntry->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $materialEntry->id_material_entry ?? '' }}
                                         </td>

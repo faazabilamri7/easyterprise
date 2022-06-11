@@ -42,6 +42,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#income_category_incomes" role="tab" data-toggle="tab">
+                {{ trans('cruds.income.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="income_category_incomes">
+            @includeIf('admin.incomeCategories.relationships.incomeCategoryIncomes', ['incomes' => $incomeCategory->incomeCategoryIncomes])
+        </div>
+    </div>
+</div>
 
 @endsection

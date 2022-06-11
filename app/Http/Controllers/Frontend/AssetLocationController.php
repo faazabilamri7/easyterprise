@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyAssetLocationRequest;
 use App\Http\Requests\StoreAssetLocationRequest;
 use App\Http\Requests\UpdateAssetLocationRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AssetLocationController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('asset_location_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -53,6 +56,8 @@ class AssetLocationController extends Controller
     public function show(AssetLocation $assetLocation)
     {
         abort_if(Gate::denies('asset_location_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $assetLocation->load('locationAssets', 'locationAssetsHistories');
 
         return view('frontend.assetLocations.show', compact('assetLocation'));
     }

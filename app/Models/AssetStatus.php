@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class AssetStatus extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'asset_statuses';
@@ -26,6 +28,16 @@ class AssetStatus extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function statusAssets()
+    {
+        return $this->hasMany(Asset::class, 'status_id', 'id');
+    }
+
+    public function statusAssetsHistories()
+    {
+        return $this->hasMany(AssetsHistory::class, 'status_id', 'id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -15,6 +16,7 @@ class Task extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
+    use Auditable;
     use HasFactory;
 
     public $table = 'tasks';
@@ -33,6 +35,7 @@ class Task extends Model implements HasMedia
     protected $fillable = [
         'id_production_plan',
         'id_request_product_id',
+        'id_mesin_id',
         'name',
         'description',
         'status_id',
@@ -56,6 +59,11 @@ class Task extends Model implements HasMedia
     public function id_request_product()
     {
         return $this->belongsTo(RequestStockProduct::class, 'id_request_product_id');
+    }
+
+    public function id_mesin()
+    {
+        return $this->belongsTo(MachineReport::class, 'id_mesin_id');
     }
 
     public function status()

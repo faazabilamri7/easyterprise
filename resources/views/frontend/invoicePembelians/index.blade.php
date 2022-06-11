@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.invoice-pembelians.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.invoicePembelian.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'InvoicePembelian', 'route' => 'admin.invoice-pembelians.parseCsvImport'])
                     </div>
                 </div>
             @endcan

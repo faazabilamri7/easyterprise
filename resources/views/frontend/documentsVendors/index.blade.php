@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.documents-vendors.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.documentsVendor.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'DocumentsVendor', 'route' => 'admin.documents-vendors.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -26,10 +30,10 @@
                                         {{ trans('cruds.documentsVendor.fields.id') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.documentsVendor.fields.vendor') }}
+                                        {{ trans('cruds.documentsVendor.fields.document_file') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.documentsVendor.fields.document_file') }}
+                                        {{ trans('cruds.documentsVendor.fields.vendor') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.documentsVendor.fields.name') }}
@@ -49,14 +53,14 @@
                                             {{ $documentsVendor->id ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $documentsVendor->vendor->nama_vendor ?? '' }}
-                                        </td>
-                                        <td>
                                             @if($documentsVendor->document_file)
                                                 <a href="{{ $documentsVendor->document_file->getUrl() }}" target="_blank">
                                                     {{ trans('global.view_file') }}
                                                 </a>
                                             @endif
+                                        </td>
+                                        <td>
+                                            {{ $documentsVendor->vendor->nama_vendor ?? '' }}
                                         </td>
                                         <td>
                                             {{ $documentsVendor->name ?? '' }}

@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.list-of-materials.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.listOfMaterial.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'ListOfMaterial', 'route' => 'admin.list-of-materials.parseCsvImport'])
                     </div>
                 </div>
             @endcan

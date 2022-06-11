@@ -96,6 +96,11 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#material5_purchase_requitions" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseRequition.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#material6_purchase_requitions" role="tab" data-toggle="tab">
                 {{ trans('cruds.purchaseRequition.title') }}
             </a>
@@ -118,6 +123,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="material4_purchase_requitions">
             @includeIf('admin.materials.relationships.material4PurchaseRequitions', ['purchaseRequitions' => $material->material4PurchaseRequitions])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material5_purchase_requitions">
+            @includeIf('admin.materials.relationships.material5PurchaseRequitions', ['purchaseRequitions' => $material->material5PurchaseRequitions])
         </div>
         <div class="tab-pane" role="tabpanel" id="material6_purchase_requitions">
             @includeIf('admin.materials.relationships.material6PurchaseRequitions', ['purchaseRequitions' => $material->material6PurchaseRequitions])

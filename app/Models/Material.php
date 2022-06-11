@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,7 @@ class Material extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
+    use Auditable;
     use HasFactory;
 
     public $table = 'materials';
@@ -61,6 +63,11 @@ class Material extends Model implements HasMedia
     public function material4PurchaseRequitions()
     {
         return $this->hasMany(PurchaseRequition::class, 'material_4_id', 'id');
+    }
+
+    public function material5PurchaseRequitions()
+    {
+        return $this->hasMany(PurchaseRequition::class, 'material_5_id', 'id');
     }
 
     public function material6PurchaseRequitions()

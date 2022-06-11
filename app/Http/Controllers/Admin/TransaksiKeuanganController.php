@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransaksiKeuanganRequest;
 use App\Http\Requests\StoreTransaksiKeuanganRequest;
 use App\Http\Requests\UpdateTransaksiKeuanganRequest;
@@ -12,16 +13,73 @@ use App\Models\TransaksiKeuangan;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiKeuanganController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('transaksi_keuangan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transaksiKeuangans = TransaksiKeuangan::with(['kas_bank', 'sales_product'])->get();
+        if ($request->ajax()) {
+            $query = TransaksiKeuangan::with(['kas_bank', 'sales_product'])->select(sprintf('%s.*', (new TransaksiKeuangan())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.transaksiKeuangans.index', compact('transaksiKeuangans'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'transaksi_keuangan_show';
+                $editGate = 'transaksi_keuangan_edit';
+                $deleteGate = 'transaksi_keuangan_delete';
+                $crudRoutePart = 'transaksi-keuangans';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->addColumn('kas_bank_jumlah', function ($row) {
+                return $row->kas_bank ? $row->kas_bank->jumlah : '';
+            });
+
+            $table->editColumn('desc', function ($row) {
+                return $row->desc ? $row->desc : '';
+            });
+            $table->editColumn('nominal', function ($row) {
+                return $row->nominal ? $row->nominal : '';
+            });
+            $table->editColumn('jenis_pembayaran', function ($row) {
+                return $row->jenis_pembayaran ? $row->jenis_pembayaran : '';
+            });
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
+            $table->editColumn('harga_unit', function ($row) {
+                return $row->harga_unit ? $row->harga_unit : '';
+            });
+            $table->editColumn('total', function ($row) {
+                return $row->total ? $row->total : '';
+            });
+            $table->addColumn('sales_product_detail_order', function ($row) {
+                return $row->sales_product ? $row->sales_product->detail_order : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'kas_bank', 'sales_product']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.transaksiKeuangans.index');
     }
 
     public function create()

@@ -19,7 +19,11 @@ class StorePurchaseRequitionRequest extends FormRequest
         return [
             'id_purchase_requition' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_list_of_material_id' => [
+                'required',
+                'integer',
             ],
             'qty_1' => [
                 'nullable',

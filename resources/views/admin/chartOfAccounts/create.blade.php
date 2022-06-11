@@ -13,9 +13,7 @@
                 <label class="required" for="account_code">{{ trans('cruds.chartOfAccount.fields.account_code') }}</label>
                 <input class="form-control {{ $errors->has('account_code') ? 'is-invalid' : '' }}" type="text" name="account_code" id="account_code" value="{{ old('account_code', '') }}" required>
                 @if($errors->has('account_code'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('account_code') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('account_code') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.chartOfAccount.fields.account_code_helper') }}</span>
             </div>
@@ -23,9 +21,7 @@
                 <label class="required" for="account_name">{{ trans('cruds.chartOfAccount.fields.account_name') }}</label>
                 <input class="form-control {{ $errors->has('account_name') ? 'is-invalid' : '' }}" type="text" name="account_name" id="account_name" value="{{ old('account_name', '') }}" required>
                 @if($errors->has('account_name'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('account_name') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('account_name') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.chartOfAccount.fields.account_name_helper') }}</span>
             </div>
@@ -38,9 +34,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('category'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('category') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.chartOfAccount.fields.category_helper') }}</span>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyAkunRequest;
 use App\Http\Requests\StoreAkunRequest;
 use App\Http\Requests\UpdateAkunRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AkunController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('akun_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

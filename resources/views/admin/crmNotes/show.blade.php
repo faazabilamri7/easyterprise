@@ -33,6 +33,30 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.crmNote.fields.keluhan') }}
+                        </th>
+                        <td>
+                            {{ $crmNote->keluhan }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.kritik') }}
+                        </th>
+                        <td>
+                            {{ $crmNote->kritik }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.saran') }}
+                        </th>
+                        <td>
+                            {{ $crmNote->saran }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.crmNote.fields.note') }}
                         </th>
                         <td>

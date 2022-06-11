@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.notes-vendors.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.notesVendor.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'NotesVendor', 'route' => 'admin.notes-vendors.parseCsvImport'])
                     </div>
                 </div>
             @endcan

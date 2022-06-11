@@ -17,6 +17,10 @@ class StoreJurnalUmumRequest extends FormRequest
     public function rules()
     {
         return [
+            'akun_id' => [
+                'required',
+                'integer',
+            ],
             'tanggal' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',

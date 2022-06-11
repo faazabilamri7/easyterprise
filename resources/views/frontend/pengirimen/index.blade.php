@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.pengirimen.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.pengiriman.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Pengiriman', 'route' => 'admin.pengirimen.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -23,16 +27,13 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.pengiriman.fields.id') }}
+                                        {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.pengiriman.fields.nama_customer') }}
+                                        {{ trans('cruds.pengiriman.fields.no_sales_order') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
-                                    </th>
-                                    <th>
-                                        {{ trans('cruds.pengiriman.fields.alamat_pengiriman') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -43,16 +44,13 @@
                                 @foreach($pengirimen as $key => $pengiriman)
                                     <tr data-entry-id="{{ $pengiriman->id }}">
                                         <td>
-                                            {{ $pengiriman->id ?? '' }}
+                                            {{ $pengiriman->id_pengiriman ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $pengiriman->nama_customer ?? '' }}
+                                            {{ $pengiriman->no_sales_order->no_sales_order ?? '' }}
                                         </td>
                                         <td>
                                             {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $pengiriman->alamat_pengiriman ?? '' }}
                                         </td>
                                         <td>
                                             @can('pengiriman_show')

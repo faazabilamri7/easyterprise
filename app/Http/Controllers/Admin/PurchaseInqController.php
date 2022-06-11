@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseInqRequest;
 use App\Http\Requests\StorePurchaseInqRequest;
 use App\Http\Requests\UpdatePurchaseInqRequest;
@@ -13,16 +14,63 @@ use App\Models\Vendor;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseInqController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('purchase_inq_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseInqs = PurchaseInq::with(['id_request_for_quotation', 'vendor_name', 'name_material'])->get();
+        if ($request->ajax()) {
+            $query = PurchaseInq::with(['id_request_for_quotation', 'vendor_name', 'name_material'])->select(sprintf('%s.*', (new PurchaseInq())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.purchaseInqs.index', compact('purchaseInqs'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'purchase_inq_show';
+                $editGate = 'purchase_inq_edit';
+                $deleteGate = 'purchase_inq_delete';
+                $crudRoutePart = 'purchase-inqs';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_purchase_inquiry', function ($row) {
+                return $row->id_purchase_inquiry ? $row->id_purchase_inquiry : '';
+            });
+            $table->addColumn('id_request_for_quotation_id_request_for_quotation', function ($row) {
+                return $row->id_request_for_quotation ? $row->id_request_for_quotation->id_request_for_quotation : '';
+            });
+
+            $table->addColumn('vendor_name_nama_vendor', function ($row) {
+                return $row->vendor_name ? $row->vendor_name->nama_vendor : '';
+            });
+
+            $table->addColumn('name_material_name_material', function ($row) {
+                return $row->name_material ? $row->name_material->name_material : '';
+            });
+
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_request_for_quotation', 'vendor_name', 'name_material']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.purchaseInqs.index');
     }
 
     public function create()
@@ -71,7 +119,7 @@ class PurchaseInqController extends Controller
     {
         abort_if(Gate::denies('purchase_inq_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'name_material');
+        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'name_material', 'idPurchaseInquiryPurchaseQuotations');
 
         return view('admin.purchaseInqs.show', compact('purchaseInq'));
     }

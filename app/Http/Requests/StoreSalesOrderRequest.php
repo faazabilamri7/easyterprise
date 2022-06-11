@@ -19,11 +19,15 @@ class StoreSalesOrderRequest extends FormRequest
         return [
             'no_sales_order' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_sales_quotation_id' => [
+                'required',
+                'integer',
             ],
             'tanggal' => [
+                'required',
                 'date_format:' . config('panel.date_format'),
-                'nullable',
             ],
             'detail_order' => [
                 'string',

@@ -14,6 +14,17 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
+                            <label class="required" for="document_file">{{ trans('cruds.documentsVendor.fields.document_file') }}</label>
+                            <div class="needsclick dropzone" id="document_file-dropzone">
+                            </div>
+                            @if($errors->has('document_file'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('document_file') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.documentsVendor.fields.document_file_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label class="required" for="vendor_id">{{ trans('cruds.documentsVendor.fields.vendor') }}</label>
                             <select class="form-control select2" name="vendor_id" id="vendor_id" required>
                                 @foreach($vendors as $id => $entry)
@@ -26,17 +37,6 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.documentsVendor.fields.vendor_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="document_file">{{ trans('cruds.documentsVendor.fields.document_file') }}</label>
-                            <div class="needsclick dropzone" id="document_file-dropzone">
-                            </div>
-                            @if($errors->has('document_file'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('document_file') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.documentsVendor.fields.document_file_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="name">{{ trans('cruds.documentsVendor.fields.name') }}</label>

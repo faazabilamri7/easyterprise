@@ -17,6 +17,10 @@ class UpdateJurnalPenyelesaianRequest extends FormRequest
     public function rules()
     {
         return [
+            'akun_id' => [
+                'required',
+                'integer',
+            ],
             'keterangan' => [
                 'string',
                 'nullable',

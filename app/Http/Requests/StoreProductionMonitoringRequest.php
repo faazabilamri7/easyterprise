@@ -19,7 +19,11 @@ class StoreProductionMonitoringRequest extends FormRequest
         return [
             'id_production_monitoring' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_list_of_material_id' => [
+                'required',
+                'integer',
             ],
         ];
     }

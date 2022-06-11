@@ -19,7 +19,11 @@ class StorePurchaseReturnRequest extends FormRequest
         return [
             'purchase_return' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_purchase_order_id' => [
+                'required',
+                'integer',
             ],
             'date_purchase_return' => [
                 'date_format:' . config('panel.date_format'),

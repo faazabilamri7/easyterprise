@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.purchase-returns.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.purchaseReturn.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'PurchaseReturn', 'route' => 'admin.purchase-returns.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -15,88 +19,33 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-PurchaseReturn">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PurchaseReturn">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.description') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseReturn.fields.status') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($purchaseReturns as $key => $purchaseReturn)
-                        <tr data-entry-id="{{ $purchaseReturn->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $purchaseReturn->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseReturn->purchase_return ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseReturn->id_purchase_order->id_purchase_order ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseReturn->description ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseReturn->date_purchase_return ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Models\PurchaseReturn::STATUS_SELECT[$purchaseReturn->status] ?? '' }}
-                            </td>
-                            <td>
-                                @can('purchase_return_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.purchase-returns.show', $purchaseReturn->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('purchase_return_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.purchase-returns.edit', $purchaseReturn->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('purchase_return_delete')
-                                    <form action="{{ route('admin.purchase-returns.destroy', $purchaseReturn->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.description') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.status') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -109,14 +58,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('purchase_return_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.purchase-returns.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -138,18 +87,33 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.purchase-returns.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'purchase_return', name: 'purchase_return' },
+{ data: 'id_purchase_order_id_purchase_order', name: 'id_purchase_order.id_purchase_order' },
+{ data: 'description', name: 'description' },
+{ data: 'date_purchase_return', name: 'date_purchase_return' },
+{ data: 'status', name: 'status' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-PurchaseReturn:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-PurchaseReturn').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

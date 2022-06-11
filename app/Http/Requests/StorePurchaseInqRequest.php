@@ -19,7 +19,15 @@ class StorePurchaseInqRequest extends FormRequest
         return [
             'id_purchase_inquiry' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_request_for_quotation_id' => [
+                'required',
+                'integer',
+            ],
+            'vendor_name_id' => [
+                'required',
+                'integer',
             ],
             'date_puchase_inquiry' => [
                 'date_format:' . config('panel.date_format'),

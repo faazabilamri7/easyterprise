@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseReturnRequest;
 use App\Http\Requests\StorePurchaseReturnRequest;
 use App\Http\Requests\UpdatePurchaseReturnRequest;
@@ -11,16 +12,59 @@ use App\Models\PurchaseReturn;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseReturnController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('purchase_return_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseReturns = PurchaseReturn::with(['id_purchase_order'])->get();
+        if ($request->ajax()) {
+            $query = PurchaseReturn::with(['id_purchase_order'])->select(sprintf('%s.*', (new PurchaseReturn())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.purchaseReturns.index', compact('purchaseReturns'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'purchase_return_show';
+                $editGate = 'purchase_return_edit';
+                $deleteGate = 'purchase_return_delete';
+                $crudRoutePart = 'purchase-returns';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('purchase_return', function ($row) {
+                return $row->purchase_return ? $row->purchase_return : '';
+            });
+            $table->addColumn('id_purchase_order_id_purchase_order', function ($row) {
+                return $row->id_purchase_order ? $row->id_purchase_order->id_purchase_order : '';
+            });
+
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+
+            $table->editColumn('status', function ($row) {
+                return $row->status ? PurchaseReturn::STATUS_SELECT[$row->status] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_purchase_order']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.purchaseReturns.index');
     }
 
     public function create()

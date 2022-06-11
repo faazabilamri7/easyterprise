@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTaskStatusRequest;
 use App\Http\Requests\StoreTaskStatusRequest;
 use App\Http\Requests\UpdateTaskStatusRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TaskStatusController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('task_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -53,6 +56,8 @@ class TaskStatusController extends Controller
     public function show(TaskStatus $taskStatus)
     {
         abort_if(Gate::denies('task_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $taskStatus->load('statusTasks');
 
         return view('frontend.taskStatuses.show', compact('taskStatus'));
     }
