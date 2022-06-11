@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCrmNoteRequest;
 use App\Http\Requests\StoreCrmNoteRequest;
 use App\Http\Requests\UpdateCrmNoteRequest;
@@ -11,16 +12,64 @@ use App\Models\CrmNote;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CrmNoteController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('crm_note_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmNotes = CrmNote::with(['customer'])->get();
+        if ($request->ajax()) {
+            $query = CrmNote::with(['customer'])->select(sprintf('%s.*', (new CrmNote())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.crmNotes.index', compact('crmNotes'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'crm_note_show';
+                $editGate = 'crm_note_edit';
+                $deleteGate = 'crm_note_delete';
+                $crudRoutePart = 'crm-notes';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->addColumn('customer_first_name', function ($row) {
+                return $row->customer ? $row->customer->first_name : '';
+            });
+
+            $table->editColumn('keluhan', function ($row) {
+                return $row->keluhan ? $row->keluhan : '';
+            });
+            $table->editColumn('kritik', function ($row) {
+                return $row->kritik ? $row->kritik : '';
+            });
+            $table->editColumn('saran', function ($row) {
+                return $row->saran ? $row->saran : '';
+            });
+            $table->editColumn('note', function ($row) {
+                return $row->note ? $row->note : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'customer']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.crmNotes.index');
     }
 
     public function create()

@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_purchase_quotation">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}</label>
-                            <input class="form-control" type="text" name="id_purchase_quotation" id="id_purchase_quotation" value="{{ old('id_purchase_quotation', $purchaseQuotation->id_purchase_quotation) }}">
+                            <label class="required" for="id_purchase_quotation">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}</label>
+                            <input class="form-control" type="text" name="id_purchase_quotation" id="id_purchase_quotation" value="{{ old('id_purchase_quotation', $purchaseQuotation->id_purchase_quotation) }}" required>
                             @if($errors->has('id_purchase_quotation'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_purchase_quotation') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_purchase_inquiry_id">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry') }}</label>
-                            <select class="form-control select2" name="id_purchase_inquiry_id" id="id_purchase_inquiry_id">
+                            <label class="required" for="id_purchase_inquiry_id">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry') }}</label>
+                            <select class="form-control select2" name="id_purchase_inquiry_id" id="id_purchase_inquiry_id" required>
                                 @foreach($id_purchase_inquiries as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_purchase_inquiry_id') ? old('id_purchase_inquiry_id') : $purchaseQuotation->id_purchase_inquiry->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
@@ -38,8 +38,8 @@
                             <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_vendor_id">{{ trans('cruds.purchaseQuotation.fields.id_vendor') }}</label>
-                            <select class="form-control select2" name="id_vendor_id" id="id_vendor_id">
+                            <label class="required" for="id_vendor_id">{{ trans('cruds.purchaseQuotation.fields.id_vendor') }}</label>
+                            <select class="form-control select2" name="id_vendor_id" id="id_vendor_id" required>
                                 @foreach($id_vendors as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_vendor_id') ? old('id_vendor_id') : $purchaseQuotation->id_vendor->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

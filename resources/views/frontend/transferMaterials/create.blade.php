@@ -14,8 +14,8 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
-                            <input class="form-control" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', '') }}">
+                            <label class="required" for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
+                            <input class="form-control" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', '') }}" required>
                             @if($errors->has('id_transfer_material'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_transfer_material') }}

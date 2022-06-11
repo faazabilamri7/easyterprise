@@ -18,7 +18,7 @@ class UpdateSalesInvoiceRequest extends FormRequest
     {
         return [
             'id_invoice' => [
-                'nullable',
+                'required',
                 'integer',
                 'min:-2147483648',
                 'max:2147483647',

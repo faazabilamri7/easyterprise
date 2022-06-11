@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.transfer-produks.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.transferProduk.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'TransferProduk', 'route' => 'admin.transfer-produks.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-TransferProduk">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.transferProduk.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.transferProduk.fields.id_transfer_produk') }}
                                     </th>
@@ -48,9 +49,6 @@
                             <tbody>
                                 @foreach($transferProduks as $key => $transferProduk)
                                     <tr data-entry-id="{{ $transferProduk->id }}">
-                                        <td>
-                                            {{ $transferProduk->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $transferProduk->id_transfer_produk ?? '' }}
                                         </td>

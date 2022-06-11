@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_production_plan">{{ trans('cruds.task.fields.id_production_plan') }}</label>
-                            <input class="form-control" type="text" name="id_production_plan" id="id_production_plan" value="{{ old('id_production_plan', $task->id_production_plan) }}">
+                            <label class="required" for="id_production_plan">{{ trans('cruds.task.fields.id_production_plan') }}</label>
+                            <input class="form-control" type="text" name="id_production_plan" id="id_production_plan" value="{{ old('id_production_plan', $task->id_production_plan) }}" required>
                             @if($errors->has('id_production_plan'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_production_plan') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.task.fields.id_production_plan_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_request_product_id">{{ trans('cruds.task.fields.id_request_product') }}</label>
-                            <select class="form-control select2" name="id_request_product_id" id="id_request_product_id">
+                            <label class="required" for="id_request_product_id">{{ trans('cruds.task.fields.id_request_product') }}</label>
+                            <select class="form-control select2" name="id_request_product_id" id="id_request_product_id" required>
                                 @foreach($id_request_products as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_request_product_id') ? old('id_request_product_id') : $task->id_request_product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
@@ -36,6 +36,20 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.task.fields.id_request_product_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_mesin_id">{{ trans('cruds.task.fields.id_mesin') }}</label>
+                            <select class="form-control select2" name="id_mesin_id" id="id_mesin_id">
+                                @foreach($id_mesins as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('id_mesin_id') ? old('id_mesin_id') : $task->id_mesin->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('id_mesin'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_mesin') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.task.fields.id_mesin_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label class="required" for="name">{{ trans('cruds.task.fields.name') }}</label>

@@ -63,12 +63,9 @@ $(document).ready(function () {
     }
   })
 
-  $('.c-header-toggler.mfs-3.d-md-down-none').click(function (e) {
-    $('#sidebar').toggleClass('c-sidebar-lg-show');
-
-    setTimeout(function () {
+  $('a[data-widget^="pushmenu"]').click(function () {
+    setTimeout(function() {
       $($.fn.dataTable.tables(true)).DataTable().columns.adjust();
-    }, 400);
-  });
-
+    }, 350);
+  })
 })

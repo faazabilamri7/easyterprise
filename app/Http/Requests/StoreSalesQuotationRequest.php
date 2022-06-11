@@ -19,7 +19,7 @@ class StoreSalesQuotationRequest extends FormRequest
         return [
             'id_sales_quotation' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'kode_inquiry_id' => [
                 'required',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransaksiKeuanganRequest;
 use App\Http\Requests\StoreTransaksiKeuanganRequest;
 use App\Http\Requests\UpdateTransaksiKeuanganRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TransaksiKeuanganController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('transaksi_keuangan_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');

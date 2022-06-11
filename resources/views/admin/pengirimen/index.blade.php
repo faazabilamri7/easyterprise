@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.pengirimen.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.pengiriman.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Pengiriman', 'route' => 'admin.pengirimen.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -15,76 +19,27 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Pengiriman">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Pengiriman">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.pengiriman.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.pengiriman.fields.nama_customer') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.pengiriman.fields.alamat_pengiriman') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($pengirimen as $key => $pengiriman)
-                        <tr data-entry-id="{{ $pengiriman->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $pengiriman->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $pengiriman->nama_customer ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $pengiriman->alamat_pengiriman ?? '' }}
-                            </td>
-                            <td>
-                                @can('pengiriman_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.pengirimen.show', $pengiriman->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('pengiriman_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.pengirimen.edit', $pengiriman->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('pengiriman_delete')
-                                    <form action="{{ route('admin.pengirimen.destroy', $pengiriman->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.pengiriman.fields.no_sales_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -97,14 +52,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('pengiriman_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.pengirimen.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -126,18 +81,31 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.pengirimen.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id_pengiriman', name: 'id_pengiriman' },
+{ data: 'no_sales_order_no_sales_order', name: 'no_sales_order.no_sales_order' },
+{ data: 'status_pengiriman', name: 'status_pengiriman' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-Pengiriman:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-Pengiriman').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

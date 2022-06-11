@@ -12,18 +12,58 @@ use App\Models\SalesQuotation;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalesQuotationController extends Controller
 {
     use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('sales_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesQuotations = SalesQuotation::with(['kode_inquiry'])->get();
+        if ($request->ajax()) {
+            $query = SalesQuotation::with(['kode_inquiry'])->select(sprintf('%s.*', (new SalesQuotation())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.salesQuotations.index', compact('salesQuotations'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'sales_quotation_show';
+                $editGate = 'sales_quotation_edit';
+                $deleteGate = 'sales_quotation_delete';
+                $crudRoutePart = 'sales-quotations';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_sales_quotation', function ($row) {
+                return $row->id_sales_quotation ? $row->id_sales_quotation : '';
+            });
+            $table->addColumn('kode_inquiry_inquiry_kode', function ($row) {
+                return $row->kode_inquiry ? $row->kode_inquiry->inquiry_kode : '';
+            });
+
+            $table->editColumn('harga', function ($row) {
+                return $row->harga ? $row->harga : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? SalesQuotation::STATUS_SELECT[$row->status] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'kode_inquiry']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.salesQuotations.index');
     }
 
     public function create()

@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.sales-invoices.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.salesInvoice.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'SalesInvoice', 'route' => 'admin.sales-invoices.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -23,9 +27,6 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesInvoice.fields.id') }}
-                                    </th>
-                                    <th>
                                         {{ trans('cruds.salesInvoice.fields.id_invoice') }}
                                     </th>
                                     <th>
@@ -36,9 +37,6 @@
                             <tbody>
                                 @foreach($salesInvoices as $key => $salesInvoice)
                                     <tr data-entry-id="{{ $salesInvoice->id }}">
-                                        <td>
-                                            {{ $salesInvoice->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $salesInvoice->id_invoice ?? '' }}
                                         </td>

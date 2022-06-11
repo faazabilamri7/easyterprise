@@ -21,6 +21,18 @@ class UpdateCrmNoteRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'keluhan' => [
+                'string',
+                'nullable',
+            ],
+            'kritik' => [
+                'string',
+                'nullable',
+            ],
+            'saran' => [
+                'string',
+                'nullable',
+            ],
             'note' => [
                 'required',
             ],

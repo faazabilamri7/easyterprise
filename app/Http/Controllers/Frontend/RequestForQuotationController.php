@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyRequestForQuotationRequest;
 use App\Http\Requests\StoreRequestForQuotationRequest;
 use App\Http\Requests\UpdateRequestForQuotationRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class RequestForQuotationController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('request_for_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -61,7 +64,7 @@ class RequestForQuotationController extends Controller
     {
         abort_if(Gate::denies('request_for_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $requestForQuotation->load('id_purchase_requisition');
+        $requestForQuotation->load('id_purchase_requisition', 'idRequestForQuotationPurchaseInqs');
 
         return view('frontend.requestForQuotations.show', compact('requestForQuotation'));
     }

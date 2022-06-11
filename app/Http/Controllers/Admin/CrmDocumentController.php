@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyCrmDocumentRequest;
 use App\Http\Requests\StoreCrmDocumentRequest;
@@ -13,18 +14,62 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CrmDocumentController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('crm_document_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmDocuments = CrmDocument::with(['customer', 'media'])->get();
+        if ($request->ajax()) {
+            $query = CrmDocument::with(['customer'])->select(sprintf('%s.*', (new CrmDocument())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.crmDocuments.index', compact('crmDocuments'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'crm_document_show';
+                $editGate = 'crm_document_edit';
+                $deleteGate = 'crm_document_delete';
+                $crudRoutePart = 'crm-documents';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->addColumn('customer_first_name', function ($row) {
+                return $row->customer ? $row->customer->first_name : '';
+            });
+
+            $table->editColumn('document_file', function ($row) {
+                return $row->document_file ? '<a href="' . $row->document_file->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'customer', 'document_file']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.crmDocuments.index');
     }
 
     public function create()

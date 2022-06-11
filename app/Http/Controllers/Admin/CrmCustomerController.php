@@ -12,18 +12,67 @@ use App\Models\CrmStatus;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class CrmCustomerController extends Controller
 {
     use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('crm_customer_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmCustomers = CrmCustomer::with(['status'])->get();
+        if ($request->ajax()) {
+            $query = CrmCustomer::with(['status'])->select(sprintf('%s.*', (new CrmCustomer())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.crmCustomers.index', compact('crmCustomers'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'crm_customer_show';
+                $editGate = 'crm_customer_edit';
+                $deleteGate = 'crm_customer_delete';
+                $crudRoutePart = 'crm-customers';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('first_name', function ($row) {
+                return $row->first_name ? $row->first_name : '';
+            });
+            $table->addColumn('status_name', function ($row) {
+                return $row->status ? $row->status->name : '';
+            });
+
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('phone', function ($row) {
+                return $row->phone ? $row->phone : '';
+            });
+            $table->editColumn('address', function ($row) {
+                return $row->address ? $row->address : '';
+            });
+            $table->editColumn('website', function ($row) {
+                return $row->website ? $row->website : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'status']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.crmCustomers.index');
     }
 
     public function create()
@@ -64,7 +113,7 @@ class CrmCustomerController extends Controller
     {
         abort_if(Gate::denies('crm_customer_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $crmCustomer->load('status', 'idCustomerSalesInquiries');
+        $crmCustomer->load('status', 'customerCrmNotes', 'customerCrmDocuments', 'idCustomerSalesInquiries', 'customerInvoicePembelians');
 
         return view('admin.crmCustomers.show', compact('crmCustomer'));
     }

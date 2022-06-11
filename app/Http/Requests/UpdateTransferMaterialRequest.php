@@ -19,7 +19,7 @@ class UpdateTransferMaterialRequest extends FormRequest
         return [
             'id_transfer_material' => [
                 'string',
-                'nullable',
+                'required',
             ],
         ];
     }

@@ -19,82 +19,30 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-SalesQuotation">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-SalesQuotation">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.harga') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesQuotation.fields.status') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($salesQuotations as $key => $salesQuotation)
-                        <tr data-entry-id="{{ $salesQuotation->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $salesQuotation->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesQuotation->id_sales_quotation ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesQuotation->kode_inquiry->inquiry_kode ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesQuotation->harga ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Models\SalesQuotation::STATUS_SELECT[$salesQuotation->status] ?? '' }}
-                            </td>
-                            <td>
-                                @can('sales_quotation_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.sales-quotations.show', $salesQuotation->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('sales_quotation_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.sales-quotations.edit', $salesQuotation->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('sales_quotation_delete')
-                                    <form action="{{ route('admin.sales-quotations.destroy', $salesQuotation->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesQuotation.fields.harga') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesQuotation.fields.status') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -107,14 +55,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('sales_quotation_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.sales-quotations.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -136,18 +84,32 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.sales-quotations.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id_sales_quotation', name: 'id_sales_quotation' },
+{ data: 'kode_inquiry_inquiry_kode', name: 'kode_inquiry.inquiry_kode' },
+{ data: 'harga', name: 'harga' },
+{ data: 'status', name: 'status' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-SalesQuotation:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-SalesQuotation').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyDocumentsVendorRequest;
 use App\Http\Requests\StoreDocumentsVendorRequest;
@@ -13,18 +14,62 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class DocumentsVendorController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('documents_vendor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $documentsVendors = DocumentsVendor::with(['vendor', 'media'])->get();
+        if ($request->ajax()) {
+            $query = DocumentsVendor::with(['vendor'])->select(sprintf('%s.*', (new DocumentsVendor())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.documentsVendors.index', compact('documentsVendors'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'documents_vendor_show';
+                $editGate = 'documents_vendor_edit';
+                $deleteGate = 'documents_vendor_delete';
+                $crudRoutePart = 'documents-vendors';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('document_file', function ($row) {
+                return $row->document_file ? '<a href="' . $row->document_file->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
+            $table->addColumn('vendor_nama_vendor', function ($row) {
+                return $row->vendor ? $row->vendor->nama_vendor : '';
+            });
+
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'document_file', 'vendor']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.documentsVendors.index');
     }
 
     public function create()

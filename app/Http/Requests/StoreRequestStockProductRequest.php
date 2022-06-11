@@ -19,11 +19,19 @@ class StoreRequestStockProductRequest extends FormRequest
         return [
             'id_request_product' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'inquiry_id' => [
+                'required',
+                'integer',
             ],
             'tanggal_request' => [
+                'required',
                 'date_format:' . config('panel.date_format'),
-                'nullable',
+            ],
+            'request_product_id' => [
+                'required',
+                'integer',
             ],
             'qty' => [
                 'nullable',

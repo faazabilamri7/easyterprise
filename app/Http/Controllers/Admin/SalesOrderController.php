@@ -12,18 +12,65 @@ use App\Models\SalesQuotation;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalesOrderController extends Controller
 {
     use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('sales_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrders = SalesOrder::with(['id_sales_quotation'])->get();
+        if ($request->ajax()) {
+            $query = SalesOrder::with(['id_sales_quotation'])->select(sprintf('%s.*', (new SalesOrder())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.salesOrders.index', compact('salesOrders'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'sales_order_show';
+                $editGate = 'sales_order_edit';
+                $deleteGate = 'sales_order_delete';
+                $crudRoutePart = 'sales-orders';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('no_sales_order', function ($row) {
+                return $row->no_sales_order ? $row->no_sales_order : '';
+            });
+            $table->addColumn('id_sales_quotation_id_sales_quotation', function ($row) {
+                return $row->id_sales_quotation ? $row->id_sales_quotation->id_sales_quotation : '';
+            });
+
+            $table->editColumn('id_sales_quotation.id_sales_quotation', function ($row) {
+                return $row->id_sales_quotation ? (is_string($row->id_sales_quotation) ? $row->id_sales_quotation : $row->id_sales_quotation->id_sales_quotation) : '';
+            });
+
+            $table->editColumn('detail_order', function ($row) {
+                return $row->detail_order ? $row->detail_order : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? SalesOrder::STATUS_SELECT[$row->status] : '';
+            });
+            $table->editColumn('finance', function ($row) {
+                return '<input type="checkbox" disabled ' . ($row->finance ? 'checked' : null) . '>';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'id_sales_quotation', 'finance']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.salesOrders.index');
     }
 
     public function create()
@@ -64,7 +111,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrder->load('id_sales_quotation', 'salesOrderCustomerComplains', 'statusSalesReports', 'tglSalesOrderSalesReports', 'salesProductTransaksiKeuangans');
+        $salesOrder->load('id_sales_quotation', 'salesProductTransaksiKeuangans', 'noSalesOrderPengirimen');
 
         return view('admin.salesOrders.show', compact('salesOrder'));
     }

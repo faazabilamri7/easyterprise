@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.roles.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.role.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'Role', 'route' => 'admin.roles.parseCsvImport'])
                     </div>
                 </div>
             @endcan

@@ -19,94 +19,39 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-SalesInquiry">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-SalesInquiry">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.inquiry_kode') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.tgl_inquiry') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.id_customer') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.nama_produk') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.qty') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.salesInquiry.fields.catatan') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($salesInquiries as $key => $salesInquiry)
-                        <tr data-entry-id="{{ $salesInquiry->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $salesInquiry->inquiry_kode ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->tgl_inquiry ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->id_customer->first_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->nama_produk->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->qty ?? '' }}
-                            </td>
-                            <td>
-                                {{ App\Models\SalesInquiry::STATUS_SELECT[$salesInquiry->status] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $salesInquiry->catatan ?? '' }}
-                            </td>
-                            <td>
-                                @can('sales_inquiry_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.sales-inquiries.show', $salesInquiry->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('sales_inquiry_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.sales-inquiries.edit', $salesInquiry->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('sales_inquiry_delete')
-                                    <form action="{{ route('admin.sales-inquiries.destroy', $salesInquiry->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.inquiry_kode') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.tgl_inquiry') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.id_customer') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.nama_produk') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.qty') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.status') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInquiry.fields.catatan') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -119,14 +64,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('sales_inquiry_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.sales-inquiries.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -148,18 +93,35 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.sales-inquiries.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'inquiry_kode', name: 'inquiry_kode' },
+{ data: 'tgl_inquiry', name: 'tgl_inquiry' },
+{ data: 'id_customer_first_name', name: 'id_customer.first_name' },
+{ data: 'nama_produk_name', name: 'nama_produk.name' },
+{ data: 'qty', name: 'qty' },
+{ data: 'status', name: 'status' },
+{ data: 'catatan', name: 'catatan' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-SalesInquiry:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-SalesInquiry').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.purchase-orders.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.purchaseOrder.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'PurchaseOrder', 'route' => 'admin.purchase-orders.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -15,88 +19,33 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-PurchaseOrder">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-PurchaseOrder">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.id_purchase_order') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.id_purchase_quotation') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.date_purchase_order') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.material_name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseOrder.fields.quantity') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($purchaseOrders as $key => $purchaseOrder)
-                        <tr data-entry-id="{{ $purchaseOrder->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->id_purchase_order ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->id_purchase_quotation->id_purchase_quotation ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->date_purchase_order ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->material_name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseOrder->quantity ?? '' }}
-                            </td>
-                            <td>
-                                @can('purchase_order_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.purchase-orders.show', $purchaseOrder->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('purchase_order_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.purchase-orders.edit', $purchaseOrder->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('purchase_order_delete')
-                                    <form action="{{ route('admin.purchase-orders.destroy', $purchaseOrder->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseOrder.fields.id_purchase_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseOrder.fields.id_purchase_quotation') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseOrder.fields.date_purchase_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseOrder.fields.material_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseOrder.fields.quantity') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -109,14 +58,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('purchase_order_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.purchase-orders.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -138,18 +87,33 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.purchase-orders.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id_purchase_order', name: 'id_purchase_order' },
+{ data: 'id_purchase_quotation_id_purchase_quotation', name: 'id_purchase_quotation.id_purchase_quotation' },
+{ data: 'date_purchase_order', name: 'date_purchase_order' },
+{ data: 'material_name', name: 'material_name' },
+{ data: 'quantity', name: 'quantity' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-PurchaseOrder:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-PurchaseOrder').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

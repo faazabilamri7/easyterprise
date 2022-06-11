@@ -58,6 +58,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#id_mesin_tasks" role="tab" data-toggle="tab">
+                {{ trans('cruds.task.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="id_mesin_tasks">
+            @includeIf('admin.machineReports.relationships.idMesinTasks', ['tasks' => $machineReport->idMesinTasks])
+        </div>
+    </div>
+</div>
 
 @endsection

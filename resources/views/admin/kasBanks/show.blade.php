@@ -66,6 +66,22 @@
     </div>
 </div>
 
-
+<div class="card">
+    <div class="card-header">
+        {{ trans('global.relatedData') }}
+    </div>
+    <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="#kas_bank_transaksi_keuangans" role="tab" data-toggle="tab">
+                {{ trans('cruds.transaksiKeuangan.title') }}
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane" role="tabpanel" id="kas_bank_transaksi_keuangans">
+            @includeIf('admin.kasBanks.relationships.kasBankTransaksiKeuangans', ['transaksiKeuangans' => $kasBank->kasBankTransaksiKeuangans])
+        </div>
+    </div>
+</div>
 
 @endsection

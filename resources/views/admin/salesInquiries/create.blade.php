@@ -10,12 +10,10 @@
         <form method="POST" action="{{ route("admin.sales-inquiries.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="inquiry_kode">{{ trans('cruds.salesInquiry.fields.inquiry_kode') }}</label>
-                <input class="form-control {{ $errors->has('inquiry_kode') ? 'is-invalid' : '' }}" type="text" name="inquiry_kode" id="inquiry_kode" value="{{ old('inquiry_kode', '') }}">
+                <label class="required" for="inquiry_kode">{{ trans('cruds.salesInquiry.fields.inquiry_kode') }}</label>
+                <input class="form-control {{ $errors->has('inquiry_kode') ? 'is-invalid' : '' }}" type="text" name="inquiry_kode" id="inquiry_kode" value="{{ old('inquiry_kode', '') }}" required>
                 @if($errors->has('inquiry_kode'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('inquiry_kode') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('inquiry_kode') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.inquiry_kode_helper') }}</span>
             </div>
@@ -23,9 +21,7 @@
                 <label class="required" for="tgl_inquiry">{{ trans('cruds.salesInquiry.fields.tgl_inquiry') }}</label>
                 <input class="form-control date {{ $errors->has('tgl_inquiry') ? 'is-invalid' : '' }}" type="text" name="tgl_inquiry" id="tgl_inquiry" value="{{ old('tgl_inquiry') }}" required>
                 @if($errors->has('tgl_inquiry'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tgl_inquiry') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('tgl_inquiry') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.tgl_inquiry_helper') }}</span>
             </div>
@@ -37,9 +33,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_customer'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_customer') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_customer') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.id_customer_helper') }}</span>
             </div>
@@ -51,9 +45,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('nama_produk'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('nama_produk') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('nama_produk') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.nama_produk_helper') }}</span>
             </div>
@@ -61,9 +53,7 @@
                 <label class="required" for="qty">{{ trans('cruds.salesInquiry.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1" required>
                 @if($errors->has('qty'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('qty') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('qty') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.qty_helper') }}</span>
             </div>
@@ -76,9 +66,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.status_helper') }}</span>
             </div>
@@ -86,9 +74,7 @@
                 <label for="catatan">{{ trans('cruds.salesInquiry.fields.catatan') }}</label>
                 <textarea class="form-control {{ $errors->has('catatan') ? 'is-invalid' : '' }}" name="catatan" id="catatan">{{ old('catatan') }}</textarea>
                 @if($errors->has('catatan'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('catatan') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('catatan') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInquiry.fields.catatan_helper') }}</span>
             </div>

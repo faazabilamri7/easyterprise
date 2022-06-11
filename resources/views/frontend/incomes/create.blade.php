@@ -14,8 +14,8 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="income_category_id">{{ trans('cruds.income.fields.income_category') }}</label>
-                            <select class="form-control select2" name="income_category_id" id="income_category_id">
+                            <label class="required" for="income_category_id">{{ trans('cruds.income.fields.income_category') }}</label>
+                            <select class="form-control select2" name="income_category_id" id="income_category_id" required>
                                 @foreach($income_categories as $id => $entry)
                                     <option value="{{ $id }}" {{ old('income_category_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

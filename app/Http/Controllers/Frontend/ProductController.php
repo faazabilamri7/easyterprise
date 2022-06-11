@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyProductRequest;
 use App\Http\Requests\StoreProductRequest;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {
@@ -84,7 +86,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts');
+        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts', 'productNameTransferProduks');
 
         return view('frontend.products.show', compact('product'));
     }
