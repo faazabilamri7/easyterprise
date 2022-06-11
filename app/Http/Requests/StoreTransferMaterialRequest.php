@@ -21,6 +21,10 @@ class StoreTransferMaterialRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'id_list_of_material_id' => [
+                'required',
+                'integer',
+            ],
         ];
     }
 }

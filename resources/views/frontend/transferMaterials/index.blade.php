@@ -30,6 +30,9 @@
                                         {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.transferMaterial.fields.status') }}
                                     </th>
                                     <th>
@@ -42,6 +45,9 @@
                                     <tr data-entry-id="{{ $transferMaterial->id }}">
                                         <td>
                                             {{ $transferMaterial->id_transfer_material ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $transferMaterial->id_list_of_material->id_list_of_material ?? '' }}
                                         </td>
                                         <td>
                                             {{ App\Models\TransferMaterial::STATUS_SELECT[$transferMaterial->status] ?? '' }}

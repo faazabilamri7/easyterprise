@@ -36,6 +36,14 @@
                                 </tr>
                                 <tr>
                                     <th>
+                                        {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
+                                    </th>
+                                    <td>
+                                        {{ $transferMaterial->id_list_of_material->id_list_of_material ?? '' }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
                                         {{ trans('cruds.transferMaterial.fields.status') }}
                                     </th>
                                     <td>

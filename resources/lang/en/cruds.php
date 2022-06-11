@@ -173,6 +173,8 @@ return [
             'id_transfer_material_helper' => ' ',
             'status'                      => 'Status',
             'status_helper'               => ' ',
+            'id_list_of_material'         => 'Id List Of Material',
+            'id_list_of_material_helper'  => ' ',
         ],
     ],
     'transferProduk' => [
