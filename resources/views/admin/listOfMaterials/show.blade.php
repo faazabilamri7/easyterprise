@@ -121,6 +121,11 @@
                 {{ trans('cruds.productionMonitoring.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#id_list_of_material_transfer_materials" role="tab" data-toggle="tab">
+                {{ trans('cruds.transferMaterial.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="id_list_of_material_purchase_requitions">
@@ -128,6 +133,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="id_list_of_material_production_monitorings">
             @includeIf('admin.listOfMaterials.relationships.idListOfMaterialProductionMonitorings', ['productionMonitorings' => $listOfMaterial->idListOfMaterialProductionMonitorings])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="id_list_of_material_transfer_materials">
+            @includeIf('admin.listOfMaterials.relationships.idListOfMaterialTransferMaterials', ['transferMaterials' => $listOfMaterial->idListOfMaterialTransferMaterials])
         </div>
     </div>
 </div>
