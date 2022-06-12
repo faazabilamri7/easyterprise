@@ -43,6 +43,12 @@ class SalesInquiry extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        SalesInquiry::observe(new \App\Observers\SalesInquiryActionObserver());
+    }
+
     public function inquiryRequestStockProducts()
     {
         return $this->hasMany(RequestStockProduct::class, 'inquiry_id', 'id');

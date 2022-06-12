@@ -99,7 +99,7 @@
 { data: 'id_purchase_order', name: 'id_purchase_order' },
 { data: 'id_purchase_quotation_id_purchase_quotation', name: 'id_purchase_quotation.id_purchase_quotation' },
 { data: 'date_purchase_order', name: 'date_purchase_order' },
-{ data: 'material_name', name: 'material_name' },
+{ data: 'material_name_name_material', name: 'material_name.name_material' },
 { data: 'quantity', name: 'quantity' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

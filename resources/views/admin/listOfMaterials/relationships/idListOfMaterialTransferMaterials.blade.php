@@ -1,86 +1,86 @@
-<div class="m-3">
-    @can('transfer_material_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.transfer-materials.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.transferMaterial.title_singular') }}
-                </a>
-            </div>
+@can('transfer_material_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.transfer-materials.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.transferMaterial.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.transferMaterial.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-idListOfMaterialTransferMaterials">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.transferMaterial.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.transferMaterial.fields.status') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-idListOfMaterialTransferMaterials">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.transferMaterial.fields.status') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($transferMaterials as $key => $transferMaterial)
+                        <tr data-entry-id="{{ $transferMaterial->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $transferMaterial->id_transfer_material ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transferMaterial->id_list_of_material->id_list_of_material ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\TransferMaterial::STATUS_SELECT[$transferMaterial->status] ?? '' }}
+                            </td>
+                            <td>
+                                @can('transfer_material_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.transfer-materials.show', $transferMaterial->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('transfer_material_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.transfer-materials.edit', $transferMaterial->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('transfer_material_delete')
+                                    <form action="{{ route('admin.transfer-materials.destroy', $transferMaterial->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($transferMaterials as $key => $transferMaterial)
-                            <tr data-entry-id="{{ $transferMaterial->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $transferMaterial->id_transfer_material ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $transferMaterial->id_list_of_material->id_list_of_material ?? '' }}
-                                </td>
-                                <td>
-                                    {{ App\Models\TransferMaterial::STATUS_SELECT[$transferMaterial->status] ?? '' }}
-                                </td>
-                                <td>
-                                    @can('transfer_material_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.transfer-materials.show', $transferMaterial->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('transfer_material_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.transfer-materials.edit', $transferMaterial->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('transfer_material_delete')
-                                        <form action="{{ route('admin.transfer-materials.destroy', $transferMaterial->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

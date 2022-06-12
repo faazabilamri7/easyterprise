@@ -14,7 +14,9 @@
                 <label class="required" for="purchase_return">{{ trans('cruds.purchaseReturn.fields.purchase_return') }}</label>
                 <input class="form-control {{ $errors->has('purchase_return') ? 'is-invalid' : '' }}" type="text" name="purchase_return" id="purchase_return" value="{{ old('purchase_return', $purchaseReturn->purchase_return) }}" required>
                 @if($errors->has('purchase_return'))
-                    <span class="text-danger">{{ $errors->first('purchase_return') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('purchase_return') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.purchase_return_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_purchase_order'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_order') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_order') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.id_purchase_order_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                 <label for="description">{{ trans('cruds.purchaseReturn.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $purchaseReturn->description) }}</textarea>
                 @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.description_helper') }}</span>
             </div>
@@ -42,7 +48,9 @@
                 <label for="date_purchase_return">{{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}</label>
                 <input class="form-control date {{ $errors->has('date_purchase_return') ? 'is-invalid' : '' }}" type="text" name="date_purchase_return" id="date_purchase_return" value="{{ old('date_purchase_return', $purchaseReturn->date_purchase_return) }}">
                 @if($errors->has('date_purchase_return'))
-                    <span class="text-danger">{{ $errors->first('date_purchase_return') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_purchase_return') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.date_purchase_return_helper') }}</span>
             </div>
@@ -55,7 +63,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.status_helper') }}</span>
             </div>

@@ -28,6 +28,12 @@ class AssetsHistory extends Model
         'updated_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        AssetsHistory::observe(new \App\Observers\AssetsHistoryActionObserver());
+    }
+
     public function asset()
     {
         return $this->belongsTo(Asset::class, 'asset_id');

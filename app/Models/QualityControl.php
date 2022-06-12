@@ -37,6 +37,12 @@ class QualityControl extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        QualityControl::observe(new \App\Observers\QualityControlActionObserver());
+    }
+
     public function idQualityControlTransferProduks()
     {
         return $this->hasMany(TransferProduk::class, 'id_quality_control_id', 'id');

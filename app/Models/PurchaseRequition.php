@@ -15,11 +15,9 @@ class PurchaseRequition extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'Requested'  => 'Requested by Warehouse',
-        'Accepted'   => 'Accepted by Production',
-        'On Process' => 'Production Process',
-        'Completed'  => 'Production Completed',
-        'Pending'    => 'Production Pending',
+        'Requested' => 'Requested by Warehouse',
+        'Accepted'  => 'Accepted By Procurement',
+        'Completed' => 'Completed',
     ];
 
     public $table = 'purchase_requitions';
@@ -50,6 +48,12 @@ class PurchaseRequition extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        PurchaseRequition::observe(new \App\Observers\PurchaseRequitionActionObserver());
+    }
 
     public function idPurchaseRequisitionRequestForQuotations()
     {

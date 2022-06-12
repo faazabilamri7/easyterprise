@@ -39,6 +39,12 @@ class TransaksiKeuangan extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        TransaksiKeuangan::observe(new \App\Observers\TransaksiKeuanganActionObserver());
+    }
+
     public function kas_bank()
     {
         return $this->belongsTo(KasBank::class, 'kas_bank_id');

@@ -36,6 +36,12 @@ class PurchaseInq extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        PurchaseInq::observe(new \App\Observers\PurchaseInqActionObserver());
+    }
+
     public function idPurchaseInquiryPurchaseQuotations()
     {
         return $this->hasMany(PurchaseQuotation::class, 'id_purchase_inquiry_id', 'id');

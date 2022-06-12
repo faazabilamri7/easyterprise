@@ -29,9 +29,9 @@ class UpdatePurchaseOrderRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
-            'material_name' => [
-                'string',
-                'nullable',
+            'material_name_id' => [
+                'required',
+                'integer',
             ],
             'quantity' => [
                 'nullable',

@@ -14,7 +14,9 @@
                 <label for="nomor">{{ trans('cruds.invoicePembelian.fields.nomor') }}</label>
                 <input class="form-control {{ $errors->has('nomor') ? 'is-invalid' : '' }}" type="number" name="nomor" id="nomor" value="{{ old('nomor', $invoicePembelian->nomor) }}" step="1">
                 @if($errors->has('nomor'))
-                    <span class="text-danger">{{ $errors->first('nomor') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nomor') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoicePembelian.fields.nomor_helper') }}</span>
             </div>
@@ -22,7 +24,9 @@
                 <label for="tanggal">{{ trans('cruds.invoicePembelian.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $invoicePembelian->tanggal) }}">
                 @if($errors->has('tanggal'))
-                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoicePembelian.fields.tanggal_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('perusahaan'))
-                    <span class="text-danger">{{ $errors->first('perusahaan') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('perusahaan') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoicePembelian.fields.perusahaan_helper') }}</span>
             </div>
@@ -46,7 +52,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('customer'))
-                    <span class="text-danger">{{ $errors->first('customer') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('customer') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoicePembelian.fields.customer_helper') }}</span>
             </div>
@@ -54,7 +62,9 @@
                 <label for="total">{{ trans('cruds.invoicePembelian.fields.total') }}</label>
                 <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total" id="total" value="{{ old('total', $invoicePembelian->total) }}" step="0.01">
                 @if($errors->has('total'))
-                    <span class="text-danger">{{ $errors->first('total') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.invoicePembelian.fields.total_helper') }}</span>
             </div>

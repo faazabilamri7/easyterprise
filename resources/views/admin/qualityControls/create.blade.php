@@ -13,7 +13,9 @@
                 <label class="required" for="id_quality_control">{{ trans('cruds.qualityControl.fields.id_quality_control') }}</label>
                 <input class="form-control {{ $errors->has('id_quality_control') ? 'is-invalid' : '' }}" type="text" name="id_quality_control" id="id_quality_control" value="{{ old('id_quality_control', '') }}" required>
                 @if($errors->has('id_quality_control'))
-                    <span class="text-danger">{{ $errors->first('id_quality_control') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_quality_control') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.qualityControl.fields.id_quality_control_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_production_monitoring'))
-                    <span class="text-danger">{{ $errors->first('id_production_monitoring') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_production_monitoring') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.qualityControl.fields.id_production_monitoring_helper') }}</span>
             </div>
@@ -33,7 +37,9 @@
                 <label for="qty">{{ trans('cruds.qualityControl.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1">
                 @if($errors->has('qty'))
-                    <span class="text-danger">{{ $errors->first('qty') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.qualityControl.fields.qty_helper') }}</span>
             </div>
@@ -46,7 +52,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.qualityControl.fields.status_helper') }}</span>
             </div>

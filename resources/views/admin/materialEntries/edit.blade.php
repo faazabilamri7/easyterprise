@@ -14,7 +14,9 @@
                 <label class="required" for="id_material_entry">{{ trans('cruds.materialEntry.fields.id_material_entry') }}</label>
                 <input class="form-control {{ $errors->has('id_material_entry') ? 'is-invalid' : '' }}" type="text" name="id_material_entry" id="id_material_entry" value="{{ old('id_material_entry', $materialEntry->id_material_entry) }}" required>
                 @if($errors->has('id_material_entry'))
-                    <span class="text-danger">{{ $errors->first('id_material_entry') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_material_entry') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.id_material_entry_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_purchase_order'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_order') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_order') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.id_purchase_order_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                 <label for="date_material_entry">{{ trans('cruds.materialEntry.fields.date_material_entry') }}</label>
                 <input class="form-control date {{ $errors->has('date_material_entry') ? 'is-invalid' : '' }}" type="text" name="date_material_entry" id="date_material_entry" value="{{ old('date_material_entry', $materialEntry->date_material_entry) }}">
                 @if($errors->has('date_material_entry'))
-                    <span class="text-danger">{{ $errors->first('date_material_entry') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_material_entry') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.date_material_entry_helper') }}</span>
             </div>
@@ -42,7 +48,9 @@
                 <label for="material_name">{{ trans('cruds.materialEntry.fields.material_name') }}</label>
                 <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', $materialEntry->material_name) }}">
                 @if($errors->has('material_name'))
-                    <span class="text-danger">{{ $errors->first('material_name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('material_name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.material_name_helper') }}</span>
             </div>
@@ -50,7 +58,9 @@
                 <label for="qty">{{ trans('cruds.materialEntry.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $materialEntry->qty) }}" step="1">
                 @if($errors->has('qty'))
-                    <span class="text-danger">{{ $errors->first('qty') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.qty_helper') }}</span>
             </div>
@@ -63,7 +73,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.materialEntry.fields.status_helper') }}</span>
             </div>

@@ -1,122 +1,122 @@
-<div class="m-3">
-    @can('necara_saldo_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.necara-saldos.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.necaraSaldo.title_singular') }}
-                </a>
-            </div>
+@can('necara_saldo_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.necara-saldos.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.necaraSaldo.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.necaraSaldo.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-akunNecaraSaldos">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.necaraSaldo.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.tanggal') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.akun') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.debit') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.kredit') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.total_debit') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.total_kredit') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.total') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.necaraSaldo.fields.status') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-akunNecaraSaldos">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.tanggal') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.akun') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.debit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.kredit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.total_debit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.total_kredit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.total') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.status') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($necaraSaldos as $key => $necaraSaldo)
+                        <tr data-entry-id="{{ $necaraSaldo->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->tanggal ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->akun->nama ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->debit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->kredit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->total_debit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->total_kredit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->total ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->status ?? '' }}
+                            </td>
+                            <td>
+                                @can('necara_saldo_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.necara-saldos.show', $necaraSaldo->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('necara_saldo_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.necara-saldos.edit', $necaraSaldo->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('necara_saldo_delete')
+                                    <form action="{{ route('admin.necara-saldos.destroy', $necaraSaldo->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($necaraSaldos as $key => $necaraSaldo)
-                            <tr data-entry-id="{{ $necaraSaldo->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->tanggal ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->akun->nama ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->debit ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->kredit ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->total_debit ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->total_kredit ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->total ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $necaraSaldo->status ?? '' }}
-                                </td>
-                                <td>
-                                    @can('necara_saldo_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.necara-saldos.show', $necaraSaldo->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('necara_saldo_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.necara-saldos.edit', $necaraSaldo->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('necara_saldo_delete')
-                                        <form action="{{ route('admin.necara-saldos.destroy', $necaraSaldo->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

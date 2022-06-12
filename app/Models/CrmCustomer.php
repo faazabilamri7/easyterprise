@@ -34,6 +34,12 @@ class CrmCustomer extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        CrmCustomer::observe(new \App\Observers\CrmCustomerActionObserver());
+    }
+
     public function customerCrmNotes()
     {
         return $this->hasMany(CrmNote::class, 'customer_id', 'id');

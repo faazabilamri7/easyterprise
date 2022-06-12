@@ -38,6 +38,12 @@ class NecaraSaldo extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        NecaraSaldo::observe(new \App\Observers\NecaraSaldoActionObserver());
+    }
+
     public function getTanggalAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

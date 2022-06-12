@@ -34,6 +34,12 @@ class Income extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Income::observe(new \App\Observers\IncomeActionObserver());
+    }
+
     public function income_category()
     {
         return $this->belongsTo(IncomeCategory::class, 'income_category_id');

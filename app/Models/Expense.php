@@ -34,6 +34,12 @@ class Expense extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Expense::observe(new \App\Observers\ExpenseActionObserver());
+    }
+
     public function expense_category()
     {
         return $this->belongsTo(ExpenseCategory::class, 'expense_category_id');

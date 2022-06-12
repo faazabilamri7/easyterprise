@@ -40,6 +40,12 @@ class PurchaseReturn extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        PurchaseReturn::observe(new \App\Observers\PurchaseReturnActionObserver());
+    }
+
     public function id_purchase_order()
     {
         return $this->belongsTo(PurchaseOrder::class, 'id_purchase_order_id');

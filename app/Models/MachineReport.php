@@ -37,6 +37,12 @@ class MachineReport extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        MachineReport::observe(new \App\Observers\MachineReportActionObserver());
+    }
+
     public function idMesinTasks()
     {
         return $this->hasMany(Task::class, 'id_mesin_id', 'id');

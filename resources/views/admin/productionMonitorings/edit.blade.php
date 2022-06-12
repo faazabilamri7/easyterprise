@@ -14,7 +14,9 @@
                 <label class="required" for="id_production_monitoring">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}</label>
                 <input class="form-control {{ $errors->has('id_production_monitoring') ? 'is-invalid' : '' }}" type="text" name="id_production_monitoring" id="id_production_monitoring" value="{{ old('id_production_monitoring', $productionMonitoring->id_production_monitoring) }}" required>
                 @if($errors->has('id_production_monitoring'))
-                    <span class="text-danger">{{ $errors->first('id_production_monitoring') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_production_monitoring') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_list_of_material'))
-                    <span class="text-danger">{{ $errors->first('id_list_of_material') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_list_of_material') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.id_list_of_material_helper') }}</span>
             </div>
@@ -39,7 +43,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.status_helper') }}</span>
             </div>

@@ -29,6 +29,12 @@ class FaqCategory extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        FaqCategory::observe(new \App\Observers\FaqCategoryActionObserver());
+    }
+
     public function categoryFaqQuestions()
     {
         return $this->hasMany(FaqQuestion::class, 'category_id', 'id');

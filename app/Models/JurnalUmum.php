@@ -38,6 +38,12 @@ class JurnalUmum extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        JurnalUmum::observe(new \App\Observers\JurnalUmumActionObserver());
+    }
+
     public function akun()
     {
         return $this->belongsTo(Akun::class, 'akun_id');

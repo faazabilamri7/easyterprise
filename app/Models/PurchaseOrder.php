@@ -28,12 +28,18 @@ class PurchaseOrder extends Model
         'id_purchase_order',
         'id_purchase_quotation_id',
         'date_purchase_order',
-        'material_name',
+        'material_name_id',
         'quantity',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        PurchaseOrder::observe(new \App\Observers\PurchaseOrderActionObserver());
+    }
 
     public function idPurchaseOrderMaterialEntries()
     {
@@ -58,6 +64,11 @@ class PurchaseOrder extends Model
     public function setDatePurchaseOrderAttribute($value)
     {
         $this->attributes['date_purchase_order'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function material_name()
+    {
+        return $this->belongsTo(Material::class, 'material_name_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

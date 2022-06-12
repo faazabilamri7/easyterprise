@@ -31,6 +31,12 @@ class FaqQuestion extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        FaqQuestion::observe(new \App\Observers\FaqQuestionActionObserver());
+    }
+
     public function category()
     {
         return $this->belongsTo(FaqCategory::class, 'category_id');

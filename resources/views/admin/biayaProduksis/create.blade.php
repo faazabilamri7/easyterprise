@@ -13,7 +13,9 @@
                 <label for="tanggal">{{ trans('cruds.biayaProduksi.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
                 @if($errors->has('tanggal'))
-                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.tanggal_helper') }}</span>
             </div>
@@ -21,7 +23,9 @@
                 <label for="periode">{{ trans('cruds.biayaProduksi.fields.periode') }}</label>
                 <input class="form-control {{ $errors->has('periode') ? 'is-invalid' : '' }}" type="text" name="periode" id="periode" value="{{ old('periode', '') }}">
                 @if($errors->has('periode'))
-                    <span class="text-danger">{{ $errors->first('periode') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('periode') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.periode_helper') }}</span>
             </div>
@@ -29,7 +33,9 @@
                 <label for="desc">{{ trans('cruds.biayaProduksi.fields.desc') }}</label>
                 <input class="form-control {{ $errors->has('desc') ? 'is-invalid' : '' }}" type="text" name="desc" id="desc" value="{{ old('desc', '') }}">
                 @if($errors->has('desc'))
-                    <span class="text-danger">{{ $errors->first('desc') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('desc') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.biayaProduksi.fields.desc_helper') }}</span>
             </div>

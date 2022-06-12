@@ -38,6 +38,12 @@ class ProductCategory extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        ProductCategory::observe(new \App\Observers\ProductCategoryActionObserver());
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);

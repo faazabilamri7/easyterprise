@@ -52,7 +52,7 @@
                             {{ trans('cruds.purchaseOrder.fields.material_name') }}
                         </th>
                         <td>
-                            {{ $purchaseOrder->material_name }}
+                            {{ $purchaseOrder->material_name->name_material ?? '' }}
                         </td>
                     </tr>
                     <tr>

@@ -37,6 +37,12 @@ class RequestForQuotation extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        RequestForQuotation::observe(new \App\Observers\RequestForQuotationActionObserver());
+    }
+
     public function idRequestForQuotationPurchaseInqs()
     {
         return $this->hasMany(PurchaseInq::class, 'id_request_for_quotation_id', 'id');

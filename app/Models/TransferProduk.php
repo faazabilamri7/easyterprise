@@ -15,6 +15,8 @@ class TransferProduk extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
+        'On Delivery' => 'On Delivery',
+        'Delivered'   => 'Delivered',
     ];
 
     public $table = 'transfer_produks';
@@ -35,6 +37,12 @@ class TransferProduk extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        TransferProduk::observe(new \App\Observers\TransferProdukActionObserver());
+    }
 
     public function id_quality_control()
     {

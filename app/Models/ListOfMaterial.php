@@ -17,7 +17,7 @@ class ListOfMaterial extends Model
     public const STATUS_SELECT = [
         'requested' => 'Requested',
         'processed' => 'Processed',
-        'delivered' => 'Delivered',
+        'Completed' => 'Completed',
     ];
 
     public $table = 'list_of_materials';
@@ -42,6 +42,12 @@ class ListOfMaterial extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        ListOfMaterial::observe(new \App\Observers\ListOfMaterialActionObserver());
+    }
 
     public function idListOfMaterialPurchaseRequitions()
     {

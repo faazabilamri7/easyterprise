@@ -1,79 +1,77 @@
-<div class="m-3">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.assetsHistory.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.assetsHistory.title_singular') }} {{ trans('global.list') }}
-        </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-assetAssetsHistories">
+                <thead>
+                    <tr>
+                        <th width="10">
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-assetAssetsHistories">
-                    <thead>
-                        <tr>
-                            <th width="10">
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.asset') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.location') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.assigned_user') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.assetsHistory.fields.created_at') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($assetsHistories as $key => $assetsHistory)
+                        <tr data-entry-id="{{ $assetsHistory->id }}">
+                            <td>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.asset') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.status') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.location') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.assigned_user') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.assetsHistory.fields.created_at') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+                            </td>
+                            <td>
+                                {{ $assetsHistory->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $assetsHistory->asset->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $assetsHistory->status->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $assetsHistory->location->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $assetsHistory->assigned_user->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $assetsHistory->created_at ?? '' }}
+                            </td>
+                            <td>
+
+
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($assetsHistories as $key => $assetsHistory)
-                            <tr data-entry-id="{{ $assetsHistory->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->asset->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->status->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->location->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->assigned_user->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $assetsHistory->created_at ?? '' }}
-                                </td>
-                                <td>
-
-
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

@@ -29,6 +29,12 @@ class TaskStatus extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        TaskStatus::observe(new \App\Observers\TaskStatusActionObserver());
+    }
+
     public function statusTasks()
     {
         return $this->hasMany(Task::class, 'status_id', 'id');

@@ -1,126 +1,126 @@
-<div class="m-3">
-    @can('asset_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.assets.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.asset.title_singular') }}
-                </a>
-            </div>
+@can('asset_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.assets.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.asset.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.asset.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-locationAssets">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.asset.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.category') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.serial_number') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.photos') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.status') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.location') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.notes') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.asset.fields.assigned_to') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-locationAssets">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.category') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.serial_number') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.photos') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.location') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.notes') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.asset.fields.assigned_to') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($assets as $key => $asset)
+                        <tr data-entry-id="{{ $asset->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $asset->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->category->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->serial_number ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($asset->photos as $key => $media)
+                                    <a href="{{ $media->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ $asset->status->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->location->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->notes ?? '' }}
+                            </td>
+                            <td>
+                                {{ $asset->assigned_to->name ?? '' }}
+                            </td>
+                            <td>
+                                @can('asset_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.assets.show', $asset->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('asset_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.assets.edit', $asset->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('asset_delete')
+                                    <form action="{{ route('admin.assets.destroy', $asset->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($assets as $key => $asset)
-                            <tr data-entry-id="{{ $asset->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $asset->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->category->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->serial_number ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->name ?? '' }}
-                                </td>
-                                <td>
-                                    @foreach($asset->photos as $key => $media)
-                                        <a href="{{ $media->getUrl() }}" target="_blank">
-                                            {{ trans('global.view_file') }}
-                                        </a>
-                                    @endforeach
-                                </td>
-                                <td>
-                                    {{ $asset->status->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->location->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->notes ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $asset->assigned_to->name ?? '' }}
-                                </td>
-                                <td>
-                                    @can('asset_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.assets.show', $asset->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('asset_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.assets.edit', $asset->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('asset_delete')
-                                        <form action="{{ route('admin.assets.destroy', $asset->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

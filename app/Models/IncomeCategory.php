@@ -29,6 +29,12 @@ class IncomeCategory extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        IncomeCategory::observe(new \App\Observers\IncomeCategoryActionObserver());
+    }
+
     public function incomeCategoryIncomes()
     {
         return $this->hasMany(Income::class, 'income_category_id', 'id');

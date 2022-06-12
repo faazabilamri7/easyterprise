@@ -1,86 +1,86 @@
-<div class="m-3">
-    @can('pengiriman_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.pengirimen.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.pengiriman.title_singular') }}
-                </a>
-            </div>
+@can('pengiriman_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.pengirimen.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.pengiriman.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.pengiriman.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-noSalesOrderPengirimen">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.pengiriman.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.pengiriman.fields.no_sales_order') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-noSalesOrderPengirimen">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.pengiriman.fields.no_sales_order') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($pengirimen as $key => $pengiriman)
+                        <tr data-entry-id="{{ $pengiriman->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $pengiriman->id_pengiriman ?? '' }}
+                            </td>
+                            <td>
+                                {{ $pengiriman->no_sales_order->no_sales_order ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
+                            </td>
+                            <td>
+                                @can('pengiriman_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.pengirimen.show', $pengiriman->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('pengiriman_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.pengirimen.edit', $pengiriman->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('pengiriman_delete')
+                                    <form action="{{ route('admin.pengirimen.destroy', $pengiriman->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($pengirimen as $key => $pengiriman)
-                            <tr data-entry-id="{{ $pengiriman->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $pengiriman->id_pengiriman ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $pengiriman->no_sales_order->no_sales_order ?? '' }}
-                                </td>
-                                <td>
-                                    {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
-                                </td>
-                                <td>
-                                    @can('pengiriman_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.pengirimen.show', $pengiriman->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('pengiriman_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.pengirimen.edit', $pengiriman->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('pengiriman_delete')
-                                        <form action="{{ route('admin.pengirimen.destroy', $pengiriman->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

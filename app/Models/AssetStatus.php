@@ -29,6 +29,12 @@ class AssetStatus extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        AssetStatus::observe(new \App\Observers\AssetStatusActionObserver());
+    }
+
     public function statusAssets()
     {
         return $this->hasMany(Asset::class, 'status_id', 'id');

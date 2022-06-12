@@ -29,6 +29,12 @@ class TaskTag extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        TaskTag::observe(new \App\Observers\TaskTagActionObserver());
+    }
+
     public function tagTasks()
     {
         return $this->belongsToMany(Task::class);

@@ -1,104 +1,104 @@
-<div class="m-3">
-    @can('crm_note_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.crm-notes.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.crmNote.title_singular') }}
-                </a>
-            </div>
+@can('crm_note_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.crm-notes.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.crmNote.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.crmNote.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-customerCrmNotes">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.crmNote.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.customer') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.keluhan') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.kritik') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.saran') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.crmNote.fields.note') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-customerCrmNotes">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.customer') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.keluhan') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.kritik') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.saran') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.crmNote.fields.note') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($crmNotes as $key => $crmNote)
+                        <tr data-entry-id="{{ $crmNote->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $crmNote->id ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmNote->customer->first_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmNote->keluhan ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmNote->kritik ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmNote->saran ?? '' }}
+                            </td>
+                            <td>
+                                {{ $crmNote->note ?? '' }}
+                            </td>
+                            <td>
+                                @can('crm_note_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-notes.show', $crmNote->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('crm_note_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.crm-notes.edit', $crmNote->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('crm_note_delete')
+                                    <form action="{{ route('admin.crm-notes.destroy', $crmNote->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($crmNotes as $key => $crmNote)
-                            <tr data-entry-id="{{ $crmNote->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $crmNote->id ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $crmNote->customer->first_name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $crmNote->keluhan ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $crmNote->kritik ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $crmNote->saran ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $crmNote->note ?? '' }}
-                                </td>
-                                <td>
-                                    @can('crm_note_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.crm-notes.show', $crmNote->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('crm_note_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.crm-notes.edit', $crmNote->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('crm_note_delete')
-                                        <form action="{{ route('admin.crm-notes.destroy', $crmNote->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

@@ -29,6 +29,12 @@ class CrmStatus extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        CrmStatus::observe(new \App\Observers\CrmStatusActionObserver());
+    }
+
     public function statusCrmCustomers()
     {
         return $this->hasMany(CrmCustomer::class, 'status_id', 'id');

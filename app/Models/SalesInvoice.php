@@ -29,6 +29,12 @@ class SalesInvoice extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        SalesInvoice::observe(new \App\Observers\SalesInvoiceActionObserver());
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

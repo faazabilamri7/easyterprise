@@ -59,7 +59,7 @@
                                             {{ $purchaseOrder->date_purchase_order ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $purchaseOrder->material_name ?? '' }}
+                                            {{ $purchaseOrder->material_name->name_material ?? '' }}
                                         </td>
                                         <td>
                                             {{ $purchaseOrder->quantity ?? '' }}

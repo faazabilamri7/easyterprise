@@ -14,7 +14,9 @@
                 <label for="tanggal">{{ trans('cruds.bukuBesar.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $bukuBesar->tanggal) }}">
                 @if($errors->has('tanggal'))
-                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.tanggal_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('akun'))
-                    <span class="text-danger">{{ $errors->first('akun') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('akun') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.akun_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                 <label for="keterangan">{{ trans('cruds.bukuBesar.fields.keterangan') }}</label>
                 <input class="form-control {{ $errors->has('keterangan') ? 'is-invalid' : '' }}" type="text" name="keterangan" id="keterangan" value="{{ old('keterangan', $bukuBesar->keterangan) }}">
                 @if($errors->has('keterangan'))
-                    <span class="text-danger">{{ $errors->first('keterangan') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('keterangan') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.keterangan_helper') }}</span>
             </div>
@@ -42,7 +48,9 @@
                 <label for="debit">{{ trans('cruds.bukuBesar.fields.debit') }}</label>
                 <input class="form-control {{ $errors->has('debit') ? 'is-invalid' : '' }}" type="number" name="debit" id="debit" value="{{ old('debit', $bukuBesar->debit) }}" step="0.01">
                 @if($errors->has('debit'))
-                    <span class="text-danger">{{ $errors->first('debit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('debit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.debit_helper') }}</span>
             </div>
@@ -50,7 +58,9 @@
                 <label for="kredit">{{ trans('cruds.bukuBesar.fields.kredit') }}</label>
                 <input class="form-control {{ $errors->has('kredit') ? 'is-invalid' : '' }}" type="number" name="kredit" id="kredit" value="{{ old('kredit', $bukuBesar->kredit) }}" step="0.01">
                 @if($errors->has('kredit'))
-                    <span class="text-danger">{{ $errors->first('kredit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('kredit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.kredit_helper') }}</span>
             </div>
@@ -58,7 +68,9 @@
                 <label for="total_debit">{{ trans('cruds.bukuBesar.fields.total_debit') }}</label>
                 <input class="form-control {{ $errors->has('total_debit') ? 'is-invalid' : '' }}" type="number" name="total_debit" id="total_debit" value="{{ old('total_debit', $bukuBesar->total_debit) }}" step="0.01">
                 @if($errors->has('total_debit'))
-                    <span class="text-danger">{{ $errors->first('total_debit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total_debit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.total_debit_helper') }}</span>
             </div>
@@ -66,7 +78,9 @@
                 <label for="total_kredit">{{ trans('cruds.bukuBesar.fields.total_kredit') }}</label>
                 <input class="form-control {{ $errors->has('total_kredit') ? 'is-invalid' : '' }}" type="number" name="total_kredit" id="total_kredit" value="{{ old('total_kredit', $bukuBesar->total_kredit) }}" step="0.01">
                 @if($errors->has('total_kredit'))
-                    <span class="text-danger">{{ $errors->first('total_kredit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total_kredit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.total_kredit_helper') }}</span>
             </div>
@@ -74,7 +88,9 @@
                 <label for="status">{{ trans('cruds.bukuBesar.fields.status') }}</label>
                 <input class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ old('status', $bukuBesar->status) }}">
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.bukuBesar.fields.status_helper') }}</span>
             </div>

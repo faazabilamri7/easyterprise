@@ -39,6 +39,12 @@ class DocumentsVendor extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        DocumentsVendor::observe(new \App\Observers\DocumentsVendorActionObserver());
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);

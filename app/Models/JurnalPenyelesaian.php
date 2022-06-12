@@ -35,6 +35,12 @@ class JurnalPenyelesaian extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        JurnalPenyelesaian::observe(new \App\Observers\JurnalPenyelesaianActionObserver());
+    }
+
     public function akun()
     {
         return $this->belongsTo(Akun::class, 'akun_id');

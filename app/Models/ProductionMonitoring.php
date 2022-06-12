@@ -15,11 +15,12 @@ class ProductionMonitoring extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'pembibitan'               => 'Nursery',
+        'pembibitan'               => 'Breeding',
         'Fermentasi'               => 'Fermentation',
         'Pencampuran Gula dan Air' => 'Materials Mixing',
         'Pembuatan Botol'          => 'Bottle Making',
         'Pengemasan'               => 'Packaging',
+        'Completed'                => 'Completed',
     ];
 
     public $table = 'production_monitorings';
@@ -38,6 +39,12 @@ class ProductionMonitoring extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        ProductionMonitoring::observe(new \App\Observers\ProductionMonitoringActionObserver());
+    }
 
     public function idProductionMonitoringQualityControls()
     {

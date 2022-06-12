@@ -29,6 +29,12 @@ class AssetCategory extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        AssetCategory::observe(new \App\Observers\AssetCategoryActionObserver());
+    }
+
     public function categoryAssets()
     {
         return $this->hasMany(Asset::class, 'category_id', 'id');

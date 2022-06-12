@@ -24,6 +24,12 @@ class UserAlert extends Model
         'updated_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        UserAlert::observe(new \App\Observers\UserAlertActionObserver());
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);

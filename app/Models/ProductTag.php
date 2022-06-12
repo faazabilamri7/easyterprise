@@ -29,6 +29,12 @@ class ProductTag extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        ProductTag::observe(new \App\Observers\ProductTagActionObserver());
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

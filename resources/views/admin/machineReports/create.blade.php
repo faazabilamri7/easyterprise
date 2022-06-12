@@ -13,7 +13,9 @@
                 <label for="id_mesin">{{ trans('cruds.machineReport.fields.id_mesin') }}</label>
                 <input class="form-control {{ $errors->has('id_mesin') ? 'is-invalid' : '' }}" type="text" name="id_mesin" id="id_mesin" value="{{ old('id_mesin', '') }}">
                 @if($errors->has('id_mesin'))
-                    <span class="text-danger">{{ $errors->first('id_mesin') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_mesin') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.machineReport.fields.id_mesin_helper') }}</span>
             </div>
@@ -21,7 +23,9 @@
                 <label class="required" for="nama_mesin">{{ trans('cruds.machineReport.fields.nama_mesin') }}</label>
                 <input class="form-control {{ $errors->has('nama_mesin') ? 'is-invalid' : '' }}" type="text" name="nama_mesin" id="nama_mesin" value="{{ old('nama_mesin', '') }}" required>
                 @if($errors->has('nama_mesin'))
-                    <span class="text-danger">{{ $errors->first('nama_mesin') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nama_mesin') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.machineReport.fields.nama_mesin_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.machineReport.fields.status_helper') }}</span>
             </div>

@@ -15,7 +15,9 @@
                 <div class="needsclick dropzone {{ $errors->has('document_file') ? 'is-invalid' : '' }}" id="document_file-dropzone">
                 </div>
                 @if($errors->has('document_file'))
-                    <span class="text-danger">{{ $errors->first('document_file') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('document_file') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.documentsVendor.fields.document_file_helper') }}</span>
             </div>
@@ -27,7 +29,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('vendor'))
-                    <span class="text-danger">{{ $errors->first('vendor') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('vendor') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.documentsVendor.fields.vendor_helper') }}</span>
             </div>
@@ -35,7 +39,9 @@
                 <label for="name">{{ trans('cruds.documentsVendor.fields.name') }}</label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $documentsVendor->name) }}">
                 @if($errors->has('name'))
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.documentsVendor.fields.name_helper') }}</span>
             </div>
@@ -43,7 +49,9 @@
                 <label for="description">{{ trans('cruds.documentsVendor.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $documentsVendor->description) }}</textarea>
                 @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.documentsVendor.fields.description_helper') }}</span>
             </div>
