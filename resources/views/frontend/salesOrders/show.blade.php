@@ -36,18 +36,18 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.tanggal') }}
+                                        {{ trans('cruds.salesOrder.fields.id_sales_quotation') }}
                                     </th>
                                     <td>
-                                        {{ $salesOrder->tanggal }}
+                                        {{ $salesOrder->id_sales_quotation->id_sales_quotation ?? '' }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.salesOrder.fields.sales_quotation') }}
+                                        {{ trans('cruds.salesOrder.fields.tanggal') }}
                                     </th>
                                     <td>
-                                        {{ $salesOrder->sales_quotation->harga ?? '' }}
+                                        {{ $salesOrder->tanggal }}
                                     </td>
                                 </tr>
                                 <tr>

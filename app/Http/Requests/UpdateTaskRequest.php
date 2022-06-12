@@ -19,7 +19,11 @@ class UpdateTaskRequest extends FormRequest
         return [
             'id_production_plan' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_request_product_id' => [
+                'required',
+                'integer',
             ],
             'name' => [
                 'string',

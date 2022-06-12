@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyMachineReportRequest;
 use App\Http\Requests\StoreMachineReportRequest;
 use App\Http\Requests\UpdateMachineReportRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MachineReportController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('machine_report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -53,6 +56,8 @@ class MachineReportController extends Controller
     public function show(MachineReport $machineReport)
     {
         abort_if(Gate::denies('machine_report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $machineReport->load('idMesinTasks');
 
         return view('frontend.machineReports.show', compact('machineReport'));
     }

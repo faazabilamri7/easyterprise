@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ListOfMaterial extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_SELECT = [
@@ -49,6 +51,11 @@ class ListOfMaterial extends Model
     public function idListOfMaterialProductionMonitorings()
     {
         return $this->hasMany(ProductionMonitoring::class, 'id_list_of_material_id', 'id');
+    }
+
+    public function idListOfMaterialTransferMaterials()
+    {
+        return $this->hasMany(TransferMaterial::class, 'id_list_of_material_id', 'id');
     }
 
     public function id_production_plan()

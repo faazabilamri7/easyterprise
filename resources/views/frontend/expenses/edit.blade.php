@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="expense_category_id">{{ trans('cruds.expense.fields.expense_category') }}</label>
-                            <select class="form-control select2" name="expense_category_id" id="expense_category_id">
+                            <label class="required" for="expense_category_id">{{ trans('cruds.expense.fields.expense_category') }}</label>
+                            <select class="form-control select2" name="expense_category_id" id="expense_category_id" required>
                                 @foreach($expense_categories as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('expense_category_id') ? old('expense_category_id') : $expense->expense_category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

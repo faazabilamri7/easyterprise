@@ -85,6 +85,21 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="#vendor_documents_vendors" role="tab" data-toggle="tab">
+                {{ trans('cruds.documentsVendor.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#vendor_notes_vendors" role="tab" data-toggle="tab">
+                {{ trans('cruds.notesVendor.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#id_vendor_purchase_quotations" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseQuotation.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#vendor_name_purchase_inqs" role="tab" data-toggle="tab">
                 {{ trans('cruds.purchaseInq.title') }}
             </a>
@@ -93,6 +108,15 @@
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="perusahaan_invoice_pembelians">
             @includeIf('admin.vendors.relationships.perusahaanInvoicePembelians', ['invoicePembelians' => $vendor->perusahaanInvoicePembelians])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="vendor_documents_vendors">
+            @includeIf('admin.vendors.relationships.vendorDocumentsVendors', ['documentsVendors' => $vendor->vendorDocumentsVendors])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="vendor_notes_vendors">
+            @includeIf('admin.vendors.relationships.vendorNotesVendors', ['notesVendors' => $vendor->vendorNotesVendors])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="id_vendor_purchase_quotations">
+            @includeIf('admin.vendors.relationships.idVendorPurchaseQuotations', ['purchaseQuotations' => $vendor->idVendorPurchaseQuotations])
         </div>
         <div class="tab-pane" role="tabpanel" id="vendor_name_purchase_inqs">
             @includeIf('admin.vendors.relationships.vendorNamePurchaseInqs', ['purchaseInqs' => $vendor->vendorNamePurchaseInqs])

@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.transfer-materials.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.transferMaterial.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'TransferMaterial', 'route' => 'admin.transfer-materials.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -23,10 +27,10 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transferMaterial.fields.id') }}
+                                        {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.transferMaterial.fields.id_transfer_material') }}
+                                        {{ trans('cruds.transferMaterial.fields.id_list_of_material') }}
                                     </th>
                                     <th>
                                         {{ trans('cruds.transferMaterial.fields.status') }}
@@ -40,10 +44,10 @@
                                 @foreach($transferMaterials as $key => $transferMaterial)
                                     <tr data-entry-id="{{ $transferMaterial->id }}">
                                         <td>
-                                            {{ $transferMaterial->id ?? '' }}
+                                            {{ $transferMaterial->id_transfer_material ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $transferMaterial->id_transfer_material ?? '' }}
+                                            {{ $transferMaterial->id_list_of_material->id_list_of_material ?? '' }}
                                         </td>
                                         <td>
                                             {{ App\Models\TransferMaterial::STATUS_SELECT[$transferMaterial->status] ?? '' }}

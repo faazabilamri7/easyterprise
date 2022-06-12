@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.transfer-produks.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.transferProduk.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'TransferProduk', 'route' => 'admin.transfer-produks.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -23,16 +27,19 @@
                             <thead>
                                 <tr>
                                     <th>
-                                        {{ trans('cruds.transferProduk.fields.id') }}
+                                        {{ trans('cruds.transferProduk.fields.id_transfer_produk') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.transferProduk.fields.nama_produk') }}
+                                        {{ trans('cruds.transferProduk.fields.id_quality_control') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.transferProduk.fields.transfer_dari') }}
+                                        {{ trans('cruds.transferProduk.fields.product_name') }}
                                     </th>
                                     <th>
-                                        {{ trans('cruds.transferProduk.fields.transfer_ke') }}
+                                        {{ trans('cruds.transferProduk.fields.qty') }}
+                                    </th>
+                                    <th>
+                                        {{ trans('cruds.transferProduk.fields.status') }}
                                     </th>
                                     <th>
                                         &nbsp;
@@ -43,16 +50,19 @@
                                 @foreach($transferProduks as $key => $transferProduk)
                                     <tr data-entry-id="{{ $transferProduk->id }}">
                                         <td>
-                                            {{ $transferProduk->id ?? '' }}
+                                            {{ $transferProduk->id_transfer_produk ?? '' }}
                                         </td>
                                         <td>
-                                            {{ $transferProduk->nama_produk ?? '' }}
+                                            {{ $transferProduk->id_quality_control->id_quality_control ?? '' }}
                                         </td>
                                         <td>
-                                            {{ App\Models\TransferProduk::TRANSFER_DARI_SELECT[$transferProduk->transfer_dari] ?? '' }}
+                                            {{ $transferProduk->product_name->name ?? '' }}
                                         </td>
                                         <td>
-                                            {{ App\Models\TransferProduk::TRANSFER_KE_SELECT[$transferProduk->transfer_ke] ?? '' }}
+                                            {{ $transferProduk->qty ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ App\Models\TransferProduk::STATUS_SELECT[$transferProduk->status] ?? '' }}
                                         </td>
                                         <td>
                                             @can('transfer_produk_show')

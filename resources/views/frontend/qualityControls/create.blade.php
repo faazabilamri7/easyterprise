@@ -14,8 +14,8 @@
                         @method('POST')
                         @csrf
                         <div class="form-group">
-                            <label for="id_quality_control">{{ trans('cruds.qualityControl.fields.id_quality_control') }}</label>
-                            <input class="form-control" type="text" name="id_quality_control" id="id_quality_control" value="{{ old('id_quality_control', '') }}">
+                            <label class="required" for="id_quality_control">{{ trans('cruds.qualityControl.fields.id_quality_control') }}</label>
+                            <input class="form-control" type="text" name="id_quality_control" id="id_quality_control" value="{{ old('id_quality_control', '') }}" required>
                             @if($errors->has('id_quality_control'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_quality_control') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.qualityControl.fields.id_quality_control_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_production_monitoring_id">{{ trans('cruds.qualityControl.fields.id_production_monitoring') }}</label>
-                            <select class="form-control select2" name="id_production_monitoring_id" id="id_production_monitoring_id">
+                            <label class="required" for="id_production_monitoring_id">{{ trans('cruds.qualityControl.fields.id_production_monitoring') }}</label>
+                            <select class="form-control select2" name="id_production_monitoring_id" id="id_production_monitoring_id" required>
                                 @foreach($id_production_monitorings as $id => $entry)
                                     <option value="{{ $id }}" {{ old('id_production_monitoring_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

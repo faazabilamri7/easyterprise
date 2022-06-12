@@ -14,14 +14,28 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
-                            <input class="form-control" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', $transferMaterial->id_transfer_material) }}">
+                            <label class="required" for="id_transfer_material">{{ trans('cruds.transferMaterial.fields.id_transfer_material') }}</label>
+                            <input class="form-control" type="text" name="id_transfer_material" id="id_transfer_material" value="{{ old('id_transfer_material', $transferMaterial->id_transfer_material) }}" required>
                             @if($errors->has('id_transfer_material'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_transfer_material') }}
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.transferMaterial.fields.id_transfer_material_helper') }}</span>
+                        </div>
+                        <div class="form-group">
+                            <label class="required" for="id_list_of_material_id">{{ trans('cruds.transferMaterial.fields.id_list_of_material') }}</label>
+                            <select class="form-control select2" name="id_list_of_material_id" id="id_list_of_material_id" required>
+                                @foreach($id_list_of_materials as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('id_list_of_material_id') ? old('id_list_of_material_id') : $transferMaterial->id_list_of_material->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('id_list_of_material'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_list_of_material') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.transferMaterial.fields.id_list_of_material_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label>{{ trans('cruds.transferMaterial.fields.status') }}</label>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,12 +11,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class TransferProduk extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
-    public const TRANSFER_KE_SELECT = [
-    ];
-
-    public const TRANSFER_DARI_SELECT = [
+    public const STATUS_SELECT = [
     ];
 
     public $table = 'transfer_produks';
@@ -27,13 +26,25 @@ class TransferProduk extends Model
     ];
 
     protected $fillable = [
-        'nama_produk',
-        'transfer_dari',
-        'transfer_ke',
+        'id_transfer_produk',
+        'id_quality_control_id',
+        'product_name_id',
+        'qty',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function id_quality_control()
+    {
+        return $this->belongsTo(QualityControl::class, 'id_quality_control_id');
+    }
+
+    public function product_name()
+    {
+        return $this->belongsTo(Product::class, 'product_name_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

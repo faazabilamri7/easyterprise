@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class CrmCustomer extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'crm_customers';
@@ -32,9 +34,24 @@ class CrmCustomer extends Model
         'deleted_at',
     ];
 
+    public function customerCrmNotes()
+    {
+        return $this->hasMany(CrmNote::class, 'customer_id', 'id');
+    }
+
+    public function customerCrmDocuments()
+    {
+        return $this->hasMany(CrmDocument::class, 'customer_id', 'id');
+    }
+
     public function idCustomerSalesInquiries()
     {
         return $this->hasMany(SalesInquiry::class, 'id_customer_id', 'id');
+    }
+
+    public function customerInvoicePembelians()
+    {
+        return $this->hasMany(InvoicePembelian::class, 'customer_id', 'id');
     }
 
     public function status()

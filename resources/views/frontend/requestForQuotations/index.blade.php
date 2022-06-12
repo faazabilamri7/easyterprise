@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.request-for-quotations.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.requestForQuotation.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'RequestForQuotation', 'route' => 'admin.request-for-quotations.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-RequestForQuotation">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.requestForQuotation.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}
                                     </th>
@@ -45,9 +46,6 @@
                             <tbody>
                                 @foreach($requestForQuotations as $key => $requestForQuotation)
                                     <tr data-entry-id="{{ $requestForQuotation->id }}">
-                                        <td>
-                                            {{ $requestForQuotation->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $requestForQuotation->id_request_for_quotation ?? '' }}
                                         </td>

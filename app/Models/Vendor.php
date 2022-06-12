@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Vendor extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'vendors';
@@ -34,6 +36,21 @@ class Vendor extends Model
     public function perusahaanInvoicePembelians()
     {
         return $this->hasMany(InvoicePembelian::class, 'perusahaan_id', 'id');
+    }
+
+    public function vendorDocumentsVendors()
+    {
+        return $this->hasMany(DocumentsVendor::class, 'vendor_id', 'id');
+    }
+
+    public function vendorNotesVendors()
+    {
+        return $this->hasMany(NotesVendor::class, 'vendor_id', 'id');
+    }
+
+    public function idVendorPurchaseQuotations()
+    {
+        return $this->hasMany(PurchaseQuotation::class, 'id_vendor_id', 'id');
     }
 
     public function vendorNamePurchaseInqs()

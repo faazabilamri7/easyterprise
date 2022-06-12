@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class KasBank extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'kas_banks';
@@ -31,6 +33,11 @@ class KasBank extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function kasBankTransaksiKeuangans()
+    {
+        return $this->hasMany(TransaksiKeuangan::class, 'kas_bank_id', 'id');
+    }
 
     public function getTanggalAttribute($value)
     {

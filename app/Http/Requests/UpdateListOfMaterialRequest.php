@@ -19,7 +19,11 @@ class UpdateListOfMaterialRequest extends FormRequest
         return [
             'id_list_of_material' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_production_plan_id' => [
+                'required',
+                'integer',
             ],
             'request_air' => [
                 'nullable',

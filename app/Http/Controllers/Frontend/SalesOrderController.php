@@ -21,7 +21,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrders = SalesOrder::with(['sales_quotation'])->get();
+        $salesOrders = SalesOrder::with(['id_sales_quotation'])->get();
 
         return view('frontend.salesOrders.index', compact('salesOrders'));
     }
@@ -30,9 +30,9 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sales_quotations = SalesQuotation::pluck('harga', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_sales_quotations = SalesQuotation::pluck('id_sales_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.salesOrders.create', compact('sales_quotations'));
+        return view('frontend.salesOrders.create', compact('id_sales_quotations'));
     }
 
     public function store(StoreSalesOrderRequest $request)
@@ -46,11 +46,11 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $sales_quotations = SalesQuotation::pluck('harga', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $id_sales_quotations = SalesQuotation::pluck('id_sales_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $salesOrder->load('sales_quotation');
+        $salesOrder->load('id_sales_quotation');
 
-        return view('frontend.salesOrders.edit', compact('salesOrder', 'sales_quotations'));
+        return view('frontend.salesOrders.edit', compact('id_sales_quotations', 'salesOrder'));
     }
 
     public function update(UpdateSalesOrderRequest $request, SalesOrder $salesOrder)
@@ -64,7 +64,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrder->load('sales_quotation', 'salesOrderCustomerComplains', 'statusSalesReports', 'tglSalesOrderSalesReports', 'salesProductTransaksiKeuangans');
+        $salesOrder->load('id_sales_quotation', 'salesProductTransaksiKeuangans', 'noSalesOrderPengirimen');
 
         return view('frontend.salesOrders.show', compact('salesOrder'));
     }

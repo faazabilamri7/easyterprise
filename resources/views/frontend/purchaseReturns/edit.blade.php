@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="purchase_return">{{ trans('cruds.purchaseReturn.fields.purchase_return') }}</label>
-                            <input class="form-control" type="text" name="purchase_return" id="purchase_return" value="{{ old('purchase_return', $purchaseReturn->purchase_return) }}">
+                            <label class="required" for="purchase_return">{{ trans('cruds.purchaseReturn.fields.purchase_return') }}</label>
+                            <input class="form-control" type="text" name="purchase_return" id="purchase_return" value="{{ old('purchase_return', $purchaseReturn->purchase_return) }}" required>
                             @if($errors->has('purchase_return'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('purchase_return') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.purchaseReturn.fields.purchase_return_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="id_purchase_order_id">{{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}</label>
-                            <select class="form-control select2" name="id_purchase_order_id" id="id_purchase_order_id">
+                            <label class="required" for="id_purchase_order_id">{{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}</label>
+                            <select class="form-control select2" name="id_purchase_order_id" id="id_purchase_order_id" required>
                                 @foreach($id_purchase_orders as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('id_purchase_order_id') ? old('id_purchase_order_id') : $purchaseReturn->id_purchase_order->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

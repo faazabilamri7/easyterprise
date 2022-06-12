@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseRequitionRequest;
 use App\Http\Requests\StorePurchaseRequitionRequest;
 use App\Http\Requests\UpdatePurchaseRequitionRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PurchaseRequitionController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('purchase_requition_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -86,7 +89,7 @@ class PurchaseRequitionController extends Controller
     {
         abort_if(Gate::denies('purchase_requition_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseRequition->load('id_list_of_material', 'material_1', 'material_2', 'material_3', 'material_4', 'material_5', 'material_6');
+        $purchaseRequition->load('id_list_of_material', 'material_1', 'material_2', 'material_3', 'material_4', 'material_5', 'material_6', 'idPurchaseRequisitionRequestForQuotations');
 
         return view('frontend.purchaseRequitions.show', compact('purchaseRequition'));
     }

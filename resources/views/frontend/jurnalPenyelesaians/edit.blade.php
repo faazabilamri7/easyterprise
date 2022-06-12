@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="akun_id">{{ trans('cruds.jurnalPenyelesaian.fields.akun') }}</label>
-                            <select class="form-control select2" name="akun_id" id="akun_id">
+                            <label class="required" for="akun_id">{{ trans('cruds.jurnalPenyelesaian.fields.akun') }}</label>
+                            <select class="form-control select2" name="akun_id" id="akun_id" required>
                                 @foreach($akuns as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('akun_id') ? old('akun_id') : $jurnalPenyelesaian->akun->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

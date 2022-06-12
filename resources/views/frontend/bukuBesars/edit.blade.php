@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.bukuBesar.fields.tanggal_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="akun_id">{{ trans('cruds.bukuBesar.fields.akun') }}</label>
-                            <select class="form-control select2" name="akun_id" id="akun_id">
+                            <label class="required" for="akun_id">{{ trans('cruds.bukuBesar.fields.akun') }}</label>
+                            <select class="form-control select2" name="akun_id" id="akun_id" required>
                                 @foreach($akuns as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('akun_id') ? old('akun_id') : $bukuBesar->akun->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

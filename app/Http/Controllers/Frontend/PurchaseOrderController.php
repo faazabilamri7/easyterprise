@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseOrderRequest;
 use App\Http\Requests\StorePurchaseOrderRequest;
 use App\Http\Requests\UpdatePurchaseOrderRequest;
@@ -14,6 +15,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PurchaseOrderController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('purchase_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -61,7 +64,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseOrder->load('id_purchase_quotation');
+        $purchaseOrder->load('id_purchase_quotation', 'idPurchaseOrderMaterialEntries', 'idPurchaseOrderPurchaseReturns');
 
         return view('frontend.purchaseOrders.show', compact('purchaseOrder'));
     }

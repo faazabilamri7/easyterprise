@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyTransferMaterialRequest;
 use App\Http\Requests\StoreTransferMaterialRequest;
 use App\Http\Requests\UpdateTransferMaterialRequest;
+use App\Models\ListOfMaterial;
 use App\Models\TransferMaterial;
 use Gate;
 use Illuminate\Http\Request;
@@ -13,11 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TransferMaterialController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('transfer_material_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $transferMaterials = TransferMaterial::all();
+        $transferMaterials = TransferMaterial::with(['id_list_of_material'])->get();
 
         return view('frontend.transferMaterials.index', compact('transferMaterials'));
     }
@@ -26,7 +30,9 @@ class TransferMaterialController extends Controller
     {
         abort_if(Gate::denies('transfer_material_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.transferMaterials.create');
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.transferMaterials.create', compact('id_list_of_materials'));
     }
 
     public function store(StoreTransferMaterialRequest $request)
@@ -40,7 +46,11 @@ class TransferMaterialController extends Controller
     {
         abort_if(Gate::denies('transfer_material_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('frontend.transferMaterials.edit', compact('transferMaterial'));
+        $id_list_of_materials = ListOfMaterial::pluck('id_list_of_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $transferMaterial->load('id_list_of_material');
+
+        return view('frontend.transferMaterials.edit', compact('id_list_of_materials', 'transferMaterial'));
     }
 
     public function update(UpdateTransferMaterialRequest $request, TransferMaterial $transferMaterial)
@@ -53,6 +63,8 @@ class TransferMaterialController extends Controller
     public function show(TransferMaterial $transferMaterial)
     {
         abort_if(Gate::denies('transfer_material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $transferMaterial->load('id_list_of_material');
 
         return view('frontend.transferMaterials.show', compact('transferMaterial'));
     }

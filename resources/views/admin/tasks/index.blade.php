@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route('admin.tasks.create') }}">
                 {{ trans('global.add') }} {{ trans('cruds.task.title_singular') }}
             </a>
+            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                {{ trans('global.app_csvImport') }}
+            </button>
+            @include('csvImport.modal', ['model' => 'Task', 'route' => 'admin.tasks.parseCsvImport'])
         </div>
     </div>
 @endcan
@@ -15,112 +19,45 @@
     </div>
 
     <div class="card-body">
-        <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-Task">
-                <thead>
-                    <tr>
-                        <th width="10">
+        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Task">
+            <thead>
+                <tr>
+                    <th width="10">
 
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.id') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.id_production_plan') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.id_request_product') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.name') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.description') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.status') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.tag') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.attachment') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.task.fields.due_date') }}
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($tasks as $key => $task)
-                        <tr data-entry-id="{{ $task->id }}">
-                            <td>
-
-                            </td>
-                            <td>
-                                {{ $task->id ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->id_production_plan ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->id_request_product->id_request_product ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->name ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->description ?? '' }}
-                            </td>
-                            <td>
-                                {{ $task->status->name ?? '' }}
-                            </td>
-                            <td>
-                                @foreach($task->tags as $key => $item)
-                                    <span class="badge badge-info">{{ $item->name }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                @if($task->attachment)
-                                    <a href="{{ $task->attachment->getUrl() }}" target="_blank">
-                                        {{ trans('global.view_file') }}
-                                    </a>
-                                @endif
-                            </td>
-                            <td>
-                                {{ $task->due_date ?? '' }}
-                            </td>
-                            <td>
-                                @can('task_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.tasks.show', $task->id) }}">
-                                        {{ trans('global.view') }}
-                                    </a>
-                                @endcan
-
-                                @can('task_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.tasks.edit', $task->id) }}">
-                                        {{ trans('global.edit') }}
-                                    </a>
-                                @endcan
-
-                                @can('task_delete')
-                                    <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                    </form>
-                                @endcan
-
-                            </td>
-
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.id_production_plan') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.id_request_product') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.id_mesin') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.description') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.status') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.tag') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.attachment') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.due_date') }}
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+            </thead>
+        </table>
     </div>
 </div>
 
@@ -133,14 +70,14 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('task_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
+  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.tasks.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
-      var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
-          return $(entry).data('entry-id')
+      var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
+          return entry.id
       });
 
       if (ids.length === 0) {
@@ -162,18 +99,37 @@
   dtButtons.push(deleteButton)
 @endcan
 
-  $.extend(true, $.fn.dataTable.defaults, {
+  let dtOverrideGlobals = {
+    buttons: dtButtons,
+    processing: true,
+    serverSide: true,
+    retrieve: true,
+    aaSorting: [],
+    ajax: "{{ route('admin.tasks.index') }}",
+    columns: [
+      { data: 'placeholder', name: 'placeholder' },
+{ data: 'id_production_plan', name: 'id_production_plan' },
+{ data: 'id_request_product_id_request_product', name: 'id_request_product.id_request_product' },
+{ data: 'id_mesin_id_mesin', name: 'id_mesin.id_mesin' },
+{ data: 'name', name: 'name' },
+{ data: 'description', name: 'description' },
+{ data: 'status_name', name: 'status.name' },
+{ data: 'tag', name: 'tags.name' },
+{ data: 'attachment', name: 'attachment', sortable: false, searchable: false },
+{ data: 'due_date', name: 'due_date' },
+{ data: 'actions', name: '{{ trans('global.actions') }}' }
+    ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
     pageLength: 100,
-  });
-  let table = $('.datatable-Task:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  };
+  let table = $('.datatable-Task').DataTable(dtOverrideGlobals);
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();
   });
   
-})
+});
 
 </script>
 @endsection

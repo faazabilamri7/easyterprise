@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyDocumentsVendorRequest;
 use App\Http\Requests\StoreDocumentsVendorRequest;
@@ -17,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 class DocumentsVendorController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
     public function index()
     {

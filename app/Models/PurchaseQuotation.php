@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PurchaseQuotation extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_SELECT = [
@@ -55,6 +57,11 @@ class PurchaseQuotation extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function idPurchaseQuotationPurchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class, 'id_purchase_quotation_id', 'id');
+    }
 
     public function id_purchase_inquiry()
     {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesInvoiceRequest;
 use App\Http\Requests\StoreSalesInvoiceRequest;
 use App\Http\Requests\UpdateSalesInvoiceRequest;
@@ -10,16 +11,48 @@ use App\Models\SalesInvoice;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class SalesInvoiceController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('sales_invoice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesInvoices = SalesInvoice::all();
+        if ($request->ajax()) {
+            $query = SalesInvoice::query()->select(sprintf('%s.*', (new SalesInvoice())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.salesInvoices.index', compact('salesInvoices'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'sales_invoice_show';
+                $editGate = 'sales_invoice_edit';
+                $deleteGate = 'sales_invoice_delete';
+                $crudRoutePart = 'sales-invoices';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_invoice', function ($row) {
+                return $row->id_invoice ? $row->id_invoice : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.salesInvoices.index');
     }
 
     public function create()

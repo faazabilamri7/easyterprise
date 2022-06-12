@@ -21,6 +21,10 @@ class StoreNecaraSaldoRequest extends FormRequest
                 'date_format:' . config('panel.date_format'),
                 'nullable',
             ],
+            'akun_id' => [
+                'required',
+                'integer',
+            ],
             'status' => [
                 'string',
                 'nullable',

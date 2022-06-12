@@ -9,6 +9,10 @@
                         <a class="btn btn-success" href="{{ route('frontend.purchase-returns.create') }}">
                             {{ trans('global.add') }} {{ trans('cruds.purchaseReturn.title_singular') }}
                         </a>
+                        <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
+                            {{ trans('global.app_csvImport') }}
+                        </button>
+                        @include('csvImport.modal', ['model' => 'PurchaseReturn', 'route' => 'admin.purchase-returns.parseCsvImport'])
                     </div>
                 </div>
             @endcan
@@ -22,9 +26,6 @@
                         <table class=" table table-bordered table-striped table-hover datatable datatable-PurchaseReturn">
                             <thead>
                                 <tr>
-                                    <th>
-                                        {{ trans('cruds.purchaseReturn.fields.id') }}
-                                    </th>
                                     <th>
                                         {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
                                     </th>
@@ -48,9 +49,6 @@
                             <tbody>
                                 @foreach($purchaseReturns as $key => $purchaseReturn)
                                     <tr data-entry-id="{{ $purchaseReturn->id }}">
-                                        <td>
-                                            {{ $purchaseReturn->id ?? '' }}
-                                        </td>
                                         <td>
                                             {{ $purchaseReturn->purchase_return ?? '' }}
                                         </td>

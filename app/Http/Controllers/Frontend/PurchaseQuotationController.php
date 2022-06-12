@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseQuotationRequest;
 use App\Http\Requests\StorePurchaseQuotationRequest;
 use App\Http\Requests\UpdatePurchaseQuotationRequest;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class PurchaseQuotationController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('purchase_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -66,7 +69,7 @@ class PurchaseQuotationController extends Controller
     {
         abort_if(Gate::denies('purchase_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseQuotation->load('id_purchase_inquiry', 'id_vendor');
+        $purchaseQuotation->load('id_purchase_inquiry', 'id_vendor', 'idPurchaseQuotationPurchaseOrders');
 
         return view('frontend.purchaseQuotations.show', compact('purchaseQuotation'));
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Pengiriman extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_PENGIRIMAN_SELECT = [
@@ -24,13 +26,18 @@ class Pengiriman extends Model
     ];
 
     protected $fillable = [
-        'nama_customer',
+        'id_pengiriman',
+        'no_sales_order_id',
         'status_pengiriman',
-        'alamat_pengiriman',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
+
+    public function no_sales_order()
+    {
+        return $this->belongsTo(SalesOrder::class, 'no_sales_order_id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

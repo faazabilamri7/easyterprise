@@ -19,7 +19,11 @@ class StoreTransferMaterialRequest extends FormRequest
         return [
             'id_transfer_material' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_list_of_material_id' => [
+                'required',
+                'integer',
             ],
         ];
     }

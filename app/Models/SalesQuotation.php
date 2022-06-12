@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class SalesQuotation extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public const STATUS_SELECT = [
@@ -28,6 +30,7 @@ class SalesQuotation extends Model
     ];
 
     protected $fillable = [
+        'id_sales_quotation',
         'kode_inquiry_id',
         'harga',
         'status',
@@ -36,9 +39,9 @@ class SalesQuotation extends Model
         'deleted_at',
     ];
 
-    public function salesQuotationSalesOrders()
+    public function idSalesQuotationSalesOrders()
     {
-        return $this->hasMany(SalesOrder::class, 'sales_quotation_id', 'id');
+        return $this->hasMany(SalesOrder::class, 'id_sales_quotation_id', 'id');
     }
 
     public function kode_inquiry()

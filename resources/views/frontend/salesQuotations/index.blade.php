@@ -30,6 +30,9 @@
                                         {{ trans('cruds.salesQuotation.fields.id') }}
                                     </th>
                                     <th>
+                                        {{ trans('cruds.salesQuotation.fields.id_sales_quotation') }}
+                                    </th>
+                                    <th>
                                         {{ trans('cruds.salesQuotation.fields.kode_inquiry') }}
                                     </th>
                                     <th>
@@ -48,6 +51,9 @@
                                     <tr data-entry-id="{{ $salesQuotation->id }}">
                                         <td>
                                             {{ $salesQuotation->id ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $salesQuotation->id_sales_quotation ?? '' }}
                                         </td>
                                         <td>
                                             {{ $salesQuotation->kode_inquiry->inquiry_kode ?? '' }}

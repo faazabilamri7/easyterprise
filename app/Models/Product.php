@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,6 +15,7 @@ class Product extends Model implements HasMedia
 {
     use SoftDeletes;
     use InteractsWithMedia;
+    use Auditable;
     use HasFactory;
 
     public const TAG_RADIO = [
@@ -58,6 +60,11 @@ class Product extends Model implements HasMedia
     public function requestProductRequestStockProducts()
     {
         return $this->hasMany(RequestStockProduct::class, 'request_product_id', 'id');
+    }
+
+    public function productNameTransferProduks()
+    {
+        return $this->hasMany(TransferProduk::class, 'product_name_id', 'id');
     }
 
     public function getFotoProdukAttribute()

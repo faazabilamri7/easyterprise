@@ -11,26 +11,22 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label for="id_production_monitoring">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}</label>
-                <input class="form-control {{ $errors->has('id_production_monitoring') ? 'is-invalid' : '' }}" type="text" name="id_production_monitoring" id="id_production_monitoring" value="{{ old('id_production_monitoring', $productionMonitoring->id_production_monitoring) }}">
+                <label class="required" for="id_production_monitoring">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring') }}</label>
+                <input class="form-control {{ $errors->has('id_production_monitoring') ? 'is-invalid' : '' }}" type="text" name="id_production_monitoring" id="id_production_monitoring" value="{{ old('id_production_monitoring', $productionMonitoring->id_production_monitoring) }}" required>
                 @if($errors->has('id_production_monitoring'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_production_monitoring') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_production_monitoring') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.id_production_monitoring_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="id_list_of_material_id">{{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}</label>
-                <select class="form-control select2 {{ $errors->has('id_list_of_material') ? 'is-invalid' : '' }}" name="id_list_of_material_id" id="id_list_of_material_id">
+                <label class="required" for="id_list_of_material_id">{{ trans('cruds.productionMonitoring.fields.id_list_of_material') }}</label>
+                <select class="form-control select2 {{ $errors->has('id_list_of_material') ? 'is-invalid' : '' }}" name="id_list_of_material_id" id="id_list_of_material_id" required>
                     @foreach($id_list_of_materials as $id => $entry)
                         <option value="{{ $id }}" {{ (old('id_list_of_material_id') ? old('id_list_of_material_id') : $productionMonitoring->id_list_of_material->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('id_list_of_material'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('id_list_of_material') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('id_list_of_material') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.id_list_of_material_helper') }}</span>
             </div>
@@ -43,9 +39,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('status') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.productionMonitoring.fields.status_helper') }}</span>
             </div>

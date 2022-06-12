@@ -14,9 +14,7 @@
                 <label class="required" for="name_material">{{ trans('cruds.material.fields.name_material') }}</label>
                 <input class="form-control {{ $errors->has('name_material') ? 'is-invalid' : '' }}" type="text" name="name_material" id="name_material" value="{{ old('name_material', $material->name_material) }}" required>
                 @if($errors->has('name_material'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('name_material') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('name_material') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.material.fields.name_material_helper') }}</span>
             </div>
@@ -24,9 +22,7 @@
                 <label for="descriptive">{{ trans('cruds.material.fields.descriptive') }}</label>
                 <textarea class="form-control {{ $errors->has('descriptive') ? 'is-invalid' : '' }}" name="descriptive" id="descriptive">{{ old('descriptive', $material->descriptive) }}</textarea>
                 @if($errors->has('descriptive'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('descriptive') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('descriptive') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.material.fields.descriptive_helper') }}</span>
             </div>
@@ -35,9 +31,7 @@
                 <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
                 </div>
                 @if($errors->has('photo'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('photo') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('photo') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.material.fields.photo_helper') }}</span>
             </div>
@@ -45,9 +39,7 @@
                 <label for="stock">{{ trans('cruds.material.fields.stock') }}</label>
                 <input class="form-control {{ $errors->has('stock') ? 'is-invalid' : '' }}" type="number" name="stock" id="stock" value="{{ old('stock', $material->stock) }}" step="1">
                 @if($errors->has('stock'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('stock') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('stock') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.material.fields.stock_helper') }}</span>
             </div>

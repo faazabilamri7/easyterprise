@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyVendorRequest;
 use App\Http\Requests\StoreVendorRequest;
 use App\Http\Requests\UpdateVendorRequest;
@@ -10,16 +11,63 @@ use App\Models\Vendor;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class VendorController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('vendor_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $vendors = Vendor::all();
+        if ($request->ajax()) {
+            $query = Vendor::query()->select(sprintf('%s.*', (new Vendor())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.vendors.index', compact('vendors'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'vendor_show';
+                $editGate = 'vendor_edit';
+                $deleteGate = 'vendor_delete';
+                $crudRoutePart = 'vendors';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('nama_vendor', function ($row) {
+                return $row->nama_vendor ? $row->nama_vendor : '';
+            });
+            $table->editColumn('telepon', function ($row) {
+                return $row->telepon ? $row->telepon : '';
+            });
+            $table->editColumn('email', function ($row) {
+                return $row->email ? $row->email : '';
+            });
+            $table->editColumn('alamat', function ($row) {
+                return $row->alamat ? $row->alamat : '';
+            });
+            $table->editColumn('website', function ($row) {
+                return $row->website ? $row->website : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.vendors.index');
     }
 
     public function create()
@@ -54,7 +102,7 @@ class VendorController extends Controller
     {
         abort_if(Gate::denies('vendor_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $vendor->load('perusahaanInvoicePembelians', 'vendorNamePurchaseInqs');
+        $vendor->load('perusahaanInvoicePembelians', 'vendorDocumentsVendors', 'vendorNotesVendors', 'idVendorPurchaseQuotations', 'vendorNamePurchaseInqs');
 
         return view('admin.vendors.show', compact('vendor'));
     }

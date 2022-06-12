@@ -18,9 +18,7 @@
                     @endforeach
                 </select>
                 @if($errors->has('category'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('category') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.faqQuestion.fields.category_helper') }}</span>
             </div>
@@ -28,9 +26,7 @@
                 <label class="required" for="question">{{ trans('cruds.faqQuestion.fields.question') }}</label>
                 <textarea class="form-control {{ $errors->has('question') ? 'is-invalid' : '' }}" name="question" id="question" required>{{ old('question', $faqQuestion->question) }}</textarea>
                 @if($errors->has('question'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('question') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('question') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.faqQuestion.fields.question_helper') }}</span>
             </div>
@@ -38,9 +34,7 @@
                 <label class="required" for="answer">{{ trans('cruds.faqQuestion.fields.answer') }}</label>
                 <textarea class="form-control {{ $errors->has('answer') ? 'is-invalid' : '' }}" name="answer" id="answer" required>{{ old('answer', $faqQuestion->answer) }}</textarea>
                 @if($errors->has('answer'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('answer') }}
-                    </div>
+                    <span class="text-danger">{{ $errors->first('answer') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.faqQuestion.fields.answer_helper') }}</span>
             </div>

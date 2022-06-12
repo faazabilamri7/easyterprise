@@ -3,30 +3,73 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPengirimanRequest;
 use App\Http\Requests\StorePengirimanRequest;
 use App\Http\Requests\UpdatePengirimanRequest;
 use App\Models\Pengiriman;
+use App\Models\SalesOrder;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class PengirimanController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('pengiriman_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $pengirimen = Pengiriman::all();
+        if ($request->ajax()) {
+            $query = Pengiriman::with(['no_sales_order'])->select(sprintf('%s.*', (new Pengiriman())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.pengirimen.index', compact('pengirimen'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'pengiriman_show';
+                $editGate = 'pengiriman_edit';
+                $deleteGate = 'pengiriman_delete';
+                $crudRoutePart = 'pengirimen';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id_pengiriman', function ($row) {
+                return $row->id_pengiriman ? $row->id_pengiriman : '';
+            });
+            $table->addColumn('no_sales_order_no_sales_order', function ($row) {
+                return $row->no_sales_order ? $row->no_sales_order->no_sales_order : '';
+            });
+
+            $table->editColumn('status_pengiriman', function ($row) {
+                return $row->status_pengiriman ? Pengiriman::STATUS_PENGIRIMAN_SELECT[$row->status_pengiriman] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'no_sales_order']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.pengirimen.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('pengiriman_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.pengirimen.create');
+        $no_sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.pengirimen.create', compact('no_sales_orders'));
     }
 
     public function store(StorePengirimanRequest $request)
@@ -40,7 +83,11 @@ class PengirimanController extends Controller
     {
         abort_if(Gate::denies('pengiriman_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.pengirimen.edit', compact('pengiriman'));
+        $no_sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $pengiriman->load('no_sales_order');
+
+        return view('admin.pengirimen.edit', compact('no_sales_orders', 'pengiriman'));
     }
 
     public function update(UpdatePengirimanRequest $request, Pengiriman $pengiriman)
@@ -53,6 +100,8 @@ class PengirimanController extends Controller
     public function show(Pengiriman $pengiriman)
     {
         abort_if(Gate::denies('pengiriman_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $pengiriman->load('no_sales_order');
 
         return view('admin.pengirimen.show', compact('pengiriman'));
     }

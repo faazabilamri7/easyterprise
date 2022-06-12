@@ -19,7 +19,11 @@ class UpdatePurchaseOrderRequest extends FormRequest
         return [
             'id_purchase_order' => [
                 'string',
-                'nullable',
+                'required',
+            ],
+            'id_purchase_quotation_id' => [
+                'required',
+                'integer',
             ],
             'date_purchase_order' => [
                 'date_format:' . config('panel.date_format'),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyProductRequest;
 use App\Http\Requests\StoreProductRequest;
@@ -13,18 +14,72 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('product_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $products = Product::with(['categories', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Product::with(['categories'])->select(sprintf('%s.*', (new Product())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.products.index', compact('products'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'product_show';
+                $editGate = 'product_edit';
+                $deleteGate = 'product_delete';
+                $crudRoutePart = 'products';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('foto_produk', function ($row) {
+                if ($photo = $row->foto_produk) {
+                    return sprintf(
+        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+        $photo->url,
+        $photo->thumbnail
+    );
+                }
+
+                return '';
+            });
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+            $table->editColumn('stok', function ($row) {
+                return $row->stok ? $row->stok : '';
+            });
+            $table->editColumn('harga_jual', function ($row) {
+                return $row->harga_jual ? $row->harga_jual : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'foto_produk']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.products.index');
     }
 
     public function create()
@@ -84,7 +139,7 @@ class ProductController extends Controller
     {
         abort_if(Gate::denies('product_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts');
+        $product->load('categories', 'namaProdukSalesInquiries', 'requestProductRequestStockProducts', 'productNameTransferProduks');
 
         return view('admin.products.show', compact('product'));
     }

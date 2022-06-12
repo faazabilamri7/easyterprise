@@ -25,26 +25,42 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.nama_produk') }}
+                            {{ trans('cruds.transferProduk.fields.id_transfer_produk') }}
                         </th>
                         <td>
-                            {{ $transferProduk->nama_produk }}
+                            {{ $transferProduk->id_transfer_produk }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.transfer_dari') }}
+                            {{ trans('cruds.transferProduk.fields.id_quality_control') }}
                         </th>
                         <td>
-                            {{ App\Models\TransferProduk::TRANSFER_DARI_SELECT[$transferProduk->transfer_dari] ?? '' }}
+                            {{ $transferProduk->id_quality_control->id_quality_control ?? '' }}
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.transferProduk.fields.transfer_ke') }}
+                            {{ trans('cruds.transferProduk.fields.product_name') }}
                         </th>
                         <td>
-                            {{ App\Models\TransferProduk::TRANSFER_KE_SELECT[$transferProduk->transfer_ke] ?? '' }}
+                            {{ $transferProduk->product_name->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.transferProduk.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $transferProduk->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.transferProduk.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\TransferProduk::STATUS_SELECT[$transferProduk->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

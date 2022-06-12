@@ -14,8 +14,8 @@
                         @method('PUT')
                         @csrf
                         <div class="form-group">
-                            <label for="id_request_product">{{ trans('cruds.requestStockProduct.fields.id_request_product') }}</label>
-                            <input class="form-control" type="text" name="id_request_product" id="id_request_product" value="{{ old('id_request_product', $requestStockProduct->id_request_product) }}">
+                            <label class="required" for="id_request_product">{{ trans('cruds.requestStockProduct.fields.id_request_product') }}</label>
+                            <input class="form-control" type="text" name="id_request_product" id="id_request_product" value="{{ old('id_request_product', $requestStockProduct->id_request_product) }}" required>
                             @if($errors->has('id_request_product'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('id_request_product') }}
@@ -24,8 +24,8 @@
                             <span class="help-block">{{ trans('cruds.requestStockProduct.fields.id_request_product_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="inquiry_id">{{ trans('cruds.requestStockProduct.fields.inquiry') }}</label>
-                            <select class="form-control select2" name="inquiry_id" id="inquiry_id">
+                            <label class="required" for="inquiry_id">{{ trans('cruds.requestStockProduct.fields.inquiry') }}</label>
+                            <select class="form-control select2" name="inquiry_id" id="inquiry_id" required>
                                 @foreach($inquiries as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('inquiry_id') ? old('inquiry_id') : $requestStockProduct->inquiry->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach
@@ -38,8 +38,8 @@
                             <span class="help-block">{{ trans('cruds.requestStockProduct.fields.inquiry_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="tanggal_request">{{ trans('cruds.requestStockProduct.fields.tanggal_request') }}</label>
-                            <input class="form-control date" type="text" name="tanggal_request" id="tanggal_request" value="{{ old('tanggal_request', $requestStockProduct->tanggal_request) }}">
+                            <label class="required" for="tanggal_request">{{ trans('cruds.requestStockProduct.fields.tanggal_request') }}</label>
+                            <input class="form-control date" type="text" name="tanggal_request" id="tanggal_request" value="{{ old('tanggal_request', $requestStockProduct->tanggal_request) }}" required>
                             @if($errors->has('tanggal_request'))
                                 <div class="invalid-feedback">
                                     {{ $errors->first('tanggal_request') }}
@@ -48,8 +48,8 @@
                             <span class="help-block">{{ trans('cruds.requestStockProduct.fields.tanggal_request_helper') }}</span>
                         </div>
                         <div class="form-group">
-                            <label for="request_product_id">{{ trans('cruds.requestStockProduct.fields.request_product') }}</label>
-                            <select class="form-control select2" name="request_product_id" id="request_product_id">
+                            <label class="required" for="request_product_id">{{ trans('cruds.requestStockProduct.fields.request_product') }}</label>
+                            <select class="form-control select2" name="request_product_id" id="request_product_id" required>
                                 @foreach($request_products as $id => $entry)
                                     <option value="{{ $id }}" {{ (old('request_product_id') ? old('request_product_id') : $requestStockProduct->request_product->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                                 @endforeach

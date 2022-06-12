@@ -19,15 +19,15 @@ class UpdateSalesOrderRequest extends FormRequest
         return [
             'no_sales_order' => [
                 'string',
-                'nullable',
+                'required',
             ],
-            'tanggal' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
-            'sales_quotation_id' => [
+            'id_sales_quotation_id' => [
                 'required',
                 'integer',
+            ],
+            'tanggal' => [
+                'required',
+                'date_format:' . config('panel.date_format'),
             ],
             'detail_order' => [
                 'string',

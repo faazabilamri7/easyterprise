@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyCrmStatusRequest;
 use App\Http\Requests\StoreCrmStatusRequest;
 use App\Http\Requests\UpdateCrmStatusRequest;
@@ -13,6 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CrmStatusController extends Controller
 {
+    use CsvImportTrait;
+
     public function index()
     {
         abort_if(Gate::denies('crm_status_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
@@ -53,6 +56,8 @@ class CrmStatusController extends Controller
     public function show(CrmStatus $crmStatus)
     {
         abort_if(Gate::denies('crm_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $crmStatus->load('statusCrmCustomers');
 
         return view('frontend.crmStatuses.show', compact('crmStatus'));
     }

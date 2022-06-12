@@ -17,9 +17,23 @@ class StoreTransferProdukRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama_produk' => [
+            'id_transfer_produk' => [
                 'string',
+                'required',
+            ],
+            'id_quality_control_id' => [
+                'required',
+                'integer',
+            ],
+            'product_name_id' => [
+                'required',
+                'integer',
+            ],
+            'qty' => [
                 'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }

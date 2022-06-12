@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyAssetRequest;
 use App\Http\Requests\StoreAssetRequest;
@@ -16,18 +17,84 @@ use Gate;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class AssetController extends Controller
 {
     use MediaUploadingTrait;
+    use CsvImportTrait;
 
-    public function index()
+    public function index(Request $request)
     {
         abort_if(Gate::denies('asset_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assets = Asset::with(['category', 'status', 'location', 'assigned_to', 'media'])->get();
+        if ($request->ajax()) {
+            $query = Asset::with(['category', 'status', 'location', 'assigned_to'])->select(sprintf('%s.*', (new Asset())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.assets.index', compact('assets'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'asset_show';
+                $editGate = 'asset_edit';
+                $deleteGate = 'asset_delete';
+                $crudRoutePart = 'assets';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->addColumn('category_name', function ($row) {
+                return $row->category ? $row->category->name : '';
+            });
+
+            $table->editColumn('serial_number', function ($row) {
+                return $row->serial_number ? $row->serial_number : '';
+            });
+            $table->editColumn('name', function ($row) {
+                return $row->name ? $row->name : '';
+            });
+            $table->editColumn('photos', function ($row) {
+                if (!$row->photos) {
+                    return '';
+                }
+                $links = [];
+                foreach ($row->photos as $media) {
+                    $links[] = '<a href="' . $media->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>';
+                }
+
+                return implode(', ', $links);
+            });
+            $table->addColumn('status_name', function ($row) {
+                return $row->status ? $row->status->name : '';
+            });
+
+            $table->addColumn('location_name', function ($row) {
+                return $row->location ? $row->location->name : '';
+            });
+
+            $table->editColumn('notes', function ($row) {
+                return $row->notes ? $row->notes : '';
+            });
+            $table->addColumn('assigned_to_name', function ($row) {
+                return $row->assigned_to ? $row->assigned_to->name : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'category', 'photos', 'status', 'location', 'assigned_to']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.assets.index');
     }
 
     public function create()
@@ -102,7 +169,7 @@ class AssetController extends Controller
     {
         abort_if(Gate::denies('asset_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $asset->load('category', 'status', 'location', 'assigned_to');
+        $asset->load('category', 'status', 'location', 'assigned_to', 'assetAssetsHistories');
 
         return view('admin.assets.show', compact('asset'));
     }

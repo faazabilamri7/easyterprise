@@ -24,6 +24,20 @@
                             <span class="help-block">{{ trans('cruds.salesOrder.fields.no_sales_order_helper') }}</span>
                         </div>
                         <div class="form-group">
+                            <label for="id_sales_quotation_id">{{ trans('cruds.salesOrder.fields.id_sales_quotation') }}</label>
+                            <select class="form-control select2" name="id_sales_quotation_id" id="id_sales_quotation_id">
+                                @foreach($id_sales_quotations as $id => $entry)
+                                    <option value="{{ $id }}" {{ (old('id_sales_quotation_id') ? old('id_sales_quotation_id') : $salesOrder->id_sales_quotation->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('id_sales_quotation'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('id_sales_quotation') }}
+                                </div>
+                            @endif
+                            <span class="help-block">{{ trans('cruds.salesOrder.fields.id_sales_quotation_helper') }}</span>
+                        </div>
+                        <div class="form-group">
                             <label for="tanggal">{{ trans('cruds.salesOrder.fields.tanggal') }}</label>
                             <input class="form-control date" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $salesOrder->tanggal) }}">
                             @if($errors->has('tanggal'))
@@ -32,20 +46,6 @@
                                 </div>
                             @endif
                             <span class="help-block">{{ trans('cruds.salesOrder.fields.tanggal_helper') }}</span>
-                        </div>
-                        <div class="form-group">
-                            <label class="required" for="sales_quotation_id">{{ trans('cruds.salesOrder.fields.sales_quotation') }}</label>
-                            <select class="form-control select2" name="sales_quotation_id" id="sales_quotation_id" required>
-                                @foreach($sales_quotations as $id => $entry)
-                                    <option value="{{ $id }}" {{ (old('sales_quotation_id') ? old('sales_quotation_id') : $salesOrder->sales_quotation->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                                @endforeach
-                            </select>
-                            @if($errors->has('sales_quotation'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('sales_quotation') }}
-                                </div>
-                            @endif
-                            <span class="help-block">{{ trans('cruds.salesOrder.fields.sales_quotation_helper') }}</span>
                         </div>
                         <div class="form-group">
                             <label for="detail_order">{{ trans('cruds.salesOrder.fields.detail_order') }}</label>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyChartOfAccountRequest;
 use App\Http\Requests\StoreChartOfAccountRequest;
 use App\Http\Requests\UpdateChartOfAccountRequest;
@@ -10,16 +11,57 @@ use App\Models\ChartOfAccount;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Yajra\DataTables\Facades\DataTables;
 
 class ChartOfAccountController extends Controller
 {
-    public function index()
+    use CsvImportTrait;
+
+    public function index(Request $request)
     {
         abort_if(Gate::denies('chart_of_account_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $chartOfAccounts = ChartOfAccount::all();
+        if ($request->ajax()) {
+            $query = ChartOfAccount::query()->select(sprintf('%s.*', (new ChartOfAccount())->table));
+            $table = Datatables::of($query);
 
-        return view('admin.chartOfAccounts.index', compact('chartOfAccounts'));
+            $table->addColumn('placeholder', '&nbsp;');
+            $table->addColumn('actions', '&nbsp;');
+
+            $table->editColumn('actions', function ($row) {
+                $viewGate = 'chart_of_account_show';
+                $editGate = 'chart_of_account_edit';
+                $deleteGate = 'chart_of_account_delete';
+                $crudRoutePart = 'chart-of-accounts';
+
+                return view('partials.datatablesActions', compact(
+                'viewGate',
+                'editGate',
+                'deleteGate',
+                'crudRoutePart',
+                'row'
+            ));
+            });
+
+            $table->editColumn('id', function ($row) {
+                return $row->id ? $row->id : '';
+            });
+            $table->editColumn('account_code', function ($row) {
+                return $row->account_code ? $row->account_code : '';
+            });
+            $table->editColumn('account_name', function ($row) {
+                return $row->account_name ? $row->account_name : '';
+            });
+            $table->editColumn('category', function ($row) {
+                return $row->category ? ChartOfAccount::CATEGORY_SELECT[$row->category] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder']);
+
+            return $table->make(true);
+        }
+
+        return view('admin.chartOfAccounts.index');
     }
 
     public function create()

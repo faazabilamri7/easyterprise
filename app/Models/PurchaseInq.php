@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use \DateTimeInterface;
+use App\Traits\Auditable;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PurchaseInq extends Model
 {
     use SoftDeletes;
+    use Auditable;
     use HasFactory;
 
     public $table = 'purchase_inqs';
@@ -33,6 +35,11 @@ class PurchaseInq extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public function idPurchaseInquiryPurchaseQuotations()
+    {
+        return $this->hasMany(PurchaseQuotation::class, 'id_purchase_inquiry_id', 'id');
+    }
 
     public function id_request_for_quotation()
     {
