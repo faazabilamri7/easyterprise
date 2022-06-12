@@ -13,7 +13,9 @@
                 <label class="required" for="id_purchase_inquiry">{{ trans('cruds.purchaseInq.fields.id_purchase_inquiry') }}</label>
                 <input class="form-control {{ $errors->has('id_purchase_inquiry') ? 'is-invalid' : '' }}" type="text" name="id_purchase_inquiry" id="id_purchase_inquiry" value="{{ old('id_purchase_inquiry', '') }}" required>
                 @if($errors->has('id_purchase_inquiry'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_inquiry') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_inquiry') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.id_purchase_inquiry_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_request_for_quotation'))
-                    <span class="text-danger">{{ $errors->first('id_request_for_quotation') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_request_for_quotation') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.id_request_for_quotation_helper') }}</span>
             </div>
@@ -37,7 +41,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('vendor_name'))
-                    <span class="text-danger">{{ $errors->first('vendor_name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('vendor_name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.vendor_name_helper') }}</span>
             </div>
@@ -45,7 +51,9 @@
                 <label for="date_puchase_inquiry">{{ trans('cruds.purchaseInq.fields.date_puchase_inquiry') }}</label>
                 <input class="form-control date {{ $errors->has('date_puchase_inquiry') ? 'is-invalid' : '' }}" type="text" name="date_puchase_inquiry" id="date_puchase_inquiry" value="{{ old('date_puchase_inquiry') }}">
                 @if($errors->has('date_puchase_inquiry'))
-                    <span class="text-danger">{{ $errors->first('date_puchase_inquiry') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_puchase_inquiry') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.date_puchase_inquiry_helper') }}</span>
             </div>
@@ -57,7 +65,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('name_material'))
-                    <span class="text-danger">{{ $errors->first('name_material') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name_material') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.name_material_helper') }}</span>
             </div>
@@ -65,7 +75,9 @@
                 <label for="qty">{{ trans('cruds.purchaseInq.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1">
                 @if($errors->has('qty'))
-                    <span class="text-danger">{{ $errors->first('qty') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.qty_helper') }}</span>
             </div>

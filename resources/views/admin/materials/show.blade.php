@@ -110,6 +110,11 @@
                 {{ trans('cruds.purchaseInq.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material_name_purchase_orders" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseOrder.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="material1_purchase_requitions">
@@ -132,6 +137,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="name_material_purchase_inqs">
             @includeIf('admin.materials.relationships.nameMaterialPurchaseInqs', ['purchaseInqs' => $material->nameMaterialPurchaseInqs])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material_name_purchase_orders">
+            @includeIf('admin.materials.relationships.materialNamePurchaseOrders', ['purchaseOrders' => $material->materialNamePurchaseOrders])
         </div>
     </div>
 </div>

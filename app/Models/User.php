@@ -84,6 +84,12 @@ class User extends Authenticatable
         return $this->roles()->where('id', 1)->exists();
     }
 
+    public static function boot()
+    {
+        parent::boot();
+        User::observe(new \App\Observers\UserActionObserver());
+    }
+
     public function assignedToAssets()
     {
         return $this->hasMany(Asset::class, 'assigned_to_id', 'id');

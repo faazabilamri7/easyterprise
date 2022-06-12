@@ -13,7 +13,9 @@
                 <label class="required" for="id_invoice">{{ trans('cruds.salesInvoice.fields.id_invoice') }}</label>
                 <input class="form-control {{ $errors->has('id_invoice') ? 'is-invalid' : '' }}" type="number" name="id_invoice" id="id_invoice" value="{{ old('id_invoice', '') }}" step="1" required>
                 @if($errors->has('id_invoice'))
-                    <span class="text-danger">{{ $errors->first('id_invoice') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_invoice') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.salesInvoice.fields.id_invoice_helper') }}</span>
             </div>

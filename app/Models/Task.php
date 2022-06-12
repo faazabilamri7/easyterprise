@@ -45,6 +45,12 @@ class Task extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Task::observe(new \App\Observers\TaskActionObserver());
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);

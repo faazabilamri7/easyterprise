@@ -17,8 +17,6 @@ class SalesQuotation extends Model
     public const STATUS_SELECT = [
         'Requested' => 'Requested',
         'Accepted'  => 'Accepted',
-        'Pending'   => 'Pending',
-        'Completed' => 'Completed',
     ];
 
     public $table = 'sales_quotations';
@@ -38,6 +36,12 @@ class SalesQuotation extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        SalesQuotation::observe(new \App\Observers\SalesQuotationActionObserver());
+    }
 
     public function idSalesQuotationSalesOrders()
     {

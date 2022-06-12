@@ -35,6 +35,12 @@ class InvoicePembelian extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        InvoicePembelian::observe(new \App\Observers\InvoicePembelianActionObserver());
+    }
+
     public function getTanggalAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

@@ -33,6 +33,12 @@ class Vendor extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Vendor::observe(new \App\Observers\VendorActionObserver());
+    }
+
     public function perusahaanInvoicePembelians()
     {
         return $this->hasMany(InvoicePembelian::class, 'perusahaan_id', 'id');

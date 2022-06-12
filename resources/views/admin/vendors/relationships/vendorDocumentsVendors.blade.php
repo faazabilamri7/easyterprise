@@ -1,102 +1,102 @@
-<div class="m-3">
-    @can('documents_vendor_create')
-        <div style="margin-bottom: 10px;" class="row">
-            <div class="col-lg-12">
-                <a class="btn btn-success" href="{{ route('admin.documents-vendors.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.documentsVendor.title_singular') }}
-                </a>
-            </div>
+@can('documents_vendor_create')
+    <div style="margin-bottom: 10px;" class="row">
+        <div class="col-lg-12">
+            <a class="btn btn-success" href="{{ route('admin.documents-vendors.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.documentsVendor.title_singular') }}
+            </a>
         </div>
-    @endcan
-    <div class="card">
-        <div class="card-header">
-            {{ trans('cruds.documentsVendor.title_singular') }} {{ trans('global.list') }}
-        </div>
+    </div>
+@endcan
 
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class=" table table-bordered table-striped table-hover datatable datatable-vendorDocumentsVendors">
-                    <thead>
-                        <tr>
-                            <th width="10">
+<div class="card">
+    <div class="card-header">
+        {{ trans('cruds.documentsVendor.title_singular') }} {{ trans('global.list') }}
+    </div>
 
-                            </th>
-                            <th>
-                                {{ trans('cruds.documentsVendor.fields.id') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.documentsVendor.fields.document_file') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.documentsVendor.fields.vendor') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.documentsVendor.fields.name') }}
-                            </th>
-                            <th>
-                                {{ trans('cruds.documentsVendor.fields.description') }}
-                            </th>
-                            <th>
-                                &nbsp;
-                            </th>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-vendorDocumentsVendors">
+                <thead>
+                    <tr>
+                        <th width="10">
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.id') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.document_file') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.vendor') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.documentsVendor.fields.description') }}
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($documentsVendors as $key => $documentsVendor)
+                        <tr data-entry-id="{{ $documentsVendor->id }}">
+                            <td>
+
+                            </td>
+                            <td>
+                                {{ $documentsVendor->id ?? '' }}
+                            </td>
+                            <td>
+                                @if($documentsVendor->document_file)
+                                    <a href="{{ $documentsVendor->document_file->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
+                            </td>
+                            <td>
+                                {{ $documentsVendor->vendor->nama_vendor ?? '' }}
+                            </td>
+                            <td>
+                                {{ $documentsVendor->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $documentsVendor->description ?? '' }}
+                            </td>
+                            <td>
+                                @can('documents_vendor_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.documents-vendors.show', $documentsVendor->id) }}">
+                                        {{ trans('global.view') }}
+                                    </a>
+                                @endcan
+
+                                @can('documents_vendor_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.documents-vendors.edit', $documentsVendor->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
+                                @endcan
+
+                                @can('documents_vendor_delete')
+                                    <form action="{{ route('admin.documents-vendors.destroy', $documentsVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
+                                @endcan
+
+                            </td>
+
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($documentsVendors as $key => $documentsVendor)
-                            <tr data-entry-id="{{ $documentsVendor->id }}">
-                                <td>
-
-                                </td>
-                                <td>
-                                    {{ $documentsVendor->id ?? '' }}
-                                </td>
-                                <td>
-                                    @if($documentsVendor->document_file)
-                                        <a href="{{ $documentsVendor->document_file->getUrl() }}" target="_blank">
-                                            {{ trans('global.view_file') }}
-                                        </a>
-                                    @endif
-                                </td>
-                                <td>
-                                    {{ $documentsVendor->vendor->nama_vendor ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $documentsVendor->name ?? '' }}
-                                </td>
-                                <td>
-                                    {{ $documentsVendor->description ?? '' }}
-                                </td>
-                                <td>
-                                    @can('documents_vendor_show')
-                                        <a class="btn btn-xs btn-primary" href="{{ route('admin.documents-vendors.show', $documentsVendor->id) }}">
-                                            {{ trans('global.view') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('documents_vendor_edit')
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.documents-vendors.edit', $documentsVendor->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @endcan
-
-                                    @can('documents_vendor_delete')
-                                        <form action="{{ route('admin.documents-vendors.destroy', $documentsVendor->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @endcan
-
-                                </td>
-
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
+
 @section('scripts')
 @parent
 <script>

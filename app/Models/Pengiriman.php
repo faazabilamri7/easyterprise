@@ -15,6 +15,8 @@ class Pengiriman extends Model
     use HasFactory;
 
     public const STATUS_PENGIRIMAN_SELECT = [
+        'On Delivery' => 'On Delivery',
+        'Delivered'   => 'Delivered',
     ];
 
     public $table = 'pengirimen';
@@ -33,6 +35,12 @@ class Pengiriman extends Model
         'updated_at',
         'deleted_at',
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        Pengiriman::observe(new \App\Observers\PengirimanActionObserver());
+    }
 
     public function no_sales_order()
     {

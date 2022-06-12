@@ -13,7 +13,9 @@
                 <label for="tanggal">{{ trans('cruds.kasBank.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
                 @if($errors->has('tanggal'))
-                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.kasBank.fields.tanggal_helper') }}</span>
             </div>
@@ -21,7 +23,9 @@
                 <label for="reff">{{ trans('cruds.kasBank.fields.reff') }}</label>
                 <input class="form-control {{ $errors->has('reff') ? 'is-invalid' : '' }}" type="text" name="reff" id="reff" value="{{ old('reff', '') }}">
                 @if($errors->has('reff'))
-                    <span class="text-danger">{{ $errors->first('reff') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('reff') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.kasBank.fields.reff_helper') }}</span>
             </div>
@@ -29,7 +33,9 @@
                 <label for="transaksi">{{ trans('cruds.kasBank.fields.transaksi') }}</label>
                 <input class="form-control {{ $errors->has('transaksi') ? 'is-invalid' : '' }}" type="number" name="transaksi" id="transaksi" value="{{ old('transaksi', '') }}" step="0.01">
                 @if($errors->has('transaksi'))
-                    <span class="text-danger">{{ $errors->first('transaksi') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('transaksi') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.kasBank.fields.transaksi_helper') }}</span>
             </div>
@@ -37,7 +43,9 @@
                 <label for="jumlah">{{ trans('cruds.kasBank.fields.jumlah') }}</label>
                 <input class="form-control {{ $errors->has('jumlah') ? 'is-invalid' : '' }}" type="number" name="jumlah" id="jumlah" value="{{ old('jumlah', '') }}" step="1">
                 @if($errors->has('jumlah'))
-                    <span class="text-danger">{{ $errors->first('jumlah') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('jumlah') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.kasBank.fields.jumlah_helper') }}</span>
             </div>

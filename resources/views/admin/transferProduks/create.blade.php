@@ -13,7 +13,9 @@
                 <label class="required" for="id_transfer_produk">{{ trans('cruds.transferProduk.fields.id_transfer_produk') }}</label>
                 <input class="form-control {{ $errors->has('id_transfer_produk') ? 'is-invalid' : '' }}" type="text" name="id_transfer_produk" id="id_transfer_produk" value="{{ old('id_transfer_produk', '') }}" required>
                 @if($errors->has('id_transfer_produk'))
-                    <span class="text-danger">{{ $errors->first('id_transfer_produk') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_transfer_produk') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.id_transfer_produk_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_quality_control'))
-                    <span class="text-danger">{{ $errors->first('id_quality_control') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_quality_control') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.id_quality_control_helper') }}</span>
             </div>
@@ -37,7 +41,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('product_name'))
-                    <span class="text-danger">{{ $errors->first('product_name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('product_name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.product_name_helper') }}</span>
             </div>
@@ -45,7 +51,9 @@
                 <label for="qty">{{ trans('cruds.transferProduk.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1">
                 @if($errors->has('qty'))
-                    <span class="text-danger">{{ $errors->first('qty') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.qty_helper') }}</span>
             </div>
@@ -58,7 +66,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.status_helper') }}</span>
             </div>

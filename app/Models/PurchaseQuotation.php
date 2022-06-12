@@ -58,6 +58,12 @@ class PurchaseQuotation extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        PurchaseQuotation::observe(new \App\Observers\PurchaseQuotationActionObserver());
+    }
+
     public function idPurchaseQuotationPurchaseOrders()
     {
         return $this->hasMany(PurchaseOrder::class, 'id_purchase_quotation_id', 'id');

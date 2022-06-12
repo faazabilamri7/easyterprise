@@ -42,6 +42,12 @@ class SalesOrder extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        SalesOrder::observe(new \App\Observers\SalesOrderActionObserver());
+    }
+
     public function salesProductTransaksiKeuangans()
     {
         return $this->hasMany(TransaksiKeuangan::class, 'sales_product_id', 'id');

@@ -33,6 +33,12 @@ class CrmNote extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        CrmNote::observe(new \App\Observers\CrmNoteActionObserver());
+    }
+
     public function customer()
     {
         return $this->belongsTo(CrmCustomer::class, 'customer_id');

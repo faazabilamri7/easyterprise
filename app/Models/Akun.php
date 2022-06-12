@@ -30,6 +30,12 @@ class Akun extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Akun::observe(new \App\Observers\AkunActionObserver());
+    }
+
     public function akunJurnalUmums()
     {
         return $this->hasMany(JurnalUmum::class, 'akun_id', 'id');

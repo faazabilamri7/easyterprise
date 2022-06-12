@@ -13,7 +13,9 @@
                 <label class="required" for="id_request_for_quotation">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}</label>
                 <input class="form-control {{ $errors->has('id_request_for_quotation') ? 'is-invalid' : '' }}" type="text" name="id_request_for_quotation" id="id_request_for_quotation" value="{{ old('id_request_for_quotation', '') }}" required>
                 @if($errors->has('id_request_for_quotation'))
-                    <span class="text-danger">{{ $errors->first('id_request_for_quotation') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_request_for_quotation') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_request_for_quotation_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_purchase_requisition'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_requisition') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_requisition') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition_helper') }}</span>
             </div>
@@ -33,7 +37,9 @@
                 <label for="description">{{ trans('cruds.requestForQuotation.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
                 @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.description_helper') }}</span>
             </div>
@@ -46,7 +52,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.status_helper') }}</span>
             </div>

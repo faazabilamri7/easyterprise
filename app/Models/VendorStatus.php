@@ -29,6 +29,12 @@ class VendorStatus extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        VendorStatus::observe(new \App\Observers\VendorStatusActionObserver());
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

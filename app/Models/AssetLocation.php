@@ -29,6 +29,12 @@ class AssetLocation extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        AssetLocation::observe(new \App\Observers\AssetLocationActionObserver());
+    }
+
     public function locationAssets()
     {
         return $this->hasMany(Asset::class, 'location_id', 'id');

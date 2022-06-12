@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyPurchaseOrderRequest;
 use App\Http\Requests\StorePurchaseOrderRequest;
 use App\Http\Requests\UpdatePurchaseOrderRequest;
+use App\Models\Material;
 use App\Models\PurchaseOrder;
 use App\Models\PurchaseQuotation;
 use Gate;
@@ -21,7 +22,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseOrders = PurchaseOrder::with(['id_purchase_quotation'])->get();
+        $purchaseOrders = PurchaseOrder::with(['id_purchase_quotation', 'material_name'])->get();
 
         return view('frontend.purchaseOrders.index', compact('purchaseOrders'));
     }
@@ -32,7 +33,9 @@ class PurchaseOrderController extends Controller
 
         $id_purchase_quotations = PurchaseQuotation::pluck('id_purchase_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.purchaseOrders.create', compact('id_purchase_quotations'));
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('frontend.purchaseOrders.create', compact('id_purchase_quotations', 'material_names'));
     }
 
     public function store(StorePurchaseOrderRequest $request)
@@ -48,9 +51,11 @@ class PurchaseOrderController extends Controller
 
         $id_purchase_quotations = PurchaseQuotation::pluck('id_purchase_quotation', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $purchaseOrder->load('id_purchase_quotation');
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('frontend.purchaseOrders.edit', compact('id_purchase_quotations', 'purchaseOrder'));
+        $purchaseOrder->load('id_purchase_quotation', 'material_name');
+
+        return view('frontend.purchaseOrders.edit', compact('id_purchase_quotations', 'material_names', 'purchaseOrder'));
     }
 
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
@@ -64,7 +69,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseOrder->load('id_purchase_quotation', 'idPurchaseOrderMaterialEntries', 'idPurchaseOrderPurchaseReturns');
+        $purchaseOrder->load('id_purchase_quotation', 'material_name', 'idPurchaseOrderMaterialEntries', 'idPurchaseOrderPurchaseReturns');
 
         return view('frontend.purchaseOrders.show', compact('purchaseOrder'));
     }

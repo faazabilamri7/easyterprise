@@ -33,6 +33,12 @@ class BiayaProduksi extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        BiayaProduksi::observe(new \App\Observers\BiayaProduksiActionObserver());
+    }
+
     public function getTanggalAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

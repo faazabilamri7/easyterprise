@@ -39,6 +39,12 @@ class Material extends Model implements HasMedia
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        Material::observe(new \App\Observers\MaterialActionObserver());
+    }
+
     public function registerMediaConversions(Media $media = null): void
     {
         $this->addMediaConversion('thumb')->fit('crop', 50, 50);
@@ -78,6 +84,11 @@ class Material extends Model implements HasMedia
     public function nameMaterialPurchaseInqs()
     {
         return $this->hasMany(PurchaseInq::class, 'name_material_id', 'id');
+    }
+
+    public function materialNamePurchaseOrders()
+    {
+        return $this->hasMany(PurchaseOrder::class, 'material_name_id', 'id');
     }
 
     public function getPhotoAttribute()

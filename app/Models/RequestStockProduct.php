@@ -44,6 +44,12 @@ class RequestStockProduct extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        RequestStockProduct::observe(new \App\Observers\RequestStockProductActionObserver());
+    }
+
     public function idRequestProductTasks()
     {
         return $this->hasMany(Task::class, 'id_request_product_id', 'id');

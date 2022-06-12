@@ -44,6 +44,12 @@ class MaterialEntry extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        MaterialEntry::observe(new \App\Observers\MaterialEntryActionObserver());
+    }
+
     public function id_purchase_order()
     {
         return $this->belongsTo(PurchaseOrder::class, 'id_purchase_order_id');

@@ -34,6 +34,12 @@ class KasBank extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        KasBank::observe(new \App\Observers\KasBankActionObserver());
+    }
+
     public function kasBankTransaksiKeuangans()
     {
         return $this->hasMany(TransaksiKeuangan::class, 'kas_bank_id', 'id');

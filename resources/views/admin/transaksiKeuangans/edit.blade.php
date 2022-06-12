@@ -18,7 +18,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('kas_bank'))
-                    <span class="text-danger">{{ $errors->first('kas_bank') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('kas_bank') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.kas_bank_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                 <label for="tanggal">{{ trans('cruds.transaksiKeuangan.fields.tanggal') }}</label>
                 <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal', $transaksiKeuangan->tanggal) }}">
                 @if($errors->has('tanggal'))
-                    <span class="text-danger">{{ $errors->first('tanggal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('tanggal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.tanggal_helper') }}</span>
             </div>
@@ -34,7 +38,9 @@
                 <label for="desc">{{ trans('cruds.transaksiKeuangan.fields.desc') }}</label>
                 <input class="form-control {{ $errors->has('desc') ? 'is-invalid' : '' }}" type="text" name="desc" id="desc" value="{{ old('desc', $transaksiKeuangan->desc) }}">
                 @if($errors->has('desc'))
-                    <span class="text-danger">{{ $errors->first('desc') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('desc') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.desc_helper') }}</span>
             </div>
@@ -42,7 +48,9 @@
                 <label for="nominal">{{ trans('cruds.transaksiKeuangan.fields.nominal') }}</label>
                 <input class="form-control {{ $errors->has('nominal') ? 'is-invalid' : '' }}" type="number" name="nominal" id="nominal" value="{{ old('nominal', $transaksiKeuangan->nominal) }}" step="0.01">
                 @if($errors->has('nominal'))
-                    <span class="text-danger">{{ $errors->first('nominal') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('nominal') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.nominal_helper') }}</span>
             </div>
@@ -50,7 +58,9 @@
                 <label for="jenis_pembayaran">{{ trans('cruds.transaksiKeuangan.fields.jenis_pembayaran') }}</label>
                 <input class="form-control {{ $errors->has('jenis_pembayaran') ? 'is-invalid' : '' }}" type="text" name="jenis_pembayaran" id="jenis_pembayaran" value="{{ old('jenis_pembayaran', $transaksiKeuangan->jenis_pembayaran) }}">
                 @if($errors->has('jenis_pembayaran'))
-                    <span class="text-danger">{{ $errors->first('jenis_pembayaran') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('jenis_pembayaran') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.jenis_pembayaran_helper') }}</span>
             </div>
@@ -58,7 +68,9 @@
                 <label for="qty">{{ trans('cruds.transaksiKeuangan.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $transaksiKeuangan->qty) }}" step="1">
                 @if($errors->has('qty'))
-                    <span class="text-danger">{{ $errors->first('qty') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.qty_helper') }}</span>
             </div>
@@ -66,7 +78,9 @@
                 <label for="harga_unit">{{ trans('cruds.transaksiKeuangan.fields.harga_unit') }}</label>
                 <input class="form-control {{ $errors->has('harga_unit') ? 'is-invalid' : '' }}" type="number" name="harga_unit" id="harga_unit" value="{{ old('harga_unit', $transaksiKeuangan->harga_unit) }}" step="0.01">
                 @if($errors->has('harga_unit'))
-                    <span class="text-danger">{{ $errors->first('harga_unit') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('harga_unit') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.harga_unit_helper') }}</span>
             </div>
@@ -74,7 +88,9 @@
                 <label for="total">{{ trans('cruds.transaksiKeuangan.fields.total') }}</label>
                 <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total" id="total" value="{{ old('total', $transaksiKeuangan->total) }}" step="0.01">
                 @if($errors->has('total'))
-                    <span class="text-danger">{{ $errors->first('total') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.total_helper') }}</span>
             </div>
@@ -86,7 +102,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('sales_product'))
-                    <span class="text-danger">{{ $errors->first('sales_product') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('sales_product') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.transaksiKeuangan.fields.sales_product_helper') }}</span>
             </div>

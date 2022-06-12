@@ -38,6 +38,12 @@ class BukuBesar extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        BukuBesar::observe(new \App\Observers\BukuBesarActionObserver());
+    }
+
     public function getTanggalAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

@@ -17,7 +17,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('expense_category'))
-                    <span class="text-danger">{{ $errors->first('expense_category') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('expense_category') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.expense.fields.expense_category_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                 <label class="required" for="entry_date">{{ trans('cruds.expense.fields.entry_date') }}</label>
                 <input class="form-control date {{ $errors->has('entry_date') ? 'is-invalid' : '' }}" type="text" name="entry_date" id="entry_date" value="{{ old('entry_date') }}" required>
                 @if($errors->has('entry_date'))
-                    <span class="text-danger">{{ $errors->first('entry_date') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('entry_date') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.expense.fields.entry_date_helper') }}</span>
             </div>
@@ -33,7 +37,9 @@
                 <label class="required" for="amount">{{ trans('cruds.expense.fields.amount') }}</label>
                 <input class="form-control {{ $errors->has('amount') ? 'is-invalid' : '' }}" type="number" name="amount" id="amount" value="{{ old('amount', '') }}" step="0.01" required>
                 @if($errors->has('amount'))
-                    <span class="text-danger">{{ $errors->first('amount') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('amount') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.expense.fields.amount_helper') }}</span>
             </div>
@@ -41,7 +47,9 @@
                 <label for="description">{{ trans('cruds.expense.fields.description') }}</label>
                 <input class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" type="text" name="description" id="description" value="{{ old('description', '') }}">
                 @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.expense.fields.description_helper') }}</span>
             </div>

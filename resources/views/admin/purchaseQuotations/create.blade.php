@@ -13,7 +13,9 @@
                 <label class="required" for="id_purchase_quotation">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation') }}</label>
                 <input class="form-control {{ $errors->has('id_purchase_quotation') ? 'is-invalid' : '' }}" type="text" name="id_purchase_quotation" id="id_purchase_quotation" value="{{ old('id_purchase_quotation', '') }}" required>
                 @if($errors->has('id_purchase_quotation'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_quotation') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_quotation') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_quotation_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_purchase_inquiry'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_inquiry') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_inquiry') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_purchase_inquiry_helper') }}</span>
             </div>
@@ -37,7 +41,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_vendor'))
-                    <span class="text-danger">{{ $errors->first('id_vendor') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_vendor') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.id_vendor_helper') }}</span>
             </div>
@@ -50,7 +56,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('material_name'))
-                    <span class="text-danger">{{ $errors->first('material_name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('material_name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.material_name_helper') }}</span>
             </div>
@@ -58,7 +66,9 @@
                 <label for="unit_price">{{ trans('cruds.purchaseQuotation.fields.unit_price') }}</label>
                 <input class="form-control {{ $errors->has('unit_price') ? 'is-invalid' : '' }}" type="number" name="unit_price" id="unit_price" value="{{ old('unit_price', '') }}" step="0.01">
                 @if($errors->has('unit_price'))
-                    <span class="text-danger">{{ $errors->first('unit_price') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('unit_price') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.unit_price_helper') }}</span>
             </div>
@@ -66,7 +76,9 @@
                 <label for="total_price">{{ trans('cruds.purchaseQuotation.fields.total_price') }}</label>
                 <input class="form-control {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="number" name="total_price" id="total_price" value="{{ old('total_price', '') }}" step="0.01">
                 @if($errors->has('total_price'))
-                    <span class="text-danger">{{ $errors->first('total_price') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total_price') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.total_price_helper') }}</span>
             </div>
@@ -79,7 +91,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('payment_method'))
-                    <span class="text-danger">{{ $errors->first('payment_method') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('payment_method') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.payment_method_helper') }}</span>
             </div>
@@ -92,7 +106,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status'))
-                    <span class="text-danger">{{ $errors->first('status') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseQuotation.fields.status_helper') }}</span>
             </div>

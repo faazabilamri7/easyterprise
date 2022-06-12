@@ -13,7 +13,9 @@
                 <label class="required" for="id_purchase_order">{{ trans('cruds.purchaseOrder.fields.id_purchase_order') }}</label>
                 <input class="form-control {{ $errors->has('id_purchase_order') ? 'is-invalid' : '' }}" type="text" name="id_purchase_order" id="id_purchase_order" value="{{ old('id_purchase_order', '') }}" required>
                 @if($errors->has('id_purchase_order'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_order') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_order') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.id_purchase_order_helper') }}</span>
             </div>
@@ -25,7 +27,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('id_purchase_quotation'))
-                    <span class="text-danger">{{ $errors->first('id_purchase_quotation') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_purchase_quotation') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.id_purchase_quotation_helper') }}</span>
             </div>
@@ -33,15 +37,23 @@
                 <label for="date_purchase_order">{{ trans('cruds.purchaseOrder.fields.date_purchase_order') }}</label>
                 <input class="form-control date {{ $errors->has('date_purchase_order') ? 'is-invalid' : '' }}" type="text" name="date_purchase_order" id="date_purchase_order" value="{{ old('date_purchase_order') }}">
                 @if($errors->has('date_purchase_order'))
-                    <span class="text-danger">{{ $errors->first('date_purchase_order') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_purchase_order') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.date_purchase_order_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="material_name">{{ trans('cruds.purchaseOrder.fields.material_name') }}</label>
-                <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', '') }}">
+                <label class="required" for="material_name_id">{{ trans('cruds.purchaseOrder.fields.material_name') }}</label>
+                <select class="form-control select2 {{ $errors->has('material_name') ? 'is-invalid' : '' }}" name="material_name_id" id="material_name_id" required>
+                    @foreach($material_names as $id => $entry)
+                        <option value="{{ $id }}" {{ old('material_name_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('material_name'))
-                    <span class="text-danger">{{ $errors->first('material_name') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('material_name') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.material_name_helper') }}</span>
             </div>
@@ -49,7 +61,9 @@
                 <label for="quantity">{{ trans('cruds.purchaseOrder.fields.quantity') }}</label>
                 <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('quantity', '') }}" step="1">
                 @if($errors->has('quantity'))
-                    <span class="text-danger">{{ $errors->first('quantity') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('quantity') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.quantity_helper') }}</span>
             </div>

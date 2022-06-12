@@ -47,6 +47,8 @@ class Asset extends Model implements HasMedia
     {
         parent::boot();
         Asset::observe(new \App\Observers\AssetsHistoryObserver());
+
+        Asset::observe(new \App\Observers\AssetActionObserver());
     }
 
     public function registerMediaConversions(Media $media = null): void

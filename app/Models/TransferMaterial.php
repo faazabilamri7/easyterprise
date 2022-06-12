@@ -36,6 +36,12 @@ class TransferMaterial extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        TransferMaterial::observe(new \App\Observers\TransferMaterialActionObserver());
+    }
+
     public function id_list_of_material()
     {
         return $this->belongsTo(ListOfMaterial::class, 'id_list_of_material_id');

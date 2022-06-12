@@ -39,6 +39,12 @@ class ChartOfAccount extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        ChartOfAccount::observe(new \App\Observers\ChartOfAccountActionObserver());
+    }
+
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

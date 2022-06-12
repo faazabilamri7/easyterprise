@@ -30,6 +30,12 @@ class NotesVendor extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        NotesVendor::observe(new \App\Observers\NotesVendorActionObserver());
+    }
+
     public function vendor()
     {
         return $this->belongsTo(Vendor::class, 'vendor_id');

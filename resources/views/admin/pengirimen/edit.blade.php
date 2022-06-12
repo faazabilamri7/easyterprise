@@ -14,7 +14,9 @@
                 <label class="required" for="id_pengiriman">{{ trans('cruds.pengiriman.fields.id_pengiriman') }}</label>
                 <input class="form-control {{ $errors->has('id_pengiriman') ? 'is-invalid' : '' }}" type="text" name="id_pengiriman" id="id_pengiriman" value="{{ old('id_pengiriman', $pengiriman->id_pengiriman) }}" required>
                 @if($errors->has('id_pengiriman'))
-                    <span class="text-danger">{{ $errors->first('id_pengiriman') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_pengiriman') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.pengiriman.fields.id_pengiriman_helper') }}</span>
             </div>
@@ -26,7 +28,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('no_sales_order'))
-                    <span class="text-danger">{{ $errors->first('no_sales_order') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('no_sales_order') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.pengiriman.fields.no_sales_order_helper') }}</span>
             </div>
@@ -39,7 +43,9 @@
                     @endforeach
                 </select>
                 @if($errors->has('status_pengiriman'))
-                    <span class="text-danger">{{ $errors->first('status_pengiriman') }}</span>
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status_pengiriman') }}
+                    </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.pengiriman.fields.status_pengiriman_helper') }}</span>
             </div>

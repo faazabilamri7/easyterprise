@@ -29,6 +29,12 @@ class ExpenseCategory extends Model
         'deleted_at',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        ExpenseCategory::observe(new \App\Observers\ExpenseCategoryActionObserver());
+    }
+
     public function expenseCategoryExpenses()
     {
         return $this->hasMany(Expense::class, 'expense_category_id', 'id');
