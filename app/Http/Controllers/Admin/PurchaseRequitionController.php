@@ -55,50 +55,8 @@ class PurchaseRequitionController extends Controller
             $table->editColumn('status', function ($row) {
                 return $row->status ? PurchaseRequition::STATUS_SELECT[$row->status] : '';
             });
-            $table->addColumn('material_1_name_material', function ($row) {
-                return $row->material_1 ? $row->material_1->name_material : '';
-            });
 
-            $table->editColumn('qty_1', function ($row) {
-                return $row->qty_1 ? $row->qty_1 : '';
-            });
-            $table->addColumn('material_2_name_material', function ($row) {
-                return $row->material_2 ? $row->material_2->name_material : '';
-            });
-
-            $table->editColumn('qty_2', function ($row) {
-                return $row->qty_2 ? $row->qty_2 : '';
-            });
-            $table->addColumn('material_3_name_material', function ($row) {
-                return $row->material_3 ? $row->material_3->name_material : '';
-            });
-
-            $table->editColumn('qty_3', function ($row) {
-                return $row->qty_3 ? $row->qty_3 : '';
-            });
-            $table->addColumn('material_4_name_material', function ($row) {
-                return $row->material_4 ? $row->material_4->name_material : '';
-            });
-
-            $table->editColumn('qty_4', function ($row) {
-                return $row->qty_4 ? $row->qty_4 : '';
-            });
-            $table->addColumn('material_5_name_material', function ($row) {
-                return $row->material_5 ? $row->material_5->name_material : '';
-            });
-
-            $table->editColumn('qty_5', function ($row) {
-                return $row->qty_5 ? $row->qty_5 : '';
-            });
-            $table->addColumn('material_6_name_material', function ($row) {
-                return $row->material_6 ? $row->material_6->name_material : '';
-            });
-
-            $table->editColumn('qty_6', function ($row) {
-                return $row->qty_6 ? $row->qty_6 : '';
-            });
-
-            $table->rawColumns(['actions', 'placeholder', 'id_list_of_material', 'material_1', 'material_2', 'material_3', 'material_4', 'material_5', 'material_6']);
+            $table->rawColumns(['actions', 'placeholder', 'id_list_of_material']);
 
             return $table->make(true);
         }

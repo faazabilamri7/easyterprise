@@ -41,13 +41,19 @@
                         {{ trans('cruds.task.fields.description') }}
                     </th>
                     <th>
+                        {{ trans('cruds.task.fields.product_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.qty') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.task.fields.attachment') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.task.fields.status') }}
                     </th>
                     <th>
                         {{ trans('cruds.task.fields.tag') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.task.fields.attachment') }}
                     </th>
                     <th>
                         {{ trans('cruds.task.fields.due_date') }}
@@ -113,9 +119,11 @@
 { data: 'id_mesin_id_mesin', name: 'id_mesin.id_mesin' },
 { data: 'name', name: 'name' },
 { data: 'description', name: 'description' },
+{ data: 'product_name_name', name: 'product_name.name' },
+{ data: 'qty', name: 'qty' },
+{ data: 'attachment', name: 'attachment', sortable: false, searchable: false },
 { data: 'status_name', name: 'status.name' },
 { data: 'tag', name: 'tags.name' },
-{ data: 'attachment', name: 'attachment', sortable: false, searchable: false },
 { data: 'due_date', name: 'due_date' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

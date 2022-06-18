@@ -58,18 +58,18 @@
                 <span class="help-block">{{ trans('cruds.purchaseInq.fields.date_puchase_inquiry_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="name_material_id">{{ trans('cruds.purchaseInq.fields.name_material') }}</label>
-                <select class="form-control select2 {{ $errors->has('name_material') ? 'is-invalid' : '' }}" name="name_material_id" id="name_material_id">
-                    @foreach($name_materials as $id => $entry)
-                        <option value="{{ $id }}" {{ old('name_material_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                <label for="material_name_id">{{ trans('cruds.purchaseInq.fields.material_name') }}</label>
+                <select class="form-control select2 {{ $errors->has('material_name') ? 'is-invalid' : '' }}" name="material_name_id" id="material_name_id">
+                    @foreach($material_names as $id => $entry)
+                        <option value="{{ $id }}" {{ old('material_name_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
                     @endforeach
                 </select>
-                @if($errors->has('name_material'))
+                @if($errors->has('material_name'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('name_material') }}
+                        {{ $errors->first('material_name') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseInq.fields.name_material_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseInq.fields.material_name_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="qty">{{ trans('cruds.purchaseInq.fields.qty') }}</label>

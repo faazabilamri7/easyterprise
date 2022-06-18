@@ -29,6 +29,17 @@ class StoreTaskRequest extends FormRequest
                 'string',
                 'required',
             ],
+            'product_name_id' => [
+                'required',
+                'integer',
+            ],
+            'qty' => [
+                'required',
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
             'tags.*' => [
                 'integer',
             ],

@@ -31,42 +31,6 @@
                             {{ trans('cruds.purchaseRequition.fields.status') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_1') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_1') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_2') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_2') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_3') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_3') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_4') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_4') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_5') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_5') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.material_6') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.purchaseRequition.fields.qty_6') }}
-                        </th>
-                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -85,42 +49,6 @@
                             </td>
                             <td>
                                 {{ App\Models\PurchaseRequition::STATUS_SELECT[$purchaseRequition->status] ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_1->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_1 ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_2->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_2 ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_3->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_3 ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_4->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_4 ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_5->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_5 ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->material_6->name_material ?? '' }}
-                            </td>
-                            <td>
-                                {{ $purchaseRequition->qty_6 ?? '' }}
                             </td>
                             <td>
                                 @can('purchase_requition_show')

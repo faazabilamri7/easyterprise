@@ -35,42 +35,6 @@
                         {{ trans('cruds.purchaseRequition.fields.status') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_1') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_1') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_2') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_2') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_3') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_3') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_4') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_4') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_5') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_5') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.material_6') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.purchaseRequition.fields.qty_6') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -129,18 +93,6 @@
 { data: 'id_purchase_requition', name: 'id_purchase_requition' },
 { data: 'id_list_of_material_id_list_of_material', name: 'id_list_of_material.id_list_of_material' },
 { data: 'status', name: 'status' },
-{ data: 'material_1_name_material', name: 'material_1.name_material' },
-{ data: 'qty_1', name: 'qty_1' },
-{ data: 'material_2_name_material', name: 'material_2.name_material' },
-{ data: 'qty_2', name: 'qty_2' },
-{ data: 'material_3_name_material', name: 'material_3.name_material' },
-{ data: 'qty_3', name: 'qty_3' },
-{ data: 'material_4_name_material', name: 'material_4.name_material' },
-{ data: 'qty_4', name: 'qty_4' },
-{ data: 'material_5_name_material', name: 'material_5.name_material' },
-{ data: 'qty_5', name: 'qty_5' },
-{ data: 'material_6_name_material', name: 'material_6.name_material' },
-{ data: 'qty_6', name: 'qty_6' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

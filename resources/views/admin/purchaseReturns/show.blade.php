@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
+                            {{ trans('cruds.purchaseReturn.fields.id_purchase_return') }}
                         </th>
                         <td>
-                            {{ $purchaseReturn->purchase_return }}
+                            {{ $purchaseReturn->id_purchase_return }}
                         </td>
                     </tr>
                     <tr>
@@ -41,18 +41,34 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.description') }}
-                        </th>
-                        <td>
-                            {{ $purchaseReturn->description }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
                         </th>
                         <td>
                             {{ $purchaseReturn->date_purchase_return }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.material_name') }}
+                        </th>
+                        <td>
+                            {{ $purchaseReturn->material_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $purchaseReturn->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.description') }}
+                        </th>
+                        <td>
+                            {{ $purchaseReturn->description }}
                         </td>
                     </tr>
                     <tr>

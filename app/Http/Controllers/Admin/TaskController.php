@@ -9,6 +9,7 @@ use App\Http\Requests\MassDestroyTaskRequest;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\MachineReport;
+use App\Models\Product;
 use App\Models\RequestStockProduct;
 use App\Models\Task;
 use App\Models\TaskStatus;
@@ -29,7 +30,7 @@ class TaskController extends Controller
         abort_if(Gate::denies('task_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = Task::with(['id_request_product', 'id_mesin', 'status', 'tags'])->select(sprintf('%s.*', (new Task())->table));
+            $query = Task::with(['id_request_product', 'id_mesin', 'product_name', 'status', 'tags'])->select(sprintf('%s.*', (new Task())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -67,6 +68,16 @@ class TaskController extends Controller
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
+            $table->addColumn('product_name_name', function ($row) {
+                return $row->product_name ? $row->product_name->name : '';
+            });
+
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
+            $table->editColumn('attachment', function ($row) {
+                return $row->attachment ? '<a href="' . $row->attachment->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
             $table->addColumn('status_name', function ($row) {
                 return $row->status ? $row->status->name : '';
             });
@@ -79,11 +90,8 @@ class TaskController extends Controller
 
                 return implode(' ', $labels);
             });
-            $table->editColumn('attachment', function ($row) {
-                return $row->attachment ? '<a href="' . $row->attachment->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
-            });
 
-            $table->rawColumns(['actions', 'placeholder', 'id_request_product', 'id_mesin', 'status', 'tag', 'attachment']);
+            $table->rawColumns(['actions', 'placeholder', 'id_request_product', 'id_mesin', 'product_name', 'attachment', 'status', 'tag']);
 
             return $table->make(true);
         }
@@ -99,11 +107,13 @@ class TaskController extends Controller
 
         $id_mesins = MachineReport::pluck('id_mesin', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $product_names = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $statuses = TaskStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $tags = TaskTag::pluck('name', 'id');
 
-        return view('admin.tasks.create', compact('id_mesins', 'id_request_products', 'statuses', 'tags'));
+        return view('admin.tasks.create', compact('id_mesins', 'id_request_products', 'product_names', 'statuses', 'tags'));
     }
 
     public function store(StoreTaskRequest $request)
@@ -129,13 +139,15 @@ class TaskController extends Controller
 
         $id_mesins = MachineReport::pluck('id_mesin', 'id')->prepend(trans('global.pleaseSelect'), '');
 
+        $product_names = Product::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
         $statuses = TaskStatus::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $tags = TaskTag::pluck('name', 'id');
 
-        $task->load('id_request_product', 'id_mesin', 'status', 'tags');
+        $task->load('id_request_product', 'id_mesin', 'product_name', 'status', 'tags');
 
-        return view('admin.tasks.edit', compact('id_mesins', 'id_request_products', 'statuses', 'tags', 'task'));
+        return view('admin.tasks.edit', compact('id_mesins', 'id_request_products', 'product_names', 'statuses', 'tags', 'task'));
     }
 
     public function update(UpdateTaskRequest $request, Task $task)
@@ -160,7 +172,7 @@ class TaskController extends Controller
     {
         abort_if(Gate::denies('task_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $task->load('id_request_product', 'id_mesin', 'status', 'tags', 'idProductionPlanListOfMaterials');
+        $task->load('id_request_product', 'id_mesin', 'product_name', 'status', 'tags', 'idProductionPlanListOfMaterials');
 
         return view('admin.tasks.show', compact('task'));
     }

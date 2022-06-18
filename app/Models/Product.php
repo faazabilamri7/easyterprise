@@ -73,6 +73,11 @@ class Product extends Model implements HasMedia
         return $this->hasMany(TransferProduk::class, 'product_name_id', 'id');
     }
 
+    public function productNameTasks()
+    {
+        return $this->hasMany(Task::class, 'product_name_id', 'id');
+    }
+
     public function getFotoProdukAttribute()
     {
         $file = $this->getMedia('foto_produk')->last();

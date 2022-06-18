@@ -25,6 +25,14 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.vendor.fields.id_vendor') }}
+                        </th>
+                        <td>
+                            {{ $vendor->id_vendor }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.vendor.fields.nama_vendor') }}
                         </th>
                         <td>

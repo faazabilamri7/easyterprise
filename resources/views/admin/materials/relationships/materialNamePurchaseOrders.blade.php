@@ -34,7 +34,7 @@
                             {{ trans('cruds.purchaseOrder.fields.material_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseOrder.fields.quantity') }}
+                            {{ trans('cruds.purchaseOrder.fields.qty') }}
                         </th>
                         <th>
                             &nbsp;
@@ -60,7 +60,7 @@
                                 {{ $purchaseOrder->material_name->name_material ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseOrder->quantity ?? '' }}
+                                {{ $purchaseOrder->qty ?? '' }}
                             </td>
                             <td>
                                 @can('purchase_order_show')

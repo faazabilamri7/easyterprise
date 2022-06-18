@@ -116,6 +116,11 @@
                 {{ trans('cruds.transferProduk.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#product_name_tasks" role="tab" data-toggle="tab">
+                {{ trans('cruds.task.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="nama_produk_sales_inquiries">
@@ -126,6 +131,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="product_name_transfer_produks">
             @includeIf('admin.products.relationships.productNameTransferProduks', ['transferProduks' => $product->productNameTransferProduks])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="product_name_tasks">
+            @includeIf('admin.products.relationships.productNameTasks', ['tasks' => $product->productNameTasks])
         </div>
     </div>
 </div>

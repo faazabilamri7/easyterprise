@@ -68,6 +68,41 @@
                 <span class="help-block">{{ trans('cruds.task.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="product_name_id">{{ trans('cruds.task.fields.product_name') }}</label>
+                <select class="form-control select2 {{ $errors->has('product_name') ? 'is-invalid' : '' }}" name="product_name_id" id="product_name_id" required>
+                    @foreach($product_names as $id => $entry)
+                        <option value="{{ $id }}" {{ old('product_name_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('product_name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('product_name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.product_name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label class="required" for="qty">{{ trans('cruds.task.fields.qty') }}</label>
+                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1" required>
+                @if($errors->has('qty'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.qty_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="attachment">{{ trans('cruds.task.fields.attachment') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('attachment') ? 'is-invalid' : '' }}" id="attachment-dropzone">
+                </div>
+                @if($errors->has('attachment'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('attachment') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.task.fields.attachment_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="status_id">{{ trans('cruds.task.fields.status') }}</label>
                 <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status_id" id="status_id">
                     @foreach($statuses as $id => $entry)
@@ -98,17 +133,6 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.task.fields.tag_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="attachment">{{ trans('cruds.task.fields.attachment') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('attachment') ? 'is-invalid' : '' }}" id="attachment-dropzone">
-                </div>
-                @if($errors->has('attachment'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('attachment') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.task.fields.attachment_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="due_date">{{ trans('cruds.task.fields.due_date') }}</label>

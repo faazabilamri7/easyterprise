@@ -38,6 +38,8 @@ class Task extends Model implements HasMedia
         'id_mesin_id',
         'name',
         'description',
+        'product_name_id',
+        'qty',
         'status_id',
         'due_date',
         'created_at',
@@ -72,6 +74,16 @@ class Task extends Model implements HasMedia
         return $this->belongsTo(MachineReport::class, 'id_mesin_id');
     }
 
+    public function product_name()
+    {
+        return $this->belongsTo(Product::class, 'product_name_id');
+    }
+
+    public function getAttachmentAttribute()
+    {
+        return $this->getMedia('attachment')->last();
+    }
+
     public function status()
     {
         return $this->belongsTo(TaskStatus::class, 'status_id');
@@ -80,11 +92,6 @@ class Task extends Model implements HasMedia
     public function tags()
     {
         return $this->belongsToMany(TaskTag::class);
-    }
-
-    public function getAttachmentAttribute()
-    {
-        return $this->getMedia('attachment')->last();
     }
 
     public function getDueDateAttribute($value)

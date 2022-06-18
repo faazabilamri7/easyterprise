@@ -30,6 +30,10 @@ class RequestForQuotation extends Model
     protected $fillable = [
         'id_request_for_quotation',
         'id_purchase_requisition_id',
+        'material_name',
+        'qty',
+        'unit_price',
+        'total_price',
         'description',
         'status',
         'created_at',

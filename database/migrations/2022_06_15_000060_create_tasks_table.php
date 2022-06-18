@@ -13,6 +13,7 @@ class CreateTasksTable extends Migration
             $table->string('id_production_plan')->nullable();
             $table->string('name')->nullable();
             $table->longText('description')->nullable();
+            $table->integer('qty')->nullable();
             $table->date('due_date')->nullable();
             $table->timestamps();
             $table->softDeletes();

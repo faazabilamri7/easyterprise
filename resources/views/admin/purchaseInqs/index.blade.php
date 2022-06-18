@@ -38,7 +38,7 @@
                         {{ trans('cruds.purchaseInq.fields.date_puchase_inquiry') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseInq.fields.name_material') }}
+                        {{ trans('cruds.purchaseInq.fields.material_name') }}
                     </th>
                     <th>
                         {{ trans('cruds.purchaseInq.fields.qty') }}
@@ -103,7 +103,7 @@
 { data: 'id_request_for_quotation_id_request_for_quotation', name: 'id_request_for_quotation.id_request_for_quotation' },
 { data: 'vendor_name_nama_vendor', name: 'vendor_name.nama_vendor' },
 { data: 'date_puchase_inquiry', name: 'date_puchase_inquiry' },
-{ data: 'name_material_name_material', name: 'name_material.name_material' },
+{ data: 'material_name_name_material', name: 'material_name.name_material' },
 { data: 'qty', name: 'qty' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

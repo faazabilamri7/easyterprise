@@ -35,7 +35,7 @@
                         {{ trans('cruds.qualityControl.fields.qty') }}
                     </th>
                     <th>
-                        {{ trans('cruds.qualityControl.fields.status') }}
+                        {{ trans('cruds.qualityControl.fields.qty_failed') }}
                     </th>
                     <th>
                         &nbsp;
@@ -96,7 +96,7 @@
 { data: 'id_quality_control', name: 'id_quality_control' },
 { data: 'id_production_monitoring_id_production_monitoring', name: 'id_production_monitoring.id_production_monitoring' },
 { data: 'qty', name: 'qty' },
-{ data: 'status', name: 'status' },
+{ data: 'qty_failed', name: 'qty_failed' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

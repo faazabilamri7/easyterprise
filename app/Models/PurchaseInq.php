@@ -29,7 +29,7 @@ class PurchaseInq extends Model
         'id_request_for_quotation_id',
         'vendor_name_id',
         'date_puchase_inquiry',
-        'name_material_id',
+        'material_name_id',
         'qty',
         'created_at',
         'updated_at',
@@ -67,9 +67,9 @@ class PurchaseInq extends Model
         $this->attributes['date_puchase_inquiry'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
-    public function name_material()
+    public function material_name()
     {
-        return $this->belongsTo(Material::class, 'name_material_id');
+        return $this->belongsTo(Material::class, 'material_name_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

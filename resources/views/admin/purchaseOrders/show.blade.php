@@ -57,10 +57,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseOrder.fields.quantity') }}
+                            {{ trans('cruds.purchaseOrder.fields.qty') }}
                         </th>
                         <td>
-                            {{ $purchaseOrder->quantity }}
+                            {{ $purchaseOrder->qty }}
                         </td>
                     </tr>
                 </tbody>

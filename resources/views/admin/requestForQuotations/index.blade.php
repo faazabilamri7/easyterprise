@@ -32,6 +32,18 @@
                         {{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}
                     </th>
                     <th>
+                        {{ trans('cruds.requestForQuotation.fields.material_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.requestForQuotation.fields.qty') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.requestForQuotation.fields.unit_price') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.requestForQuotation.fields.total_price') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.requestForQuotation.fields.description') }}
                     </th>
                     <th>
@@ -95,6 +107,10 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id_request_for_quotation', name: 'id_request_for_quotation' },
 { data: 'id_purchase_requisition_id_purchase_requition', name: 'id_purchase_requisition.id_purchase_requition' },
+{ data: 'material_name', name: 'material_name' },
+{ data: 'qty', name: 'qty' },
+{ data: 'unit_price', name: 'unit_price' },
+{ data: 'total_price', name: 'total_price' },
 { data: 'description', name: 'description' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

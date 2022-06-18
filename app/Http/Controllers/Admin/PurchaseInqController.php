@@ -25,7 +25,7 @@ class PurchaseInqController extends Controller
         abort_if(Gate::denies('purchase_inq_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = PurchaseInq::with(['id_request_for_quotation', 'vendor_name', 'name_material'])->select(sprintf('%s.*', (new PurchaseInq())->table));
+            $query = PurchaseInq::with(['id_request_for_quotation', 'vendor_name', 'material_name'])->select(sprintf('%s.*', (new PurchaseInq())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -57,15 +57,15 @@ class PurchaseInqController extends Controller
                 return $row->vendor_name ? $row->vendor_name->nama_vendor : '';
             });
 
-            $table->addColumn('name_material_name_material', function ($row) {
-                return $row->name_material ? $row->name_material->name_material : '';
+            $table->addColumn('material_name_name_material', function ($row) {
+                return $row->material_name ? $row->material_name->name_material : '';
             });
 
             $table->editColumn('qty', function ($row) {
                 return $row->qty ? $row->qty : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'id_request_for_quotation', 'vendor_name', 'name_material']);
+            $table->rawColumns(['actions', 'placeholder', 'id_request_for_quotation', 'vendor_name', 'material_name']);
 
             return $table->make(true);
         }
@@ -81,9 +81,9 @@ class PurchaseInqController extends Controller
 
         $vendor_names = Vendor::pluck('nama_vendor', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $name_materials = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.purchaseInqs.create', compact('id_request_for_quotations', 'name_materials', 'vendor_names'));
+        return view('admin.purchaseInqs.create', compact('id_request_for_quotations', 'material_names', 'vendor_names'));
     }
 
     public function store(StorePurchaseInqRequest $request)
@@ -101,11 +101,11 @@ class PurchaseInqController extends Controller
 
         $vendor_names = Vendor::pluck('nama_vendor', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $name_materials = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'name_material');
+        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'material_name');
 
-        return view('admin.purchaseInqs.edit', compact('id_request_for_quotations', 'name_materials', 'purchaseInq', 'vendor_names'));
+        return view('admin.purchaseInqs.edit', compact('id_request_for_quotations', 'material_names', 'purchaseInq', 'vendor_names'));
     }
 
     public function update(UpdatePurchaseInqRequest $request, PurchaseInq $purchaseInq)
@@ -119,7 +119,7 @@ class PurchaseInqController extends Controller
     {
         abort_if(Gate::denies('purchase_inq_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'name_material', 'idPurchaseInquiryPurchaseQuotations');
+        $purchaseInq->load('id_request_for_quotation', 'vendor_name', 'material_name', 'idPurchaseInquiryPurchaseQuotations');
 
         return view('admin.purchaseInqs.show', compact('purchaseInq'));
     }

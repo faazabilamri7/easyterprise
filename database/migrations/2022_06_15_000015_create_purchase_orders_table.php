@@ -12,7 +12,7 @@ class CreatePurchaseOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->string('id_purchase_order');
             $table->date('date_purchase_order')->nullable();
-            $table->integer('quantity')->nullable();
+            $table->integer('qty')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

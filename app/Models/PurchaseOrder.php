@@ -29,7 +29,7 @@ class PurchaseOrder extends Model
         'id_purchase_quotation_id',
         'date_purchase_order',
         'material_name_id',
-        'quantity',
+        'qty',
         'created_at',
         'updated_at',
         'deleted_at',

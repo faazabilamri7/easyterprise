@@ -81,14 +81,14 @@ class Material extends Model implements HasMedia
         return $this->hasMany(PurchaseRequition::class, 'material_6_id', 'id');
     }
 
-    public function nameMaterialPurchaseInqs()
-    {
-        return $this->hasMany(PurchaseInq::class, 'name_material_id', 'id');
-    }
-
     public function materialNamePurchaseOrders()
     {
         return $this->hasMany(PurchaseOrder::class, 'material_name_id', 'id');
+    }
+
+    public function materialNamePurchaseInqs()
+    {
+        return $this->hasMany(PurchaseInq::class, 'material_name_id', 'id');
     }
 
     public function getPhotoAttribute()

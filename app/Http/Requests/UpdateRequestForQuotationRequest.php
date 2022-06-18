@@ -25,6 +25,16 @@ class UpdateRequestForQuotationRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'material_name' => [
+                'string',
+                'nullable',
+            ],
+            'qty' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
+            ],
         ];
     }
 }

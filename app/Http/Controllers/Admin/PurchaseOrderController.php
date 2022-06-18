@@ -56,8 +56,8 @@ class PurchaseOrderController extends Controller
                 return $row->material_name ? $row->material_name->name_material : '';
             });
 
-            $table->editColumn('quantity', function ($row) {
-                return $row->quantity ? $row->quantity : '';
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'id_purchase_quotation', 'material_name']);

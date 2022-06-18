@@ -57,10 +57,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseInq.fields.name_material') }}
+                            {{ trans('cruds.purchaseInq.fields.material_name') }}
                         </th>
                         <td>
-                            {{ $purchaseInq->name_material->name_material ?? '' }}
+                            {{ $purchaseInq->material_name->name_material ?? '' }}
                         </td>
                     </tr>
                     <tr>

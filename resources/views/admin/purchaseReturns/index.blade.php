@@ -26,16 +26,22 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
+                        {{ trans('cruds.purchaseReturn.fields.id_purchase_return') }}
                     </th>
                     <th>
                         {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseReturn.fields.description') }}
+                        {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
+                        {{ trans('cruds.purchaseReturn.fields.material_name') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.qty') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseReturn.fields.description') }}
                     </th>
                     <th>
                         {{ trans('cruds.purchaseReturn.fields.status') }}
@@ -96,15 +102,17 @@
     ajax: "{{ route('admin.purchase-returns.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'purchase_return', name: 'purchase_return' },
+{ data: 'id_purchase_return', name: 'id_purchase_return' },
 { data: 'id_purchase_order_id_purchase_order', name: 'id_purchase_order.id_purchase_order' },
-{ data: 'description', name: 'description' },
 { data: 'date_purchase_return', name: 'date_purchase_return' },
+{ data: 'material_name', name: 'material_name' },
+{ data: 'qty', name: 'qty' },
+{ data: 'description', name: 'description' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
+    order: [[ 2, 'desc' ]],
     pageLength: 100,
   };
   let table = $('.datatable-PurchaseReturn').DataTable(dtOverrideGlobals);

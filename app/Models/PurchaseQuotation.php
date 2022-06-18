@@ -19,14 +19,6 @@ class PurchaseQuotation extends Model
         'Negotiation end' => 'Negotiation End',
     ];
 
-    public const PAYMENT_METHOD_SELECT = [
-        'Company Bank Account' => 'Rekening Bank',
-        'OVO'                  => 'OVO',
-        'DANA'                 => 'DANA',
-        'GOPAY'                => 'GOPAY',
-        'ShopeePay'            => 'ShopeePay',
-    ];
-
     public const MATERIAL_NAME_SELECT = [
         'Susu Bubuk Krim'        => 'Susu Bubuk Krim',
         'Air'                    => 'Air',
@@ -34,6 +26,15 @@ class PurchaseQuotation extends Model
         'Dextrose'               => 'Dextrose',
         'Perisa Yakult'          => 'Perisa Yakult',
         'Polietilena tereftalat' => 'Polietilena tereftalat',
+    ];
+
+    public const PAYMENT_METHOD_SELECT = [
+        'Company Bank Account_BCA'     => 'BCA',
+        'Company Bank Account_BRI'     => 'BRI',
+        'Company Bank Account_MANDIRI' => 'MANDIRI',
+        'Company Bank Account_BNI'     => 'BNI',
+        'Company Bank Account_PERMATA' => 'PERMATA',
+        'Company Bank Account_PAYPAL'  => 'PAYPAL',
     ];
 
     public $table = 'purchase_quotations';

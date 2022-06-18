@@ -17,9 +17,9 @@ class StorePurchaseReturnRequest extends FormRequest
     public function rules()
     {
         return [
-            'purchase_return' => [
+            'id_purchase_return' => [
                 'string',
-                'required',
+                'nullable',
             ],
             'id_purchase_order_id' => [
                 'required',
@@ -28,6 +28,16 @@ class StorePurchaseReturnRequest extends FormRequest
             'date_purchase_return' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',
+            ],
+            'material_name' => [
+                'string',
+                'nullable',
+            ],
+            'qty' => [
+                'nullable',
+                'integer',
+                'min:-2147483648',
+                'max:2147483647',
             ],
         ];
     }
