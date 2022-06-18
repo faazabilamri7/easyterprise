@@ -17,14 +17,6 @@
                 <tbody>
                     <tr>
                         <th>
-                            {{ trans('cruds.machineReport.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $machineReport->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.machineReport.fields.id_mesin') }}
                         </th>
                         <td>

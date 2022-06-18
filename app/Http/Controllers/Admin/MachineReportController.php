@@ -43,9 +43,6 @@ class MachineReportController extends Controller
             ));
             });
 
-            $table->editColumn('id', function ($row) {
-                return $row->id ? $row->id : '';
-            });
             $table->editColumn('id_mesin', function ($row) {
                 return $row->id_mesin ? $row->id_mesin : '';
             });
