@@ -44,17 +44,22 @@ class PurchaseReturnController extends Controller
             ));
             });
 
-            $table->editColumn('purchase_return', function ($row) {
-                return $row->purchase_return ? $row->purchase_return : '';
+            $table->editColumn('id_purchase_return', function ($row) {
+                return $row->id_purchase_return ? $row->id_purchase_return : '';
             });
             $table->addColumn('id_purchase_order_id_purchase_order', function ($row) {
                 return $row->id_purchase_order ? $row->id_purchase_order->id_purchase_order : '';
             });
 
+            $table->editColumn('material_name', function ($row) {
+                return $row->material_name ? $row->material_name : '';
+            });
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });
-
             $table->editColumn('status', function ($row) {
                 return $row->status ? PurchaseReturn::STATUS_SELECT[$row->status] : '';
             });

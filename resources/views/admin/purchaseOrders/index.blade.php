@@ -38,7 +38,7 @@
                         {{ trans('cruds.purchaseOrder.fields.material_name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseOrder.fields.quantity') }}
+                        {{ trans('cruds.purchaseOrder.fields.qty') }}
                     </th>
                     <th>
                         &nbsp;
@@ -100,7 +100,7 @@
 { data: 'id_purchase_quotation_id_purchase_quotation', name: 'id_purchase_quotation.id_purchase_quotation' },
 { data: 'date_purchase_order', name: 'date_purchase_order' },
 { data: 'material_name_name_material', name: 'material_name.name_material' },
-{ data: 'quantity', name: 'quantity' },
+{ data: 'qty', name: 'qty' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

@@ -22,16 +22,22 @@
 
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.purchase_return') }}
+                            {{ trans('cruds.purchaseReturn.fields.id_purchase_return') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.description') }}
+                            {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}
+                            {{ trans('cruds.purchaseReturn.fields.material_name') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.qty') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.purchaseReturn.fields.description') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseReturn.fields.status') }}
@@ -48,16 +54,22 @@
 
                             </td>
                             <td>
-                                {{ $purchaseReturn->purchase_return ?? '' }}
+                                {{ $purchaseReturn->id_purchase_return ?? '' }}
                             </td>
                             <td>
                                 {{ $purchaseReturn->id_purchase_order->id_purchase_order ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseReturn->description ?? '' }}
+                                {{ $purchaseReturn->date_purchase_return ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseReturn->date_purchase_return ?? '' }}
+                                {{ $purchaseReturn->material_name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $purchaseReturn->qty ?? '' }}
+                            </td>
+                            <td>
+                                {{ $purchaseReturn->description ?? '' }}
                             </td>
                             <td>
                                 {{ App\Models\PurchaseReturn::STATUS_SELECT[$purchaseReturn->status] ?? '' }}
@@ -130,7 +142,7 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 1, 'desc' ]],
+    order: [[ 2, 'desc' ]],
     pageLength: 100,
   });
   let table = $('.datatable-idPurchaseOrderPurchaseReturns:not(.ajaxTable)').DataTable({ buttons: dtButtons })

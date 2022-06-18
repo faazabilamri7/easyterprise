@@ -58,14 +58,14 @@
                 <span class="help-block">{{ trans('cruds.purchaseOrder.fields.material_name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="quantity">{{ trans('cruds.purchaseOrder.fields.quantity') }}</label>
-                <input class="form-control {{ $errors->has('quantity') ? 'is-invalid' : '' }}" type="number" name="quantity" id="quantity" value="{{ old('quantity', '') }}" step="1">
-                @if($errors->has('quantity'))
+                <label for="qty">{{ trans('cruds.purchaseOrder.fields.qty') }}</label>
+                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', '') }}" step="1">
+                @if($errors->has('qty'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('quantity') }}
+                        {{ $errors->first('qty') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseOrder.fields.quantity_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseOrder.fields.qty_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

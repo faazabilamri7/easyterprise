@@ -31,7 +31,7 @@
                             {{ trans('cruds.qualityControl.fields.qty') }}
                         </th>
                         <th>
-                            {{ trans('cruds.qualityControl.fields.status') }}
+                            {{ trans('cruds.qualityControl.fields.qty_failed') }}
                         </th>
                         <th>
                             &nbsp;
@@ -54,7 +54,7 @@
                                 {{ $qualityControl->qty ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\QualityControl::STATUS_SELECT[$qualityControl->status] ?? '' }}
+                                {{ $qualityControl->qty_failed ?? '' }}
                             </td>
                             <td>
                                 @can('quality_control_show')

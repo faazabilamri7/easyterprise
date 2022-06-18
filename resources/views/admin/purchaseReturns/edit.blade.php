@@ -11,14 +11,14 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="purchase_return">{{ trans('cruds.purchaseReturn.fields.purchase_return') }}</label>
-                <input class="form-control {{ $errors->has('purchase_return') ? 'is-invalid' : '' }}" type="text" name="purchase_return" id="purchase_return" value="{{ old('purchase_return', $purchaseReturn->purchase_return) }}" required>
-                @if($errors->has('purchase_return'))
+                <label for="id_purchase_return">{{ trans('cruds.purchaseReturn.fields.id_purchase_return') }}</label>
+                <input class="form-control {{ $errors->has('id_purchase_return') ? 'is-invalid' : '' }}" type="text" name="id_purchase_return" id="id_purchase_return" value="{{ old('id_purchase_return', $purchaseReturn->id_purchase_return) }}">
+                @if($errors->has('id_purchase_return'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('purchase_return') }}
+                        {{ $errors->first('id_purchase_return') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.purchase_return_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.id_purchase_return_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="id_purchase_order_id">{{ trans('cruds.purchaseReturn.fields.id_purchase_order') }}</label>
@@ -35,16 +35,6 @@
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.id_purchase_order_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="description">{{ trans('cruds.purchaseReturn.fields.description') }}</label>
-                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $purchaseReturn->description) }}</textarea>
-                @if($errors->has('description'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('description') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.description_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="date_purchase_return">{{ trans('cruds.purchaseReturn.fields.date_purchase_return') }}</label>
                 <input class="form-control date {{ $errors->has('date_purchase_return') ? 'is-invalid' : '' }}" type="text" name="date_purchase_return" id="date_purchase_return" value="{{ old('date_purchase_return', $purchaseReturn->date_purchase_return) }}">
                 @if($errors->has('date_purchase_return'))
@@ -53,6 +43,36 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseReturn.fields.date_purchase_return_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="material_name">{{ trans('cruds.purchaseReturn.fields.material_name') }}</label>
+                <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', $purchaseReturn->material_name) }}">
+                @if($errors->has('material_name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('material_name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.material_name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="qty">{{ trans('cruds.purchaseReturn.fields.qty') }}</label>
+                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $purchaseReturn->qty) }}" step="1">
+                @if($errors->has('qty'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.qty_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ trans('cruds.purchaseReturn.fields.description') }}</label>
+                <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $purchaseReturn->description) }}</textarea>
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseReturn.fields.description_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.purchaseReturn.fields.status') }}</label>

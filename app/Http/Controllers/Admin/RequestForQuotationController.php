@@ -51,6 +51,18 @@ class RequestForQuotationController extends Controller
                 return $row->id_purchase_requisition ? $row->id_purchase_requisition->id_purchase_requition : '';
             });
 
+            $table->editColumn('material_name', function ($row) {
+                return $row->material_name ? $row->material_name : '';
+            });
+            $table->editColumn('qty', function ($row) {
+                return $row->qty ? $row->qty : '';
+            });
+            $table->editColumn('unit_price', function ($row) {
+                return $row->unit_price ? $row->unit_price : '';
+            });
+            $table->editColumn('total_price', function ($row) {
+                return $row->total_price ? $row->total_price : '';
+            });
             $table->editColumn('description', function ($row) {
                 return $row->description ? $row->description : '';
             });

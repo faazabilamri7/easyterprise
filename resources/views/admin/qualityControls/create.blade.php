@@ -44,19 +44,14 @@
                 <span class="help-block">{{ trans('cruds.qualityControl.fields.qty_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.qualityControl.fields.status') }}</label>
-                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
-                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\QualityControl::STATUS_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('status', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('status'))
+                <label for="qty_failed">{{ trans('cruds.qualityControl.fields.qty_failed') }}</label>
+                <input class="form-control {{ $errors->has('qty_failed') ? 'is-invalid' : '' }}" type="text" name="qty_failed" id="qty_failed" value="{{ old('qty_failed', '') }}">
+                @if($errors->has('qty_failed'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
+                        {{ $errors->first('qty_failed') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.qualityControl.fields.status_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.qualityControl.fields.qty_failed_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

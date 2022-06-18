@@ -35,6 +35,46 @@
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="material_name">{{ trans('cruds.requestForQuotation.fields.material_name') }}</label>
+                <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', $requestForQuotation->material_name) }}">
+                @if($errors->has('material_name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('material_name') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.material_name_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="qty">{{ trans('cruds.requestForQuotation.fields.qty') }}</label>
+                <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $requestForQuotation->qty) }}" step="1">
+                @if($errors->has('qty'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('qty') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.qty_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="unit_price">{{ trans('cruds.requestForQuotation.fields.unit_price') }}</label>
+                <input class="form-control {{ $errors->has('unit_price') ? 'is-invalid' : '' }}" type="number" name="unit_price" id="unit_price" value="{{ old('unit_price', $requestForQuotation->unit_price) }}" step="0.01">
+                @if($errors->has('unit_price'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('unit_price') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.unit_price_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="total_price">{{ trans('cruds.requestForQuotation.fields.total_price') }}</label>
+                <input class="form-control {{ $errors->has('total_price') ? 'is-invalid' : '' }}" type="number" name="total_price" id="total_price" value="{{ old('total_price', $requestForQuotation->total_price) }}" step="0.01">
+                @if($errors->has('total_price'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('total_price') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.requestForQuotation.fields.total_price_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="description">{{ trans('cruds.requestForQuotation.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $requestForQuotation->description) }}</textarea>
                 @if($errors->has('description'))

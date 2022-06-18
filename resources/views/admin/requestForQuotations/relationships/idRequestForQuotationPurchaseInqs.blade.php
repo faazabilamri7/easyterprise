@@ -34,7 +34,7 @@
                             {{ trans('cruds.purchaseInq.fields.date_puchase_inquiry') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseInq.fields.name_material') }}
+                            {{ trans('cruds.purchaseInq.fields.material_name') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseInq.fields.qty') }}
@@ -63,7 +63,7 @@
                                 {{ $purchaseInq->date_puchase_inquiry ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseInq->name_material->name_material ?? '' }}
+                                {{ $purchaseInq->material_name->name_material ?? '' }}
                             </td>
                             <td>
                                 {{ $purchaseInq->qty ?? '' }}

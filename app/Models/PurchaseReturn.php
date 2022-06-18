@@ -30,10 +30,12 @@ class PurchaseReturn extends Model
     ];
 
     protected $fillable = [
-        'purchase_return',
+        'id_purchase_return',
         'id_purchase_order_id',
-        'description',
         'date_purchase_return',
+        'material_name',
+        'qty',
+        'description',
         'status',
         'created_at',
         'updated_at',

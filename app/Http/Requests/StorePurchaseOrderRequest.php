@@ -33,7 +33,7 @@ class StorePurchaseOrderRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'quantity' => [
+            'qty' => [
                 'nullable',
                 'integer',
                 'min:-2147483648',

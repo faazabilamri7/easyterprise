@@ -1,8 +1,8 @@
-@can('request_for_quotation_create')
+@can('task_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.request-for-quotations.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.requestForQuotation.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.tasks.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.task.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,40 +10,49 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.requestForQuotation.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.task.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-idPurchaseRequisitionRequestForQuotations">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-productNameTasks">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}
+                            {{ trans('cruds.task.fields.id_production_plan') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}
+                            {{ trans('cruds.task.fields.id_request_product') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.material_name') }}
+                            {{ trans('cruds.task.fields.id_mesin') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.qty') }}
+                            {{ trans('cruds.task.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.unit_price') }}
+                            {{ trans('cruds.task.fields.description') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.total_price') }}
+                            {{ trans('cruds.task.fields.product_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.description') }}
+                            {{ trans('cruds.task.fields.qty') }}
                         </th>
                         <th>
-                            {{ trans('cruds.requestForQuotation.fields.status') }}
+                            {{ trans('cruds.task.fields.attachment') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.task.fields.status') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.task.fields.tag') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.task.fields.due_date') }}
                         </th>
                         <th>
                             &nbsp;
@@ -51,50 +60,65 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($requestForQuotations as $key => $requestForQuotation)
-                        <tr data-entry-id="{{ $requestForQuotation->id }}">
+                    @foreach($tasks as $key => $task)
+                        <tr data-entry-id="{{ $task->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $requestForQuotation->id_request_for_quotation ?? '' }}
+                                {{ $task->id_production_plan ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->id_purchase_requisition->id_purchase_requition ?? '' }}
+                                {{ $task->id_request_product->id_request_product ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->material_name ?? '' }}
+                                {{ $task->id_mesin->id_mesin ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->qty ?? '' }}
+                                {{ $task->name ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->unit_price ?? '' }}
+                                {{ $task->description ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->total_price ?? '' }}
+                                {{ $task->product_name->name ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->description ?? '' }}
+                                {{ $task->qty ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\RequestForQuotation::STATUS_SELECT[$requestForQuotation->status] ?? '' }}
+                                @if($task->attachment)
+                                    <a href="{{ $task->attachment->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
-                                @can('request_for_quotation_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.request-for-quotations.show', $requestForQuotation->id) }}">
+                                {{ $task->status->name ?? '' }}
+                            </td>
+                            <td>
+                                @foreach($task->tags as $key => $item)
+                                    <span class="badge badge-info">{{ $item->name }}</span>
+                                @endforeach
+                            </td>
+                            <td>
+                                {{ $task->due_date ?? '' }}
+                            </td>
+                            <td>
+                                @can('task_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.tasks.show', $task->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('request_for_quotation_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.request-for-quotations.edit', $requestForQuotation->id) }}">
+                                @can('task_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.tasks.edit', $task->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('request_for_quotation_delete')
-                                    <form action="{{ route('admin.request-for-quotations.destroy', $requestForQuotation->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('task_delete')
+                                    <form action="{{ route('admin.tasks.destroy', $task->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -116,11 +140,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('request_for_quotation_delete')
+@can('task_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.request-for-quotations.massDestroy') }}",
+    url: "{{ route('admin.tasks.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -151,7 +175,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-idPurchaseRequisitionRequestForQuotations:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-productNameTasks:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

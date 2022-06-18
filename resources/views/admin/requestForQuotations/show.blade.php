@@ -41,6 +41,38 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.requestForQuotation.fields.material_name') }}
+                        </th>
+                        <td>
+                            {{ $requestForQuotation->material_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestForQuotation.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $requestForQuotation->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestForQuotation.fields.unit_price') }}
+                        </th>
+                        <td>
+                            {{ $requestForQuotation->unit_price }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.requestForQuotation.fields.total_price') }}
+                        </th>
+                        <td>
+                            {{ $requestForQuotation->total_price }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.requestForQuotation.fields.description') }}
                         </th>
                         <td>

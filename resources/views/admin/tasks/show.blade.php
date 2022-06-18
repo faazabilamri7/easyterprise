@@ -65,6 +65,34 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.task.fields.product_name') }}
+                        </th>
+                        <td>
+                            {{ $task->product_name->name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.task.fields.qty') }}
+                        </th>
+                        <td>
+                            {{ $task->qty }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.task.fields.attachment') }}
+                        </th>
+                        <td>
+                            @if($task->attachment)
+                                <a href="{{ $task->attachment->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.task.fields.status') }}
                         </th>
                         <td>
@@ -79,18 +107,6 @@
                             @foreach($task->tags as $key => $tag)
                                 <span class="label label-info">{{ $tag->name }}</span>
                             @endforeach
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.task.fields.attachment') }}
-                        </th>
-                        <td>
-                            @if($task->attachment)
-                                <a href="{{ $task->attachment->getUrl() }}" target="_blank">
-                                    {{ trans('global.view_file') }}
-                                </a>
-                            @endif
                         </td>
                     </tr>
                     <tr>

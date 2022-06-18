@@ -54,8 +54,8 @@ class QualityControlController extends Controller
             $table->editColumn('qty', function ($row) {
                 return $row->qty ? $row->qty : '';
             });
-            $table->editColumn('status', function ($row) {
-                return $row->status ? QualityControl::STATUS_SELECT[$row->status] : '';
+            $table->editColumn('qty_failed', function ($row) {
+                return $row->qty_failed ? $row->qty_failed : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'id_production_monitoring']);

@@ -12,7 +12,7 @@ class CreateQualityControlsTable extends Migration
             $table->bigIncrements('id');
             $table->string('id_quality_control');
             $table->integer('qty')->nullable();
-            $table->string('status')->nullable();
+            $table->string('qty_failed')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

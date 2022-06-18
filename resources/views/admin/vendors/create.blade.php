@@ -10,6 +10,16 @@
         <form method="POST" action="{{ route("admin.vendors.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
+                <label for="id_vendor">{{ trans('cruds.vendor.fields.id_vendor') }}</label>
+                <input class="form-control {{ $errors->has('id_vendor') ? 'is-invalid' : '' }}" type="number" name="id_vendor" id="id_vendor" value="{{ old('id_vendor', '4') }}" step="1">
+                @if($errors->has('id_vendor'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('id_vendor') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.vendor.fields.id_vendor_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label class="required" for="nama_vendor">{{ trans('cruds.vendor.fields.nama_vendor') }}</label>
                 <input class="form-control {{ $errors->has('nama_vendor') ? 'is-invalid' : '' }}" type="text" name="nama_vendor" id="nama_vendor" value="{{ old('nama_vendor', '') }}" required>
                 @if($errors->has('nama_vendor'))

@@ -14,11 +14,6 @@ class QualityControl extends Model
     use Auditable;
     use HasFactory;
 
-    public const STATUS_SELECT = [
-        'Rejected'  => 'Rejected',
-        'Qualified' => 'Qualified',
-    ];
-
     public $table = 'quality_controls';
 
     protected $dates = [
@@ -31,7 +26,7 @@ class QualityControl extends Model
         'id_quality_control',
         'id_production_monitoring_id',
         'qty',
-        'status',
+        'qty_failed',
         'created_at',
         'updated_at',
         'deleted_at',
