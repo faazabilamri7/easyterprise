@@ -34,7 +34,7 @@
             </button>
 
             <a class="c-header-brand d-lg-none" href="#">          
-        <img src="{{ asset('logoeasyterprise.png') }}"  width="50%" height="auto">
+        <img src="{{ asset('images/logoeasyterprise.png') }}"  width="50%" height="auto">
 </a>
 
             <button class="c-header-toggler mfs-3 d-md-down-none" type="button" responsive="true">
