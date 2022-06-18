@@ -26,9 +26,6 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.machineReport.fields.id') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.machineReport.fields.id_mesin') }}
                     </th>
                     <th>
@@ -93,7 +90,6 @@
     ajax: "{{ route('admin.machine-reports.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id', name: 'id' },
 { data: 'id_mesin', name: 'id_mesin' },
 { data: 'nama_mesin', name: 'nama_mesin' },
 { data: 'status', name: 'status' },
