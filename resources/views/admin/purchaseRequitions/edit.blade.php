@@ -35,21 +35,6 @@
                 <span class="help-block">{{ trans('cruds.purchaseRequition.fields.id_list_of_material_helper') }}</span>
             </div>
             <div class="form-group">
-                <label>{{ trans('cruds.purchaseRequition.fields.status') }}</label>
-                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
-                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\PurchaseRequition::STATUS_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('status', $purchaseRequition->status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('status'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('status') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.purchaseRequition.fields.status_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="material_1_id">{{ trans('cruds.purchaseRequition.fields.material_1') }}</label>
                 <select class="form-control select2 {{ $errors->has('material_1') ? 'is-invalid' : '' }}" name="material_1_id" id="material_1_id">
                     @foreach($material_1s as $id => $entry)
@@ -192,6 +177,21 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.purchaseRequition.fields.qty_6_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label>{{ trans('cruds.purchaseRequition.fields.status') }}</label>
+                <select class="form-control {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
+                    <option value disabled {{ old('status', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
+                    @foreach(App\Models\PurchaseRequition::STATUS_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('status', $purchaseRequition->status) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseRequition.fields.status_helper') }}</span>
             </div>
             <div class="form-group">
                 <button class="btn btn-danger" type="submit">

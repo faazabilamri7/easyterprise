@@ -90,8 +90,6 @@ class AssetStatusController extends Controller
     {
         abort_if(Gate::denies('asset_status_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $assetStatus->load('statusAssets', 'statusAssetsHistories');
-
         return view('admin.assetStatuses.show', compact('assetStatus'));
     }
 

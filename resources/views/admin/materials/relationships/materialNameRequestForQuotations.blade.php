@@ -1,8 +1,8 @@
-@can('material_entry_create')
+@can('request_for_quotation_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.material-entries.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.materialEntry.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.request-for-quotations.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.requestForQuotation.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,34 +10,40 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.materialEntry.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.requestForQuotation.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-idPurchaseOrderMaterialEntries">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-materialNameRequestForQuotations">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.id_material_entry') }}
+                            {{ trans('cruds.requestForQuotation.fields.id_request_for_quotation') }}
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.id_purchase_order') }}
+                            {{ trans('cruds.requestForQuotation.fields.id_purchase_requisition') }}
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.date_material_entry') }}
+                            {{ trans('cruds.requestForQuotation.fields.material_name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.material_name') }}
+                            {{ trans('cruds.requestForQuotation.fields.qty') }}
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.qty') }}
+                            {{ trans('cruds.requestForQuotation.fields.unit_price') }}
                         </th>
                         <th>
-                            {{ trans('cruds.materialEntry.fields.status') }}
+                            {{ trans('cruds.requestForQuotation.fields.total_price') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.requestForQuotation.fields.description') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.requestForQuotation.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -45,44 +51,50 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($materialEntries as $key => $materialEntry)
-                        <tr data-entry-id="{{ $materialEntry->id }}">
+                    @foreach($requestForQuotations as $key => $requestForQuotation)
+                        <tr data-entry-id="{{ $requestForQuotation->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $materialEntry->id_material_entry ?? '' }}
+                                {{ $requestForQuotation->id_request_for_quotation ?? '' }}
                             </td>
                             <td>
-                                {{ $materialEntry->id_purchase_order->id_purchase_order ?? '' }}
+                                {{ $requestForQuotation->id_purchase_requisition->id_purchase_requition ?? '' }}
                             </td>
                             <td>
-                                {{ $materialEntry->date_material_entry ?? '' }}
+                                {{ $requestForQuotation->material_name->name_material ?? '' }}
                             </td>
                             <td>
-                                {{ $materialEntry->material_name->name_material ?? '' }}
+                                {{ $requestForQuotation->qty ?? '' }}
                             </td>
                             <td>
-                                {{ $materialEntry->qty ?? '' }}
+                                {{ $requestForQuotation->unit_price ?? '' }}
                             </td>
                             <td>
-                                {{ App\Models\MaterialEntry::STATUS_SELECT[$materialEntry->status] ?? '' }}
+                                {{ $requestForQuotation->total_price ?? '' }}
                             </td>
                             <td>
-                                @can('material_entry_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.material-entries.show', $materialEntry->id) }}">
+                                {{ $requestForQuotation->description ?? '' }}
+                            </td>
+                            <td>
+                                {{ App\Models\RequestForQuotation::STATUS_SELECT[$requestForQuotation->status] ?? '' }}
+                            </td>
+                            <td>
+                                @can('request_for_quotation_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.request-for-quotations.show', $requestForQuotation->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('material_entry_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.material-entries.edit', $materialEntry->id) }}">
+                                @can('request_for_quotation_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.request-for-quotations.edit', $requestForQuotation->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('material_entry_delete')
-                                    <form action="{{ route('admin.material-entries.destroy', $materialEntry->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('request_for_quotation_delete')
+                                    <form action="{{ route('admin.request-for-quotations.destroy', $requestForQuotation->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -104,11 +116,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('material_entry_delete')
+@can('request_for_quotation_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.material-entries.massDestroy') }}",
+    url: "{{ route('admin.request-for-quotations.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -139,7 +151,7 @@
     order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-idPurchaseOrderMaterialEntries:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-materialNameRequestForQuotations:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

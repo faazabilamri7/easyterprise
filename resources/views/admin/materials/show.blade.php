@@ -115,6 +115,16 @@
                 {{ trans('cruds.purchaseInq.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material_name_request_for_quotations" role="tab" data-toggle="tab">
+                {{ trans('cruds.requestForQuotation.title') }}
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#material_name_material_entries" role="tab" data-toggle="tab">
+                {{ trans('cruds.materialEntry.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="material1_purchase_requitions">
@@ -140,6 +150,12 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="material_name_purchase_inqs">
             @includeIf('admin.materials.relationships.materialNamePurchaseInqs', ['purchaseInqs' => $material->materialNamePurchaseInqs])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material_name_request_for_quotations">
+            @includeIf('admin.materials.relationships.materialNameRequestForQuotations', ['requestForQuotations' => $material->materialNameRequestForQuotations])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="material_name_material_entries">
+            @includeIf('admin.materials.relationships.materialNameMaterialEntries', ['materialEntries' => $material->materialNameMaterialEntries])
         </div>
     </div>
 </div>

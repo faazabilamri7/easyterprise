@@ -11,13 +11,13 @@ class CreatePurchaseRequitionsTable extends Migration
         Schema::create('purchase_requitions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('id_purchase_requition');
-            $table->string('status')->nullable();
             $table->integer('qty_1')->nullable();
             $table->integer('qty_2')->nullable();
             $table->integer('qty_3')->nullable();
             $table->integer('qty_4')->nullable();
             $table->integer('qty_5')->nullable();
             $table->integer('qty_6')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

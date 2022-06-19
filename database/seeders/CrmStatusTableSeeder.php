@@ -13,20 +13,20 @@ class CrmStatusTableSeeder extends Seeder
             [
                 'id'         => 1,
                 'name'       => 'Lead',
-                'created_at' => '2022-06-11 06:58:58',
-                'updated_at' => '2022-06-11 06:58:58',
+                'created_at' => '2022-06-18 07:26:03',
+                'updated_at' => '2022-06-18 07:26:03',
             ],
             [
                 'id'         => 2,
                 'name'       => 'Customer',
-                'created_at' => '2022-06-11 06:58:58',
-                'updated_at' => '2022-06-11 06:58:58',
+                'created_at' => '2022-06-18 07:26:03',
+                'updated_at' => '2022-06-18 07:26:03',
             ],
             [
                 'id'         => 3,
                 'name'       => 'Partner',
-                'created_at' => '2022-06-11 06:58:58',
-                'updated_at' => '2022-06-11 06:58:58',
+                'created_at' => '2022-06-18 07:26:03',
+                'updated_at' => '2022-06-18 07:26:03',
             ],
         ];
 

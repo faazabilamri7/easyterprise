@@ -11,7 +11,6 @@ class CreateRequestForQuotationsTable extends Migration
         Schema::create('request_for_quotations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('id_request_for_quotation');
-            $table->string('material_name')->nullable();
             $table->integer('qty')->nullable();
             $table->decimal('unit_price', 15, 2)->nullable();
             $table->decimal('total_price', 15, 2)->nullable();

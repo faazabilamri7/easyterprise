@@ -31,6 +31,9 @@
                             {{ trans('cruds.transferProduk.fields.product_name') }}
                         </th>
                         <th>
+                            {{ trans('cruds.transferProduk.fields.date_product_entry') }}
+                        </th>
+                        <th>
                             {{ trans('cruds.transferProduk.fields.qty') }}
                         </th>
                         <th>
@@ -55,6 +58,9 @@
                             </td>
                             <td>
                                 {{ $transferProduk->product_name->name ?? '' }}
+                            </td>
+                            <td>
+                                {{ $transferProduk->date_product_entry ?? '' }}
                             </td>
                             <td>
                                 {{ $transferProduk->qty ?? '' }}

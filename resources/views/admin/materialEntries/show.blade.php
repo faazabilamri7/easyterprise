@@ -52,7 +52,7 @@
                             {{ trans('cruds.materialEntry.fields.material_name') }}
                         </th>
                         <td>
-                            {{ $materialEntry->material_name }}
+                            {{ $materialEntry->material_name->name_material ?? '' }}
                         </td>
                     </tr>
                     <tr>

@@ -17,9 +17,10 @@ class UpdatePengirimanRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_pengiriman' => [
+            'id_shipment' => [
                 'string',
                 'required',
+                'unique:pengirimen,id_shipment,' . request()->route('pengiriman')->id,
             ],
             'no_sales_order_id' => [
                 'required',

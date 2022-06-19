@@ -49,6 +49,16 @@
                 <span class="help-block">{{ trans('cruds.transferProduk.fields.product_name_helper') }}</span>
             </div>
             <div class="form-group">
+                <label class="required" for="date_product_entry">{{ trans('cruds.transferProduk.fields.date_product_entry') }}</label>
+                <input class="form-control date {{ $errors->has('date_product_entry') ? 'is-invalid' : '' }}" type="text" name="date_product_entry" id="date_product_entry" value="{{ old('date_product_entry', $transferProduk->date_product_entry) }}" required>
+                @if($errors->has('date_product_entry'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('date_product_entry') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.transferProduk.fields.date_product_entry_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="qty">{{ trans('cruds.transferProduk.fields.qty') }}</label>
                 <input class="form-control {{ $errors->has('qty') ? 'is-invalid' : '' }}" type="number" name="qty" id="qty" value="{{ old('qty', $transferProduk->qty) }}" step="1">
                 @if($errors->has('qty'))

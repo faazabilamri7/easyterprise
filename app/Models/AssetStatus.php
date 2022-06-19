@@ -29,22 +29,6 @@ class AssetStatus extends Model
         'deleted_at',
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-        AssetStatus::observe(new \App\Observers\AssetStatusActionObserver());
-    }
-
-    public function statusAssets()
-    {
-        return $this->hasMany(Asset::class, 'status_id', 'id');
-    }
-
-    public function statusAssetsHistories()
-    {
-        return $this->hasMany(AssetsHistory::class, 'status_id', 'id');
-    }
-
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');

@@ -604,674 +604,586 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 149,
-                'title' => 'asset_management_access',
-            ],
-            [
-                'id'    => 150,
-                'title' => 'asset_category_create',
-            ],
-            [
-                'id'    => 151,
-                'title' => 'asset_category_edit',
-            ],
-            [
-                'id'    => 152,
-                'title' => 'asset_category_show',
-            ],
-            [
-                'id'    => 153,
-                'title' => 'asset_category_delete',
-            ],
-            [
-                'id'    => 154,
-                'title' => 'asset_category_access',
-            ],
-            [
-                'id'    => 155,
-                'title' => 'asset_location_create',
-            ],
-            [
-                'id'    => 156,
-                'title' => 'asset_location_edit',
-            ],
-            [
-                'id'    => 157,
-                'title' => 'asset_location_show',
-            ],
-            [
-                'id'    => 158,
-                'title' => 'asset_location_delete',
-            ],
-            [
-                'id'    => 159,
-                'title' => 'asset_location_access',
-            ],
-            [
-                'id'    => 160,
-                'title' => 'asset_status_create',
-            ],
-            [
-                'id'    => 161,
-                'title' => 'asset_status_edit',
-            ],
-            [
-                'id'    => 162,
-                'title' => 'asset_status_show',
-            ],
-            [
-                'id'    => 163,
-                'title' => 'asset_status_delete',
-            ],
-            [
-                'id'    => 164,
-                'title' => 'asset_status_access',
-            ],
-            [
-                'id'    => 165,
-                'title' => 'asset_create',
-            ],
-            [
-                'id'    => 166,
-                'title' => 'asset_edit',
-            ],
-            [
-                'id'    => 167,
-                'title' => 'asset_show',
-            ],
-            [
-                'id'    => 168,
-                'title' => 'asset_delete',
-            ],
-            [
-                'id'    => 169,
-                'title' => 'asset_access',
-            ],
-            [
-                'id'    => 170,
-                'title' => 'assets_history_access',
-            ],
-            [
-                'id'    => 171,
                 'title' => 'akun_create',
             ],
             [
-                'id'    => 172,
+                'id'    => 150,
                 'title' => 'akun_edit',
             ],
             [
-                'id'    => 173,
+                'id'    => 151,
                 'title' => 'akun_show',
             ],
             [
-                'id'    => 174,
+                'id'    => 152,
                 'title' => 'akun_delete',
             ],
             [
-                'id'    => 175,
+                'id'    => 153,
                 'title' => 'akun_access',
             ],
             [
-                'id'    => 176,
+                'id'    => 154,
                 'title' => 'jurnal_umum_create',
             ],
             [
-                'id'    => 177,
+                'id'    => 155,
                 'title' => 'jurnal_umum_edit',
             ],
             [
-                'id'    => 178,
+                'id'    => 156,
                 'title' => 'jurnal_umum_show',
             ],
             [
-                'id'    => 179,
+                'id'    => 157,
                 'title' => 'jurnal_umum_delete',
             ],
             [
-                'id'    => 180,
+                'id'    => 158,
                 'title' => 'jurnal_umum_access',
             ],
             [
-                'id'    => 181,
+                'id'    => 159,
                 'title' => 'buku_besar_create',
             ],
             [
-                'id'    => 182,
+                'id'    => 160,
                 'title' => 'buku_besar_edit',
             ],
             [
-                'id'    => 183,
+                'id'    => 161,
                 'title' => 'buku_besar_show',
             ],
             [
-                'id'    => 184,
+                'id'    => 162,
                 'title' => 'buku_besar_delete',
             ],
             [
-                'id'    => 185,
+                'id'    => 163,
                 'title' => 'buku_besar_access',
             ],
             [
-                'id'    => 186,
+                'id'    => 164,
                 'title' => 'necara_saldo_create',
             ],
             [
-                'id'    => 187,
+                'id'    => 165,
                 'title' => 'necara_saldo_edit',
             ],
             [
-                'id'    => 188,
+                'id'    => 166,
                 'title' => 'necara_saldo_show',
             ],
             [
-                'id'    => 189,
+                'id'    => 167,
                 'title' => 'necara_saldo_delete',
             ],
             [
-                'id'    => 190,
+                'id'    => 168,
                 'title' => 'necara_saldo_access',
             ],
             [
-                'id'    => 191,
+                'id'    => 169,
                 'title' => 'jurnal_penyelesaian_create',
             ],
             [
-                'id'    => 192,
+                'id'    => 170,
                 'title' => 'jurnal_penyelesaian_edit',
             ],
             [
-                'id'    => 193,
+                'id'    => 171,
                 'title' => 'jurnal_penyelesaian_show',
             ],
             [
-                'id'    => 194,
+                'id'    => 172,
                 'title' => 'jurnal_penyelesaian_delete',
             ],
             [
-                'id'    => 195,
+                'id'    => 173,
                 'title' => 'jurnal_penyelesaian_access',
             ],
             [
-                'id'    => 196,
+                'id'    => 174,
                 'title' => 'biaya_produksi_create',
             ],
             [
-                'id'    => 197,
+                'id'    => 175,
                 'title' => 'biaya_produksi_edit',
             ],
             [
-                'id'    => 198,
+                'id'    => 176,
                 'title' => 'biaya_produksi_show',
             ],
             [
-                'id'    => 199,
+                'id'    => 177,
                 'title' => 'biaya_produksi_delete',
             ],
             [
-                'id'    => 200,
+                'id'    => 178,
                 'title' => 'biaya_produksi_access',
             ],
             [
-                'id'    => 201,
+                'id'    => 179,
                 'title' => 'kas_bank_create',
             ],
             [
-                'id'    => 202,
+                'id'    => 180,
                 'title' => 'kas_bank_edit',
             ],
             [
-                'id'    => 203,
+                'id'    => 181,
                 'title' => 'kas_bank_show',
             ],
             [
-                'id'    => 204,
+                'id'    => 182,
                 'title' => 'kas_bank_delete',
             ],
             [
-                'id'    => 205,
+                'id'    => 183,
                 'title' => 'kas_bank_access',
             ],
             [
-                'id'    => 206,
+                'id'    => 184,
                 'title' => 'transaksi_keuangan_create',
             ],
             [
-                'id'    => 207,
+                'id'    => 185,
                 'title' => 'transaksi_keuangan_edit',
             ],
             [
-                'id'    => 208,
+                'id'    => 186,
                 'title' => 'transaksi_keuangan_show',
             ],
             [
-                'id'    => 209,
+                'id'    => 187,
                 'title' => 'transaksi_keuangan_delete',
             ],
             [
-                'id'    => 210,
+                'id'    => 188,
                 'title' => 'transaksi_keuangan_access',
             ],
             [
-                'id'    => 211,
+                'id'    => 189,
                 'title' => 'invoice_pembelian_create',
             ],
             [
-                'id'    => 212,
+                'id'    => 190,
                 'title' => 'invoice_pembelian_edit',
             ],
             [
-                'id'    => 213,
+                'id'    => 191,
                 'title' => 'invoice_pembelian_show',
             ],
             [
-                'id'    => 214,
+                'id'    => 192,
                 'title' => 'invoice_pembelian_delete',
             ],
             [
-                'id'    => 215,
+                'id'    => 193,
                 'title' => 'invoice_pembelian_access',
             ],
             [
-                'id'    => 216,
+                'id'    => 194,
                 'title' => 'audit_log_show',
             ],
             [
-                'id'    => 217,
+                'id'    => 195,
                 'title' => 'audit_log_access',
             ],
             [
-                'id'    => 218,
+                'id'    => 196,
                 'title' => 'user_alert_create',
             ],
             [
-                'id'    => 219,
+                'id'    => 197,
                 'title' => 'user_alert_show',
             ],
             [
-                'id'    => 220,
+                'id'    => 198,
                 'title' => 'user_alert_delete',
             ],
             [
-                'id'    => 221,
+                'id'    => 199,
                 'title' => 'user_alert_access',
             ],
             [
-                'id'    => 222,
+                'id'    => 200,
                 'title' => 'faq_management_access',
             ],
             [
-                'id'    => 223,
+                'id'    => 201,
                 'title' => 'faq_category_create',
             ],
             [
-                'id'    => 224,
+                'id'    => 202,
                 'title' => 'faq_category_edit',
             ],
             [
-                'id'    => 225,
+                'id'    => 203,
                 'title' => 'faq_category_show',
             ],
             [
-                'id'    => 226,
+                'id'    => 204,
                 'title' => 'faq_category_delete',
             ],
             [
-                'id'    => 227,
+                'id'    => 205,
                 'title' => 'faq_category_access',
             ],
             [
-                'id'    => 228,
+                'id'    => 206,
                 'title' => 'faq_question_create',
             ],
             [
-                'id'    => 229,
+                'id'    => 207,
                 'title' => 'faq_question_edit',
             ],
             [
-                'id'    => 230,
+                'id'    => 208,
                 'title' => 'faq_question_show',
             ],
             [
-                'id'    => 231,
+                'id'    => 209,
                 'title' => 'faq_question_delete',
             ],
             [
-                'id'    => 232,
+                'id'    => 210,
                 'title' => 'faq_question_access',
             ],
             [
-                'id'    => 233,
+                'id'    => 211,
                 'title' => 'request_stock_product_create',
             ],
             [
-                'id'    => 234,
+                'id'    => 212,
                 'title' => 'request_stock_product_edit',
             ],
             [
-                'id'    => 235,
+                'id'    => 213,
                 'title' => 'request_stock_product_show',
             ],
             [
-                'id'    => 236,
+                'id'    => 214,
                 'title' => 'request_stock_product_delete',
             ],
             [
-                'id'    => 237,
+                'id'    => 215,
                 'title' => 'request_stock_product_access',
             ],
             [
-                'id'    => 238,
+                'id'    => 216,
                 'title' => 'production_monitoring_create',
             ],
             [
-                'id'    => 239,
+                'id'    => 217,
                 'title' => 'production_monitoring_edit',
             ],
             [
-                'id'    => 240,
+                'id'    => 218,
                 'title' => 'production_monitoring_show',
             ],
             [
-                'id'    => 241,
+                'id'    => 219,
                 'title' => 'production_monitoring_delete',
             ],
             [
-                'id'    => 242,
+                'id'    => 220,
                 'title' => 'production_monitoring_access',
             ],
             [
-                'id'    => 243,
+                'id'    => 221,
                 'title' => 'quality_control_create',
             ],
             [
-                'id'    => 244,
+                'id'    => 222,
                 'title' => 'quality_control_edit',
             ],
             [
-                'id'    => 245,
+                'id'    => 223,
                 'title' => 'quality_control_show',
             ],
             [
-                'id'    => 246,
+                'id'    => 224,
                 'title' => 'quality_control_delete',
             ],
             [
-                'id'    => 247,
+                'id'    => 225,
                 'title' => 'quality_control_access',
             ],
             [
-                'id'    => 248,
+                'id'    => 226,
                 'title' => 'data_vendor_access',
             ],
             [
-                'id'    => 249,
+                'id'    => 227,
                 'title' => 'vendor_create',
             ],
             [
-                'id'    => 250,
+                'id'    => 228,
                 'title' => 'vendor_edit',
             ],
             [
-                'id'    => 251,
+                'id'    => 229,
                 'title' => 'vendor_show',
             ],
             [
-                'id'    => 252,
+                'id'    => 230,
                 'title' => 'vendor_delete',
             ],
             [
-                'id'    => 253,
+                'id'    => 231,
                 'title' => 'vendor_access',
             ],
             [
-                'id'    => 254,
+                'id'    => 232,
                 'title' => 'material_create',
             ],
             [
-                'id'    => 255,
+                'id'    => 233,
                 'title' => 'material_edit',
             ],
             [
-                'id'    => 256,
+                'id'    => 234,
                 'title' => 'material_show',
             ],
             [
-                'id'    => 257,
+                'id'    => 235,
                 'title' => 'material_delete',
             ],
             [
-                'id'    => 258,
+                'id'    => 236,
                 'title' => 'material_access',
             ],
             [
-                'id'    => 259,
+                'id'    => 237,
                 'title' => 'chart_of_account_create',
             ],
             [
-                'id'    => 260,
+                'id'    => 238,
                 'title' => 'chart_of_account_edit',
             ],
             [
-                'id'    => 261,
+                'id'    => 239,
                 'title' => 'chart_of_account_show',
             ],
             [
-                'id'    => 262,
+                'id'    => 240,
                 'title' => 'chart_of_account_delete',
             ],
             [
-                'id'    => 263,
+                'id'    => 241,
                 'title' => 'chart_of_account_access',
             ],
             [
-                'id'    => 264,
+                'id'    => 242,
                 'title' => 'vendor_status_create',
             ],
             [
-                'id'    => 265,
+                'id'    => 243,
                 'title' => 'vendor_status_edit',
             ],
             [
-                'id'    => 266,
+                'id'    => 244,
                 'title' => 'vendor_status_show',
             ],
             [
-                'id'    => 267,
+                'id'    => 245,
                 'title' => 'vendor_status_delete',
             ],
             [
-                'id'    => 268,
+                'id'    => 246,
                 'title' => 'vendor_status_access',
             ],
             [
-                'id'    => 269,
+                'id'    => 247,
                 'title' => 'documents_vendor_create',
             ],
             [
-                'id'    => 270,
+                'id'    => 248,
                 'title' => 'documents_vendor_edit',
             ],
             [
-                'id'    => 271,
+                'id'    => 249,
                 'title' => 'documents_vendor_show',
             ],
             [
-                'id'    => 272,
+                'id'    => 250,
                 'title' => 'documents_vendor_delete',
             ],
             [
-                'id'    => 273,
+                'id'    => 251,
                 'title' => 'documents_vendor_access',
             ],
             [
-                'id'    => 274,
+                'id'    => 252,
                 'title' => 'notes_vendor_create',
             ],
             [
-                'id'    => 275,
+                'id'    => 253,
                 'title' => 'notes_vendor_edit',
             ],
             [
-                'id'    => 276,
+                'id'    => 254,
                 'title' => 'notes_vendor_show',
             ],
             [
-                'id'    => 277,
+                'id'    => 255,
                 'title' => 'notes_vendor_delete',
             ],
             [
-                'id'    => 278,
+                'id'    => 256,
                 'title' => 'notes_vendor_access',
             ],
             [
-                'id'    => 279,
+                'id'    => 257,
                 'title' => 'request_for_quotation_create',
             ],
             [
-                'id'    => 280,
+                'id'    => 258,
                 'title' => 'request_for_quotation_edit',
             ],
             [
-                'id'    => 281,
+                'id'    => 259,
                 'title' => 'request_for_quotation_show',
             ],
             [
-                'id'    => 282,
+                'id'    => 260,
                 'title' => 'request_for_quotation_delete',
             ],
             [
-                'id'    => 283,
+                'id'    => 261,
                 'title' => 'request_for_quotation_access',
             ],
             [
-                'id'    => 284,
+                'id'    => 262,
                 'title' => 'purchase_quotation_create',
             ],
             [
-                'id'    => 285,
+                'id'    => 263,
                 'title' => 'purchase_quotation_edit',
             ],
             [
-                'id'    => 286,
+                'id'    => 264,
                 'title' => 'purchase_quotation_show',
             ],
             [
-                'id'    => 287,
+                'id'    => 265,
                 'title' => 'purchase_quotation_delete',
             ],
             [
-                'id'    => 288,
+                'id'    => 266,
                 'title' => 'purchase_quotation_access',
             ],
             [
-                'id'    => 289,
+                'id'    => 267,
                 'title' => 'task_management_access',
             ],
             [
-                'id'    => 290,
+                'id'    => 268,
                 'title' => 'task_status_create',
             ],
             [
-                'id'    => 291,
+                'id'    => 269,
                 'title' => 'task_status_edit',
             ],
             [
-                'id'    => 292,
+                'id'    => 270,
                 'title' => 'task_status_show',
             ],
             [
-                'id'    => 293,
+                'id'    => 271,
                 'title' => 'task_status_delete',
             ],
             [
-                'id'    => 294,
+                'id'    => 272,
                 'title' => 'task_status_access',
             ],
             [
-                'id'    => 295,
+                'id'    => 273,
                 'title' => 'task_tag_create',
             ],
             [
-                'id'    => 296,
+                'id'    => 274,
                 'title' => 'task_tag_edit',
             ],
             [
-                'id'    => 297,
+                'id'    => 275,
                 'title' => 'task_tag_show',
             ],
             [
-                'id'    => 298,
+                'id'    => 276,
                 'title' => 'task_tag_delete',
             ],
             [
-                'id'    => 299,
+                'id'    => 277,
                 'title' => 'task_tag_access',
             ],
             [
-                'id'    => 300,
+                'id'    => 278,
                 'title' => 'task_create',
             ],
             [
-                'id'    => 301,
+                'id'    => 279,
                 'title' => 'task_edit',
             ],
             [
-                'id'    => 302,
+                'id'    => 280,
                 'title' => 'task_show',
             ],
             [
-                'id'    => 303,
+                'id'    => 281,
                 'title' => 'task_delete',
             ],
             [
-                'id'    => 304,
+                'id'    => 282,
                 'title' => 'task_access',
             ],
             [
-                'id'    => 305,
+                'id'    => 283,
                 'title' => 'tasks_calendar_access',
             ],
             [
-                'id'    => 306,
+                'id'    => 284,
                 'title' => 'purchase_requition_create',
             ],
             [
-                'id'    => 307,
+                'id'    => 285,
                 'title' => 'purchase_requition_edit',
             ],
             [
-                'id'    => 308,
+                'id'    => 286,
                 'title' => 'purchase_requition_show',
             ],
             [
-                'id'    => 309,
+                'id'    => 287,
                 'title' => 'purchase_requition_delete',
             ],
             [
-                'id'    => 310,
+                'id'    => 288,
                 'title' => 'purchase_requition_access',
             ],
             [
-                'id'    => 311,
+                'id'    => 289,
                 'title' => 'material_entry_create',
             ],
             [
-                'id'    => 312,
+                'id'    => 290,
                 'title' => 'material_entry_edit',
             ],
             [
-                'id'    => 313,
+                'id'    => 291,
                 'title' => 'material_entry_show',
             ],
             [
-                'id'    => 314,
+                'id'    => 292,
                 'title' => 'material_entry_delete',
             ],
             [
-                'id'    => 315,
+                'id'    => 293,
                 'title' => 'material_entry_access',
             ],
             [
-                'id'    => 316,
+                'id'    => 294,
                 'title' => 'profile_password_edit',
             ],
         ];

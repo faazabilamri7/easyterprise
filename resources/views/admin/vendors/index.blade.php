@@ -29,9 +29,6 @@
                         {{ trans('cruds.vendor.fields.id') }}
                     </th>
                     <th>
-                        {{ trans('cruds.vendor.fields.id_vendor') }}
-                    </th>
-                    <th>
                         {{ trans('cruds.vendor.fields.nama_vendor') }}
                     </th>
                     <th>
@@ -103,7 +100,6 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'id_vendor', name: 'id_vendor' },
 { data: 'nama_vendor', name: 'nama_vendor' },
 { data: 'telepon', name: 'telepon' },
 { data: 'email', name: 'email' },
@@ -112,7 +108,7 @@
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,
-    order: [[ 3, 'desc' ]],
+    order: [[ 2, 'desc' ]],
     pageLength: 100,
   };
   let table = $('.datatable-Vendor').DataTable(dtOverrideGlobals);

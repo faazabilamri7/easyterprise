@@ -15,7 +15,8 @@ class HomeController
             'model'                 => 'App\Models\Product',
             'group_by_field'        => 'created_at',
             'group_by_period'       => 'day',
-            'aggregate_function'    => 'count',
+            'aggregate_function'    => 'sum',
+            'aggregate_field'       => 'stok',
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-3',
@@ -81,7 +82,7 @@ class HomeController
         }
 
         $settings3 = [
-            'chart_title'           => 'Total Delivery',
+            'chart_title'           => 'Total Shipment',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Pengiriman',
@@ -195,7 +196,8 @@ class HomeController
             'model'                 => 'App\Models\Product',
             'group_by_field'        => 'created_at',
             'group_by_period'       => 'day',
-            'aggregate_function'    => 'count',
+            'aggregate_function'    => 'sum',
+            'aggregate_field'       => 'stok',
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-3',
@@ -271,7 +273,7 @@ class HomeController
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-6',
-            'entries_number'        => '5',
+            'entries_number'        => '10',
             'fields'                => [
                 'name_material' => '',
                 'stock'         => '',
@@ -345,7 +347,7 @@ class HomeController
             'entries_number'        => '20',
             'fields'                => [
                 'date_material_entry' => '',
-                'material_name'       => '',
+                'material_name'       => 'name_material',
                 'qty'                 => '',
                 'status'              => '',
             ],
@@ -364,7 +366,7 @@ class HomeController
         }
 
         $settings12 = [
-            'chart_title'           => 'Product Entry',
+            'chart_title'           => 'Status Product Entry',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\TransferProduk',
@@ -374,12 +376,12 @@ class HomeController
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-6',
-            'entries_number'        => '20',
+            'entries_number'        => '5',
             'fields'                => [
-                'id_transfer_produk' => '',
                 'product_name'       => 'name',
                 'qty'                => '',
                 'status'             => '',
+                'date_product_entry' => '',
             ],
             'translation_key' => 'transferProduk',
         ];
@@ -396,7 +398,7 @@ class HomeController
         }
 
         $settings13 = [
-            'chart_title'           => 'Delivery Status',
+            'chart_title'           => 'Shipment Status',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\Pengiriman',
@@ -406,11 +408,11 @@ class HomeController
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-6',
-            'entries_number'        => '20',
+            'entries_number'        => '5',
             'fields'                => [
-                'status_pengiriman' => '',
-                'id_pengiriman'     => '',
-                'no_sales_order'    => 'no_sales_order',
+                'id_shipment'     => '',
+                'no_sales_order'  => 'no_sales_order',
+                'status_shipment' => '',
             ],
             'translation_key' => 'pengiriman',
         ];
@@ -469,8 +471,7 @@ class HomeController
             'model'                 => 'App\Models\QualityControl',
             'group_by_field'        => 'created_at',
             'group_by_period'       => 'day',
-            'aggregate_function'    => 'sum',
-            'aggregate_field'       => 'qty',
+            'aggregate_function'    => 'count',
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
             'column_class'          => 'col-md-3',
@@ -500,40 +501,7 @@ class HomeController
         }
 
         $settings16 = [
-            'chart_title'           => 'Total Request Product',
-            'chart_type'            => 'latest_entries',
-            'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\RequestStockProduct',
-            'group_by_field'        => 'tanggal_request',
-            'group_by_period'       => 'day',
-            'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
-            'group_by_field_format' => 'd/m/Y',
-            'column_class'          => 'col-md-6',
-            'entries_number'        => '10',
-            'fields'                => [
-                'tanggal_request'    => '',
-                'request_product'    => 'name',
-                'qty'                => '',
-                'status'             => '',
-                'id_request_product' => '',
-            ],
-            'translation_key' => 'requestStockProduct',
-        ];
-
-        $settings16['data'] = [];
-        if (class_exists($settings16['model'])) {
-            $settings16['data'] = $settings16['model']::latest()
-                ->take($settings16['entries_number'])
-                ->get();
-        }
-
-        if (!array_key_exists('fields', $settings16)) {
-            $settings16['fields'] = [];
-        }
-
-        $settings17 = [
-            'chart_title'           => 'Material Status',
+            'chart_title'           => 'Materials Status',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\ListOfMaterial',
@@ -552,18 +520,18 @@ class HomeController
             'translation_key' => 'listOfMaterial',
         ];
 
-        $settings17['data'] = [];
-        if (class_exists($settings17['model'])) {
-            $settings17['data'] = $settings17['model']::latest()
-                ->take($settings17['entries_number'])
+        $settings16['data'] = [];
+        if (class_exists($settings16['model'])) {
+            $settings16['data'] = $settings16['model']::latest()
+                ->take($settings16['entries_number'])
                 ->get();
         }
 
-        if (!array_key_exists('fields', $settings17)) {
-            $settings17['fields'] = [];
+        if (!array_key_exists('fields', $settings16)) {
+            $settings16['fields'] = [];
         }
 
-        $settings18 = [
+        $settings17 = [
             'chart_title'           => 'Machine Status',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
@@ -576,25 +544,24 @@ class HomeController
             'column_class'          => 'col-md-6',
             'entries_number'        => '10',
             'fields'                => [
-                'nama_mesin' => '',
-                'status'     => '',
-                'id_mesin'   => '',
+                'status'   => '',
+                'id_mesin' => '',
             ],
             'translation_key' => 'machineReport',
         ];
 
-        $settings18['data'] = [];
-        if (class_exists($settings18['model'])) {
-            $settings18['data'] = $settings18['model']::latest()
-                ->take($settings18['entries_number'])
+        $settings17['data'] = [];
+        if (class_exists($settings17['model'])) {
+            $settings17['data'] = $settings17['model']::latest()
+                ->take($settings17['entries_number'])
                 ->get();
         }
 
-        if (!array_key_exists('fields', $settings18)) {
-            $settings18['fields'] = [];
+        if (!array_key_exists('fields', $settings17)) {
+            $settings17['fields'] = [];
         }
 
-        $settings19 = [
+        $settings18 = [
             'chart_title'           => 'Production Process',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
@@ -613,18 +580,18 @@ class HomeController
             'translation_key' => 'productionMonitoring',
         ];
 
-        $settings19['data'] = [];
-        if (class_exists($settings19['model'])) {
-            $settings19['data'] = $settings19['model']::latest()
-                ->take($settings19['entries_number'])
+        $settings18['data'] = [];
+        if (class_exists($settings18['model'])) {
+            $settings18['data'] = $settings18['model']::latest()
+                ->take($settings18['entries_number'])
                 ->get();
         }
 
-        if (!array_key_exists('fields', $settings19)) {
-            $settings19['fields'] = [];
+        if (!array_key_exists('fields', $settings18)) {
+            $settings18['fields'] = [];
         }
 
-        $settings20 = [
+        $settings19 = [
             'chart_title'           => 'Production Insight',
             'chart_type'            => 'line',
             'report_type'           => 'group_by_date',
@@ -641,9 +608,9 @@ class HomeController
             'translation_key'       => 'qualityControl',
         ];
 
-        $chart20 = new LaravelChart($settings20);
+        $chart19 = new LaravelChart($settings19);
 
-        $settings21 = [
+        $settings20 = [
             'chart_title'           => 'Purchase Requisition',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
@@ -656,7 +623,6 @@ class HomeController
             'column_class'          => 'col-md-6',
             'entries_number'        => '20',
             'fields'                => [
-                'status'     => '',
                 'material_1' => 'name_material',
                 'qty_1'      => '',
                 'material_2' => 'name_material',
@@ -669,8 +635,43 @@ class HomeController
                 'qty_5'      => '',
                 'material_6' => 'name_material',
                 'qty_6'      => '',
+                'status'     => '',
             ],
             'translation_key' => 'purchaseRequition',
+        ];
+
+        $settings20['data'] = [];
+        if (class_exists($settings20['model'])) {
+            $settings20['data'] = $settings20['model']::latest()
+                ->take($settings20['entries_number'])
+                ->get();
+        }
+
+        if (!array_key_exists('fields', $settings20)) {
+            $settings20['fields'] = [];
+        }
+
+        $settings21 = [
+            'chart_title'           => 'Request for Quotation',
+            'chart_type'            => 'latest_entries',
+            'report_type'           => 'group_by_date',
+            'model'                 => 'App\Models\RequestForQuotation',
+            'group_by_field'        => 'created_at',
+            'group_by_period'       => 'day',
+            'aggregate_function'    => 'count',
+            'filter_field'          => 'created_at',
+            'group_by_field_format' => 'd/m/Y H:i:s',
+            'column_class'          => 'col-md-6',
+            'entries_number'        => '20',
+            'fields'                => [
+                'material_name' => 'name_material',
+                'qty'           => '',
+                'unit_price'    => '',
+                'total_price'   => '',
+                'description'   => '',
+                'status'        => '',
+            ],
+            'translation_key' => 'requestForQuotation',
         ];
 
         $settings21['data'] = [];
@@ -685,38 +686,6 @@ class HomeController
         }
 
         $settings22 = [
-            'chart_title'           => 'Request for Quotation',
-            'chart_type'            => 'latest_entries',
-            'report_type'           => 'group_by_date',
-            'model'                 => 'App\Models\RequestForQuotation',
-            'group_by_field'        => 'created_at',
-            'group_by_period'       => 'day',
-            'aggregate_function'    => 'count',
-            'filter_field'          => 'created_at',
-            'group_by_field_format' => 'd/m/Y H:i:s',
-            'column_class'          => 'col-md-6',
-            'entries_number'        => '20',
-            'fields'                => [
-                'status'        => '',
-                'material_name' => '',
-                'qty'           => '',
-                'company_name'  => '',
-            ],
-            'translation_key' => 'requestForQuotation',
-        ];
-
-        $settings22['data'] = [];
-        if (class_exists($settings22['model'])) {
-            $settings22['data'] = $settings22['model']::latest()
-                ->take($settings22['entries_number'])
-                ->get();
-        }
-
-        if (!array_key_exists('fields', $settings22)) {
-            $settings22['fields'] = [];
-        }
-
-        $settings23 = [
             'chart_title'           => 'Total Vendor',
             'chart_type'            => 'number_block',
             'report_type'           => 'group_by_date',
@@ -726,51 +695,66 @@ class HomeController
             'aggregate_function'    => 'count',
             'filter_field'          => 'created_at',
             'group_by_field_format' => 'd/m/Y H:i:s',
-            'column_class'          => 'col-md-4',
+            'column_class'          => 'col-md-6',
             'entries_number'        => '5',
             'translation_key'       => 'vendor',
         ];
 
-        $settings23['total_number'] = 0;
-        if (class_exists($settings23['model'])) {
-            $settings23['total_number'] = $settings23['model']::when(isset($settings23['filter_field']), function ($query) use ($settings23) {
-                if (isset($settings23['filter_days'])) {
-                    return $query->where($settings23['filter_field'], '>=',
-                now()->subDays($settings23['filter_days'])->format('Y-m-d'));
+        $settings22['total_number'] = 0;
+        if (class_exists($settings22['model'])) {
+            $settings22['total_number'] = $settings22['model']::when(isset($settings22['filter_field']), function ($query) use ($settings22) {
+                if (isset($settings22['filter_days'])) {
+                    return $query->where($settings22['filter_field'], '>=',
+                now()->subDays($settings22['filter_days'])->format('Y-m-d'));
                 }
-                if (isset($settings23['filter_period'])) {
-                    switch ($settings23['filter_period']) {
+                if (isset($settings22['filter_period'])) {
+                    switch ($settings22['filter_period']) {
                 case 'week': $start = date('Y-m-d', strtotime('last Monday')); break;
                 case 'month': $start = date('Y-m') . '-01'; break;
                 case 'year': $start = date('Y') . '-01-01'; break;
             }
                     if (isset($start)) {
-                        return $query->where($settings23['filter_field'], '>=', $start);
+                        return $query->where($settings22['filter_field'], '>=', $start);
                     }
                 }
             })
-                ->{$settings23['aggregate_function'] ?? 'count'}($settings23['aggregate_field'] ?? '*');
+                ->{$settings22['aggregate_function'] ?? 'count'}($settings22['aggregate_field'] ?? '*');
         }
 
-        $settings24 = [
+        $settings23 = [
             'chart_title'           => 'Purchase Inquiry',
-            'chart_type'            => 'line',
+            'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
             'model'                 => 'App\Models\PurchaseInq',
             'group_by_field'        => 'created_at',
             'group_by_period'       => 'day',
             'aggregate_function'    => 'count',
             'filter_field'          => 'created_at',
-            'filter_days'           => '7',
             'group_by_field_format' => 'd/m/Y H:i:s',
-            'column_class'          => 'col-md-4',
-            'entries_number'        => '5',
-            'translation_key'       => 'purchaseInq',
+            'column_class'          => 'col-md-6',
+            'entries_number'        => '10',
+            'fields'                => [
+                'vendor_name'              => 'nama_vendor',
+                'date_puchase_inquiry'     => '',
+                'id_request_for_quotation' => 'id_request_for_quotation',
+                'material_name'            => 'name_material',
+                'qty'                      => '',
+            ],
+            'translation_key' => 'purchaseInq',
         ];
 
-        $chart24 = new LaravelChart($settings24);
+        $settings23['data'] = [];
+        if (class_exists($settings23['model'])) {
+            $settings23['data'] = $settings23['model']::latest()
+                ->take($settings23['entries_number'])
+                ->get();
+        }
 
-        $settings25 = [
+        if (!array_key_exists('fields', $settings23)) {
+            $settings23['fields'] = [];
+        }
+
+        $settings24 = [
             'chart_title'           => 'Purchase Order',
             'chart_type'            => 'bar',
             'report_type'           => 'group_by_date',
@@ -781,14 +765,14 @@ class HomeController
             'filter_field'          => 'created_at',
             'filter_days'           => '7',
             'group_by_field_format' => 'd/m/Y H:i:s',
-            'column_class'          => 'col-md-4',
+            'column_class'          => 'col-md-6',
             'entries_number'        => '5',
             'translation_key'       => 'purchaseOrder',
         ];
 
-        $chart25 = new LaravelChart($settings25);
+        $chart24 = new LaravelChart($settings24);
 
-        $settings26 = [
+        $settings25 = [
             'chart_title'           => 'Material Entry',
             'chart_type'            => 'latest_entries',
             'report_type'           => 'group_by_date',
@@ -802,25 +786,25 @@ class HomeController
             'entries_number'        => '20',
             'fields'                => [
                 'date_material_entry' => '',
-                'material_name'       => '',
+                'material_name'       => 'name_material',
                 'qty'                 => '',
                 'status'              => '',
             ],
             'translation_key' => 'materialEntry',
         ];
 
-        $settings26['data'] = [];
-        if (class_exists($settings26['model'])) {
-            $settings26['data'] = $settings26['model']::latest()
-                ->take($settings26['entries_number'])
+        $settings25['data'] = [];
+        if (class_exists($settings25['model'])) {
+            $settings25['data'] = $settings25['model']::latest()
+                ->take($settings25['entries_number'])
                 ->get();
         }
 
-        if (!array_key_exists('fields', $settings26)) {
-            $settings26['fields'] = [];
+        if (!array_key_exists('fields', $settings25)) {
+            $settings25['fields'] = [];
         }
 
-        $settings27 = [
+        $settings26 = [
             'chart_title'           => 'Purchase Return',
             'chart_type'            => 'pie',
             'report_type'           => 'group_by_date',
@@ -836,8 +820,8 @@ class HomeController
             'translation_key'       => 'purchaseReturn',
         ];
 
-        $chart27 = new LaravelChart($settings27);
+        $chart26 = new LaravelChart($settings26);
 
-        return view('home', compact('chart20', 'chart24', 'chart25', 'chart27', 'chart5', 'chart6', 'settings1', 'settings10', 'settings11', 'settings12', 'settings13', 'settings14', 'settings15', 'settings16', 'settings17', 'settings18', 'settings19', 'settings2', 'settings21', 'settings22', 'settings23', 'settings26', 'settings3', 'settings4', 'settings7', 'settings8', 'settings9'));
+        return view('home', compact('chart19', 'chart24', 'chart26', 'chart5', 'chart6', 'settings1', 'settings10', 'settings11', 'settings12', 'settings13', 'settings14', 'settings15', 'settings16', 'settings17', 'settings18', 'settings2', 'settings20', 'settings21', 'settings22', 'settings23', 'settings25', 'settings3', 'settings4', 'settings7', 'settings8', 'settings9'));
     }
 }

@@ -44,7 +44,7 @@
                             {{ trans('cruds.requestForQuotation.fields.material_name') }}
                         </th>
                         <td>
-                            {{ $requestForQuotation->material_name }}
+                            {{ $requestForQuotation->material_name->name_material ?? '' }}
                         </td>
                     </tr>
                     <tr>

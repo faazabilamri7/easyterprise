@@ -30,7 +30,7 @@ class RequestForQuotation extends Model
     protected $fillable = [
         'id_request_for_quotation',
         'id_purchase_requisition_id',
-        'material_name',
+        'material_name_id',
         'qty',
         'unit_price',
         'total_price',
@@ -55,6 +55,11 @@ class RequestForQuotation extends Model
     public function id_purchase_requisition()
     {
         return $this->belongsTo(PurchaseRequition::class, 'id_purchase_requisition_id');
+    }
+
+    public function material_name()
+    {
+        return $this->belongsTo(Material::class, 'material_name_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

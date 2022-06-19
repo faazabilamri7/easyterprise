@@ -90,16 +90,6 @@ class User extends Authenticatable
         User::observe(new \App\Observers\UserActionObserver());
     }
 
-    public function assignedToAssets()
-    {
-        return $this->hasMany(Asset::class, 'assigned_to_id', 'id');
-    }
-
-    public function assignedUserAssetsHistories()
-    {
-        return $this->hasMany(AssetsHistory::class, 'assigned_user_id', 'id');
-    }
-
     public function userUserAlerts()
     {
         return $this->belongsToMany(UserAlert::class);

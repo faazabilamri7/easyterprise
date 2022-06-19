@@ -10,7 +10,7 @@ class AddRelationshipFieldsToPengirimenTable extends Migration
     {
         Schema::table('pengirimen', function (Blueprint $table) {
             $table->unsignedBigInteger('no_sales_order_id')->nullable();
-            $table->foreign('no_sales_order_id', 'no_sales_order_fk_6769966')->references('id')->on('sales_orders');
+            $table->foreign('no_sales_order_id', 'no_sales_order_fk_6820539')->references('id')->on('sales_orders');
         });
     }
 }

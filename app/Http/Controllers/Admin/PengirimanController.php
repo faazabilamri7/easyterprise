@@ -44,15 +44,15 @@ class PengirimanController extends Controller
             ));
             });
 
-            $table->editColumn('id_pengiriman', function ($row) {
-                return $row->id_pengiriman ? $row->id_pengiriman : '';
+            $table->editColumn('id_shipment', function ($row) {
+                return $row->id_shipment ? $row->id_shipment : '';
             });
             $table->addColumn('no_sales_order_no_sales_order', function ($row) {
                 return $row->no_sales_order ? $row->no_sales_order->no_sales_order : '';
             });
 
-            $table->editColumn('status_pengiriman', function ($row) {
-                return $row->status_pengiriman ? Pengiriman::STATUS_PENGIRIMAN_SELECT[$row->status_pengiriman] : '';
+            $table->editColumn('status_shipment', function ($row) {
+                return $row->status_shipment ? Pengiriman::STATUS_SHIPMENT_SELECT[$row->status_shipment] : '';
             });
 
             $table->rawColumns(['actions', 'placeholder', 'no_sales_order']);

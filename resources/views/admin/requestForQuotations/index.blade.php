@@ -107,7 +107,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id_request_for_quotation', name: 'id_request_for_quotation' },
 { data: 'id_purchase_requisition_id_purchase_requition', name: 'id_purchase_requisition.id_purchase_requition' },
-{ data: 'material_name', name: 'material_name' },
+{ data: 'material_name_name_material', name: 'material_name.name_material' },
 { data: 'qty', name: 'qty' },
 { data: 'unit_price', name: 'unit_price' },
 { data: 'total_price', name: 'total_price' },

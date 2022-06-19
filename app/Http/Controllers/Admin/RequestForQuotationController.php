@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyRequestForQuotationRequest;
 use App\Http\Requests\StoreRequestForQuotationRequest;
 use App\Http\Requests\UpdateRequestForQuotationRequest;
+use App\Models\Material;
 use App\Models\PurchaseRequition;
 use App\Models\RequestForQuotation;
 use Gate;
@@ -23,7 +24,7 @@ class RequestForQuotationController extends Controller
         abort_if(Gate::denies('request_for_quotation_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = RequestForQuotation::with(['id_purchase_requisition'])->select(sprintf('%s.*', (new RequestForQuotation())->table));
+            $query = RequestForQuotation::with(['id_purchase_requisition', 'material_name'])->select(sprintf('%s.*', (new RequestForQuotation())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -51,9 +52,10 @@ class RequestForQuotationController extends Controller
                 return $row->id_purchase_requisition ? $row->id_purchase_requisition->id_purchase_requition : '';
             });
 
-            $table->editColumn('material_name', function ($row) {
-                return $row->material_name ? $row->material_name : '';
+            $table->addColumn('material_name_name_material', function ($row) {
+                return $row->material_name ? $row->material_name->name_material : '';
             });
+
             $table->editColumn('qty', function ($row) {
                 return $row->qty ? $row->qty : '';
             });
@@ -70,7 +72,7 @@ class RequestForQuotationController extends Controller
                 return $row->status ? RequestForQuotation::STATUS_SELECT[$row->status] : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'id_purchase_requisition']);
+            $table->rawColumns(['actions', 'placeholder', 'id_purchase_requisition', 'material_name']);
 
             return $table->make(true);
         }
@@ -84,7 +86,9 @@ class RequestForQuotationController extends Controller
 
         $id_purchase_requisitions = PurchaseRequition::pluck('id_purchase_requition', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.requestForQuotations.create', compact('id_purchase_requisitions'));
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.requestForQuotations.create', compact('id_purchase_requisitions', 'material_names'));
     }
 
     public function store(StoreRequestForQuotationRequest $request)
@@ -100,9 +104,11 @@ class RequestForQuotationController extends Controller
 
         $id_purchase_requisitions = PurchaseRequition::pluck('id_purchase_requition', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $requestForQuotation->load('id_purchase_requisition');
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.requestForQuotations.edit', compact('id_purchase_requisitions', 'requestForQuotation'));
+        $requestForQuotation->load('id_purchase_requisition', 'material_name');
+
+        return view('admin.requestForQuotations.edit', compact('id_purchase_requisitions', 'material_names', 'requestForQuotation'));
     }
 
     public function update(UpdateRequestForQuotationRequest $request, RequestForQuotation $requestForQuotation)
@@ -116,7 +122,7 @@ class RequestForQuotationController extends Controller
     {
         abort_if(Gate::denies('request_for_quotation_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $requestForQuotation->load('id_purchase_requisition', 'idRequestForQuotationPurchaseInqs');
+        $requestForQuotation->load('id_purchase_requisition', 'material_name', 'idRequestForQuotationPurchaseInqs');
 
         return view('admin.requestForQuotations.show', compact('requestForQuotation'));
     }

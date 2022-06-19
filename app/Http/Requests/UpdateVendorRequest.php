@@ -17,12 +17,6 @@ class UpdateVendorRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_vendor' => [
-                'nullable',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-            ],
             'nama_vendor' => [
                 'string',
                 'required',
