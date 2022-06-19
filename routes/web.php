@@ -364,26 +364,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('material-entries/process-csv-import', 'MaterialEntryController@processCsvImport')->name('material-entries.processCsvImport');
     Route::resource('material-entries', 'MaterialEntryController');
 
-    // Dashboard Sales Marketing
-    Route::delete('dashboard-sales-marketings/destroy', 'DashboardSalesMarketingController@massDestroy')->name('dashboard-sales-marketings.massDestroy');
-    Route::resource('dashboard-sales-marketings', 'DashboardSalesMarketingController');
-
-    // Warehouse Insight
-    Route::delete('warehouse-insights/destroy', 'WarehouseInsightController@massDestroy')->name('warehouse-insights.massDestroy');
-    Route::resource('warehouse-insights', 'WarehouseInsightController');
-
-    // Production
-    Route::delete('productions/destroy', 'ProductionController@massDestroy')->name('productions.massDestroy');
-    Route::resource('productions', 'ProductionController');
-
-    // Procurement Insight
-    Route::delete('procurement-insights/destroy', 'ProcurementInsightController@massDestroy')->name('procurement-insights.massDestroy');
-    Route::resource('procurement-insights', 'ProcurementInsightController');
-
-    // Finance Insight
-    Route::delete('finance-insights/destroy', 'FinanceInsightController@massDestroy')->name('finance-insights.massDestroy');
-    Route::resource('finance-insights', 'FinanceInsightController');
-
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
     Route::get('messenger/create', 'MessengerController@createTopic')->name('messenger.createTopic');
     Route::post('messenger', 'MessengerController@storeTopic')->name('messenger.storeTopic');
