@@ -14,7 +14,6 @@ class DatabaseSeeder extends Seeder
             PermissionRoleTableSeeder::class,
             UsersTableSeeder::class,
             RoleUserTableSeeder::class,
-            AssetStatusTableSeeder::class,
             CrmStatusTableSeeder::class,
             TaskStatusTableSeeder::class,
         ]);

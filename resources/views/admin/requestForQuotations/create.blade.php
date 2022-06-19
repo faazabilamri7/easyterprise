@@ -34,8 +34,12 @@
                 <span class="help-block">{{ trans('cruds.requestForQuotation.fields.id_purchase_requisition_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="material_name">{{ trans('cruds.requestForQuotation.fields.material_name') }}</label>
-                <input class="form-control {{ $errors->has('material_name') ? 'is-invalid' : '' }}" type="text" name="material_name" id="material_name" value="{{ old('material_name', '') }}">
+                <label class="required" for="material_name_id">{{ trans('cruds.requestForQuotation.fields.material_name') }}</label>
+                <select class="form-control select2 {{ $errors->has('material_name') ? 'is-invalid' : '' }}" name="material_name_id" id="material_name_id" required>
+                    @foreach($material_names as $id => $entry)
+                        <option value="{{ $id }}" {{ old('material_name_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
                 @if($errors->has('material_name'))
                     <div class="invalid-feedback">
                         {{ $errors->first('material_name') }}

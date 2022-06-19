@@ -17,9 +17,10 @@ class StorePengirimanRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_pengiriman' => [
+            'id_shipment' => [
                 'string',
                 'required',
+                'unique:pengirimen',
             ],
             'no_sales_order_id' => [
                 'required',

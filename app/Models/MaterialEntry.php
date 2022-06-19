@@ -16,11 +16,11 @@ class MaterialEntry extends Model
     use HasFactory;
 
     public const STATUS_SELECT = [
-        'on_delivery'   => 'On Delivery',
-        'delivered'     => 'Delivered',
-        'verified'      => 'Verified',
-        'Unverified'    => 'Unverified',
-        'return_eceipt' => 'Return Receipt',
+        'on_delivery'     => 'On Delivery',
+        'Delivered'       => 'Delivered',
+        'Verified'        => 'Verified',
+        'Unverified'      => 'Unverified',
+        'Return_received' => 'Return Received',
     ];
 
     public $table = 'material_entries';
@@ -36,7 +36,7 @@ class MaterialEntry extends Model
         'id_material_entry',
         'id_purchase_order_id',
         'date_material_entry',
-        'material_name',
+        'material_name_id',
         'qty',
         'status',
         'created_at',
@@ -63,6 +63,11 @@ class MaterialEntry extends Model
     public function setDateMaterialEntryAttribute($value)
     {
         $this->attributes['date_material_entry'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function material_name()
+    {
+        return $this->belongsTo(Material::class, 'material_name_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

@@ -2,9 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
-            <center>
-        <img src="{{ asset('images/logoeasyterprise.png') }}" style="padding:0px 10px;margin: 0 auto;" width="70%" height="70%">
-</center>
+            {{ trans('panel.site_title') }}
         </a>
     </div>
 
@@ -681,68 +679,6 @@
 
                                 </i>
                                 {{ trans('cruds.auditLog.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                </ul>
-            </li>
-        @endcan
-        @can('asset_management_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/asset-categories*") ? "c-show" : "" }} {{ request()->is("admin/asset-locations*") ? "c-show" : "" }} {{ request()->is("admin/asset-statuses*") ? "c-show" : "" }} {{ request()->is("admin/assets*") ? "c-show" : "" }} {{ request()->is("admin/assets-histories*") ? "c-show" : "" }}">
-                <a class="c-sidebar-nav-dropdown-toggle" href="#">
-                    <i class="fa-fw fas fa-book c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.assetManagement.title') }}
-                </a>
-                <ul class="c-sidebar-nav-dropdown-items">
-                    @can('asset_category_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-categories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-categories") || request()->is("admin/asset-categories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-tags c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetCategory.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_location_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-locations.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-locations") || request()->is("admin/asset-locations/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-map-marker c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetLocation.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_status_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.asset-statuses.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/asset-statuses") || request()->is("admin/asset-statuses/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-server c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetStatus.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('asset_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.assets.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets") || request()->is("admin/assets/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-book c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.asset.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('assets_history_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.assets-histories.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/assets-histories") || request()->is("admin/assets-histories/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-th-list c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.assetsHistory.title') }}
                             </a>
                         </li>
                     @endcan

@@ -46,9 +46,6 @@ class VendorController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->editColumn('id_vendor', function ($row) {
-                return $row->id_vendor ? $row->id_vendor : '';
-            });
             $table->editColumn('nama_vendor', function ($row) {
                 return $row->nama_vendor ? $row->nama_vendor : '';
             });

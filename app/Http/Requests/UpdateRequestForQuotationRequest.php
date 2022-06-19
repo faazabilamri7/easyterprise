@@ -25,9 +25,9 @@ class UpdateRequestForQuotationRequest extends FormRequest
                 'required',
                 'integer',
             ],
-            'material_name' => [
-                'string',
-                'nullable',
+            'material_name_id' => [
+                'required',
+                'integer',
             ],
             'qty' => [
                 'nullable',

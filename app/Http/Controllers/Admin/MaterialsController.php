@@ -132,7 +132,7 @@ class MaterialsController extends Controller
     {
         abort_if(Gate::denies('material_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $material->load('material1PurchaseRequitions', 'material2PurchaseRequitions', 'material3PurchaseRequitions', 'material4PurchaseRequitions', 'material5PurchaseRequitions', 'material6PurchaseRequitions', 'materialNamePurchaseOrders', 'materialNamePurchaseInqs');
+        $material->load('material1PurchaseRequitions', 'material2PurchaseRequitions', 'material3PurchaseRequitions', 'material4PurchaseRequitions', 'material5PurchaseRequitions', 'material6PurchaseRequitions', 'materialNamePurchaseOrders', 'materialNamePurchaseInqs', 'materialNameRequestForQuotations', 'materialNameMaterialEntries');
 
         return view('admin.materials.show', compact('material'));
     }

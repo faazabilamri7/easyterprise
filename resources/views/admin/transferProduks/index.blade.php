@@ -35,6 +35,9 @@
                         {{ trans('cruds.transferProduk.fields.product_name') }}
                     </th>
                     <th>
+                        {{ trans('cruds.transferProduk.fields.date_product_entry') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.transferProduk.fields.qty') }}
                     </th>
                     <th>
@@ -99,6 +102,7 @@
 { data: 'id_transfer_produk', name: 'id_transfer_produk' },
 { data: 'id_quality_control_id_quality_control', name: 'id_quality_control.id_quality_control' },
 { data: 'product_name_name', name: 'product_name.name' },
+{ data: 'date_product_entry', name: 'date_product_entry' },
 { data: 'qty', name: 'qty' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

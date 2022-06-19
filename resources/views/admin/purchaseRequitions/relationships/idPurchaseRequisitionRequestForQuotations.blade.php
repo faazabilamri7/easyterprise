@@ -63,7 +63,7 @@
                                 {{ $requestForQuotation->id_purchase_requisition->id_purchase_requition ?? '' }}
                             </td>
                             <td>
-                                {{ $requestForQuotation->material_name ?? '' }}
+                                {{ $requestForQuotation->material_name->name_material ?? '' }}
                             </td>
                             <td>
                                 {{ $requestForQuotation->qty ?? '' }}

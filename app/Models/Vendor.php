@@ -23,7 +23,6 @@ class Vendor extends Model
     ];
 
     protected $fillable = [
-        'id_vendor',
         'nama_vendor',
         'telepon',
         'email',

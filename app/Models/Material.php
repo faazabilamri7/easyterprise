@@ -91,6 +91,16 @@ class Material extends Model implements HasMedia
         return $this->hasMany(PurchaseInq::class, 'material_name_id', 'id');
     }
 
+    public function materialNameRequestForQuotations()
+    {
+        return $this->hasMany(RequestForQuotation::class, 'material_name_id', 'id');
+    }
+
+    public function materialNameMaterialEntries()
+    {
+        return $this->hasMany(MaterialEntry::class, 'material_name_id', 'id');
+    }
+
     public function getPhotoAttribute()
     {
         $files = $this->getMedia('photo');

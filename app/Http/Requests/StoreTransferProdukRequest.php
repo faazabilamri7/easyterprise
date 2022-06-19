@@ -29,6 +29,10 @@ class StoreTransferProdukRequest extends FormRequest
                 'required',
                 'integer',
             ],
+            'date_product_entry' => [
+                'required',
+                'date_format:' . config('panel.date_format'),
+            ],
             'qty' => [
                 'nullable',
                 'integer',

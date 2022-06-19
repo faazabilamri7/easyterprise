@@ -25,10 +25,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
+                            {{ trans('cruds.pengiriman.fields.id_shipment') }}
                         </th>
                         <td>
-                            {{ $pengiriman->id_pengiriman }}
+                            {{ $pengiriman->id_shipment }}
                         </td>
                     </tr>
                     <tr>
@@ -41,10 +41,10 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
+                            {{ trans('cruds.pengiriman.fields.status_shipment') }}
                         </th>
                         <td>
-                            {{ App\Models\Pengiriman::STATUS_PENGIRIMAN_SELECT[$pengiriman->status_pengiriman] ?? '' }}
+                            {{ App\Models\Pengiriman::STATUS_SHIPMENT_SELECT[$pengiriman->status_shipment] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

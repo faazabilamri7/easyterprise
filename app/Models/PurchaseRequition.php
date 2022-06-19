@@ -16,7 +16,7 @@ class PurchaseRequition extends Model
 
     public const STATUS_SELECT = [
         'Requested' => 'Requested by Warehouse',
-        'Accepted'  => 'Accepted By Procurement',
+        'Accepted'  => 'Accepted by Procurement',
         'Completed' => 'Completed',
     ];
 
@@ -31,7 +31,6 @@ class PurchaseRequition extends Model
     protected $fillable = [
         'id_purchase_requition',
         'id_list_of_material_id',
-        'status',
         'material_1_id',
         'qty_1',
         'material_2_id',
@@ -44,6 +43,7 @@ class PurchaseRequition extends Model
         'qty_5',
         'material_6_id',
         'qty_6',
+        'status',
         'created_at',
         'updated_at',
         'deleted_at',

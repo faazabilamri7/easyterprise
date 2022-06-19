@@ -14,7 +14,7 @@ class Pengiriman extends Model
     use Auditable;
     use HasFactory;
 
-    public const STATUS_PENGIRIMAN_SELECT = [
+    public const STATUS_SHIPMENT_SELECT = [
         'On Delivery' => 'On Delivery',
         'Delivered'   => 'Delivered',
     ];
@@ -28,9 +28,9 @@ class Pengiriman extends Model
     ];
 
     protected $fillable = [
-        'id_pengiriman',
+        'id_shipment',
         'no_sales_order_id',
-        'status_pengiriman',
+        'status_shipment',
         'created_at',
         'updated_at',
         'deleted_at',

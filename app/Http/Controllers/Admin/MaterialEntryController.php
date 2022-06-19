@@ -7,6 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyMaterialEntryRequest;
 use App\Http\Requests\StoreMaterialEntryRequest;
 use App\Http\Requests\UpdateMaterialEntryRequest;
+use App\Models\Material;
 use App\Models\MaterialEntry;
 use App\Models\PurchaseOrder;
 use Gate;
@@ -23,7 +24,7 @@ class MaterialEntryController extends Controller
         abort_if(Gate::denies('material_entry_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = MaterialEntry::with(['id_purchase_order'])->select(sprintf('%s.*', (new MaterialEntry())->table));
+            $query = MaterialEntry::with(['id_purchase_order', 'material_name'])->select(sprintf('%s.*', (new MaterialEntry())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -51,9 +52,10 @@ class MaterialEntryController extends Controller
                 return $row->id_purchase_order ? $row->id_purchase_order->id_purchase_order : '';
             });
 
-            $table->editColumn('material_name', function ($row) {
-                return $row->material_name ? $row->material_name : '';
+            $table->addColumn('material_name_name_material', function ($row) {
+                return $row->material_name ? $row->material_name->name_material : '';
             });
+
             $table->editColumn('qty', function ($row) {
                 return $row->qty ? $row->qty : '';
             });
@@ -61,7 +63,7 @@ class MaterialEntryController extends Controller
                 return $row->status ? MaterialEntry::STATUS_SELECT[$row->status] : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'id_purchase_order']);
+            $table->rawColumns(['actions', 'placeholder', 'id_purchase_order', 'material_name']);
 
             return $table->make(true);
         }
@@ -75,7 +77,9 @@ class MaterialEntryController extends Controller
 
         $id_purchase_orders = PurchaseOrder::pluck('id_purchase_order', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.materialEntries.create', compact('id_purchase_orders'));
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.materialEntries.create', compact('id_purchase_orders', 'material_names'));
     }
 
     public function store(StoreMaterialEntryRequest $request)
@@ -91,9 +95,11 @@ class MaterialEntryController extends Controller
 
         $id_purchase_orders = PurchaseOrder::pluck('id_purchase_order', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        $materialEntry->load('id_purchase_order');
+        $material_names = Material::pluck('name_material', 'id')->prepend(trans('global.pleaseSelect'), '');
 
-        return view('admin.materialEntries.edit', compact('id_purchase_orders', 'materialEntry'));
+        $materialEntry->load('id_purchase_order', 'material_name');
+
+        return view('admin.materialEntries.edit', compact('id_purchase_orders', 'materialEntry', 'material_names'));
     }
 
     public function update(UpdateMaterialEntryRequest $request, MaterialEntry $materialEntry)
@@ -107,7 +113,7 @@ class MaterialEntryController extends Controller
     {
         abort_if(Gate::denies('material_entry_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $materialEntry->load('id_purchase_order');
+        $materialEntry->load('id_purchase_order', 'material_name');
 
         return view('admin.materialEntries.show', compact('materialEntry'));
     }

@@ -90,28 +90,12 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#assigned_to_assets" role="tab" data-toggle="tab">
-                {{ trans('cruds.asset.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#assigned_user_assets_histories" role="tab" data-toggle="tab">
-                {{ trans('cruds.assetsHistory.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="#user_user_alerts" role="tab" data-toggle="tab">
                 {{ trans('cruds.userAlert.title') }}
             </a>
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="assigned_to_assets">
-            @includeIf('admin.users.relationships.assignedToAssets', ['assets' => $user->assignedToAssets])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="assigned_user_assets_histories">
-            @includeIf('admin.users.relationships.assignedUserAssetsHistories', ['assetsHistories' => $user->assignedUserAssetsHistories])
-        </div>
         <div class="tab-pane" role="tabpanel" id="user_user_alerts">
             @includeIf('admin.users.relationships.userUserAlerts', ['userAlerts' => $user->userUserAlerts])
         </div>

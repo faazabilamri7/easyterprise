@@ -26,13 +26,13 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.pengiriman.fields.id_pengiriman') }}
+                        {{ trans('cruds.pengiriman.fields.id_shipment') }}
                     </th>
                     <th>
                         {{ trans('cruds.pengiriman.fields.no_sales_order') }}
                     </th>
                     <th>
-                        {{ trans('cruds.pengiriman.fields.status_pengiriman') }}
+                        {{ trans('cruds.pengiriman.fields.status_shipment') }}
                     </th>
                     <th>
                         &nbsp;
@@ -90,9 +90,9 @@
     ajax: "{{ route('admin.pengirimen.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id_pengiriman', name: 'id_pengiriman' },
+{ data: 'id_shipment', name: 'id_shipment' },
 { data: 'no_sales_order_no_sales_order', name: 'no_sales_order.no_sales_order' },
-{ data: 'status_pengiriman', name: 'status_pengiriman' },
+{ data: 'status_shipment', name: 'status_shipment' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

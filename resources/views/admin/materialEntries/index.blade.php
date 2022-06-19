@@ -102,7 +102,7 @@
 { data: 'id_material_entry', name: 'id_material_entry' },
 { data: 'id_purchase_order_id_purchase_order', name: 'id_purchase_order.id_purchase_order' },
 { data: 'date_material_entry', name: 'date_material_entry' },
-{ data: 'material_name', name: 'material_name' },
+{ data: 'material_name_name_material', name: 'material_name.name_material' },
 { data: 'qty', name: 'qty' },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

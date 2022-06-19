@@ -41,14 +41,6 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseRequition.fields.status') }}
-                        </th>
-                        <td>
-                            {{ App\Models\PurchaseRequition::STATUS_SELECT[$purchaseRequition->status] ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
                             {{ trans('cruds.purchaseRequition.fields.material_1') }}
                         </th>
                         <td>
@@ -141,6 +133,14 @@
                         </th>
                         <td>
                             {{ $purchaseRequition->qty_6 }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseRequition.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\PurchaseRequition::STATUS_SELECT[$purchaseRequition->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>
