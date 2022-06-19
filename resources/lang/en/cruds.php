@@ -1363,24 +1363,4 @@ return [
             'status_helper'              => ' ',
         ],
     ],
-    'dashboardSalesMarketing' => [
-        'title'          => 'Sales Marketing Insight',
-        'title_singular' => 'Sales Marketing Insight',
-    ],
-    'warehouseInsight' => [
-        'title'          => 'Warehouse Insight',
-        'title_singular' => 'Warehouse Insight',
-    ],
-    'production' => [
-        'title'          => 'Production Insight',
-        'title_singular' => 'Production Insight',
-    ],
-    'procurementInsight' => [
-        'title'          => 'Procurement Insight',
-        'title_singular' => 'Procurement Insight',
-    ],
-    'financeInsight' => [
-        'title'          => 'Finance Insight',
-        'title_singular' => 'Finance Insight',
-    ],
 ];

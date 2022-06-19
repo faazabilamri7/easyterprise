@@ -15,56 +15,6 @@
                 {{ trans('global.dashboard') }}
             </a>
         </li>
-        @can('dashboard_sales_marketing_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.dashboard-sales-marketings.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/dashboard-sales-marketings") || request()->is("admin/dashboard-sales-marketings/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-chart-line c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.dashboardSalesMarketing.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('warehouse_insight_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.warehouse-insights.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/warehouse-insights") || request()->is("admin/warehouse-insights/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-chart-area c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.warehouseInsight.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('production_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.productions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/productions") || request()->is("admin/productions/*") ? "c-active" : "" }}">
-                    <i class="fa-fw far fa-chart-bar c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.production.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('procurement_insight_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.procurement-insights.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/procurement-insights") || request()->is("admin/procurement-insights/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.procurementInsight.title') }}
-                </a>
-            </li>
-        @endcan
-        @can('finance_insight_access')
-            <li class="c-sidebar-nav-item">
-                <a href="{{ route("admin.finance-insights.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/finance-insights") || request()->is("admin/finance-insights/*") ? "c-active" : "" }}">
-                    <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                    </i>
-                    {{ trans('cruds.financeInsight.title') }}
-                </a>
-            </li>
-        @endcan
         @can('sales_marketing_access')
             <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sales-inquiries*") ? "c-show" : "" }} {{ request()->is("admin/sales-quotations*") ? "c-show" : "" }} {{ request()->is("admin/sales-orders*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
