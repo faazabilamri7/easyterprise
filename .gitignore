@@ -1,6 +1,8 @@
 /node_modules
 /public/hot
 /public/storage
+/resources/views/partials/menu.blade.php
+/public/css/custom.css
 /storage/*.key
 /vendor
 .env
