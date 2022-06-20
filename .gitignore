@@ -18,3 +18,7 @@ yarn-error.log
 /resources/views/auth/login.blade.php
 /resources/view/auth/register.blade.php
 /resources/views/auth/passwords/reset.blade.php
+/resources/views/admin/messenger/index.blade.php
+/resources/views/admin/messenger/reply.blade.php
+/resources/views/admin/messenger/show.blade.php
+/resources/views/admin/messenger/template.blade.php
