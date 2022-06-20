@@ -17,3 +17,4 @@ yarn-error.log
 /.vscode
 /resources/views/auth/login.blade.php
 /resources/view/auth/register.blade.php
+/resources/views/auth/passwords/reset.blade.php
