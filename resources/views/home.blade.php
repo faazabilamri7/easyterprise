@@ -16,6 +16,7 @@
                     @endif
 
                     <div class="row">
+                    @can('sales_marketing_access')
                         <div class="{{ $settings1['column_class'] }}">
                             <div class="card text-white bg-primary">
                                 <div class="card-body pb-0">
@@ -60,6 +61,8 @@
                             <h3>{!! $chart6->options['chart_title'] !!}</h3>
                             {!! $chart6->renderHtml() !!}
                         </div>
+                    @endcan
+                    @can('material_access')
                         <div class="{{ $settings7['column_class'] }}">
                             <div class="card text-white bg-primary">
                                 <div class="card-body pb-0">
@@ -272,7 +275,8 @@
                                 </tbody>
                             </table>
                         </div>
-
+                    @endcan
+                    @can('production_monitoring_access')
                         <div class="{{ $settings14['column_class'] }}">
                             <div class="card text-white bg-primary">
                                 <div class="card-body pb-0">
@@ -451,6 +455,8 @@
                             <h3>{!! $chart20->options['chart_title'] !!}</h3>
                             {!! $chart20->renderHtml() !!}
                         </div>
+                        @endcan
+                        @can('request_for_quotation_access')
                         {{-- Widget - latest entries --}}
                         <div class="{{ $settings21['column_class'] }}" style="overflow-x: auto;">
                             <h3>{{ $settings21['chart_title'] }}</h3>
@@ -663,6 +669,7 @@
                             <h3>{!! $chart28->options['chart_title'] !!}</h3>
                             {!! $chart28->renderHtml() !!}
                         </div>
+                        @endcan
                     </div>
                 </div>
             </div>
