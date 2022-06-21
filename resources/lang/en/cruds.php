@@ -100,7 +100,7 @@ return [
             'nama_produk'         => 'Nama Produk',
             'nama_produk_helper'  => ' ',
             'inquiry_kode'        => 'Kode Inquiry',
-            'inquiry_kode_helper' => 'Kode diisikan oleh Admin',
+            'inquiry_kode_helper' => ' ',
             'catatan'             => 'Catatan',
             'catatan_helper'      => ' ',
         ],
