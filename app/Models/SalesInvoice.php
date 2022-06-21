@@ -8,10 +8,14 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class SalesInvoice extends Model
+class SalesInvoice extends Model implements HasMedia
 {
     use SoftDeletes;
+    use InteractsWithMedia;
     use Auditable;
     use HasFactory;
 
@@ -22,8 +26,12 @@ class SalesInvoice extends Model
 
     public $table = 'sales_invoices';
 
+    protected $appends = [
+        'sales_invoice',
+        'bukti_pembayaran',
+    ];
+
     protected $dates = [
-        'tanggal',
         'jatuh_tempo',
         'created_at',
         'updated_at',
@@ -33,10 +41,7 @@ class SalesInvoice extends Model
     protected $fillable = [
         'no_sales_invoice',
         'sales_order_id',
-        'customer_id',
-        'tanggal',
         'jatuh_tempo',
-        'total',
         'status',
         'created_at',
         'updated_at',
@@ -49,24 +54,20 @@ class SalesInvoice extends Model
         SalesInvoice::observe(new \App\Observers\SalesInvoiceActionObserver());
     }
 
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function getSalesInvoiceAttribute()
+    {
+        return $this->getMedia('sales_invoice')->last();
+    }
+
     public function sales_order()
     {
         return $this->belongsTo(SalesOrder::class, 'sales_order_id');
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(CrmCustomer::class, 'customer_id');
-    }
-
-    public function getTanggalAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setTanggalAttribute($value)
-    {
-        $this->attributes['tanggal'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
     public function getJatuhTempoAttribute($value)
@@ -77,6 +78,18 @@ class SalesInvoice extends Model
     public function setJatuhTempoAttribute($value)
     {
         $this->attributes['jatuh_tempo'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
+    }
+
+    public function getBuktiPembayaranAttribute()
+    {
+        $file = $this->getMedia('bukti_pembayaran')->last();
+        if ($file) {
+            $file->url       = $file->getUrl();
+            $file->thumbnail = $file->getUrl('thumb');
+            $file->preview   = $file->getUrl('preview');
+        }
+
+        return $file;
     }
 
     protected function serializeDate(DateTimeInterface $date)

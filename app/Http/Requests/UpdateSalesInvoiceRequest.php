@@ -21,10 +21,6 @@ class UpdateSalesInvoiceRequest extends FormRequest
                 'string',
                 'nullable',
             ],
-            'tanggal' => [
-                'date_format:' . config('panel.date_format'),
-                'nullable',
-            ],
             'jatuh_tempo' => [
                 'date_format:' . config('panel.date_format'),
                 'nullable',

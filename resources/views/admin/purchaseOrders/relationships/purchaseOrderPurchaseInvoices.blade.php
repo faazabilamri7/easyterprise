@@ -25,13 +25,16 @@
                             {{ trans('cruds.purchaseInvoice.fields.no_purchase_invoice') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                            {{ trans('cruds.purchaseInvoice.fields.purchase_invoice') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseInvoice.fields.purchase_order') }}
                         </th>
                         <th>
-                            {{ trans('cruds.purchaseInvoice.fields.total') }}
+                            {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.purchaseInvoice.fields.bukti_pembayaran') }}
                         </th>
                         <th>
                             {{ trans('cruds.purchaseInvoice.fields.status') }}
@@ -51,13 +54,24 @@
                                 {{ $purchaseInvoice->no_purchase_invoice ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseInvoice->tanggal ?? '' }}
+                                @if($purchaseInvoice->purchase_invoice)
+                                    <a href="{{ $purchaseInvoice->purchase_invoice->getUrl() }}" target="_blank">
+                                        {{ trans('global.view_file') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ $purchaseInvoice->purchase_order->date_purchase_order ?? '' }}
                             </td>
                             <td>
-                                {{ $purchaseInvoice->total ?? '' }}
+                                {{ $purchaseInvoice->tanggal ?? '' }}
+                            </td>
+                            <td>
+                                @if($purchaseInvoice->bukti_pembayaran)
+                                    <a href="{{ $purchaseInvoice->bukti_pembayaran->getUrl() }}" target="_blank" style="display: inline-block">
+                                        <img src="{{ $purchaseInvoice->bukti_pembayaran->getUrl('thumb') }}">
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 {{ App\Models\PurchaseInvoice::STATUS_RADIO[$purchaseInvoice->status] ?? '' }}

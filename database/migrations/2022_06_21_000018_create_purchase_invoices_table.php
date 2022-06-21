@@ -12,7 +12,6 @@ class CreatePurchaseInvoicesTable extends Migration
             $table->bigIncrements('id');
             $table->string('no_purchase_invoice')->nullable();
             $table->date('tanggal')->nullable();
-            $table->decimal('total', 15, 2)->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();

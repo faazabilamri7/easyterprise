@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\CsvImportTrait;
+use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyPurchaseInvoiceRequest;
 use App\Http\Requests\StorePurchaseInvoiceRequest;
 use App\Http\Requests\UpdatePurchaseInvoiceRequest;
@@ -11,11 +12,13 @@ use App\Models\PurchaseInvoice;
 use App\Models\PurchaseOrder;
 use Gate;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
 class PurchaseInvoiceController extends Controller
 {
+    use MediaUploadingTrait;
     use CsvImportTrait;
 
     public function index(Request $request)
@@ -47,19 +50,29 @@ class PurchaseInvoiceController extends Controller
             $table->editColumn('no_purchase_invoice', function ($row) {
                 return $row->no_purchase_invoice ? $row->no_purchase_invoice : '';
             });
-
+            $table->editColumn('purchase_invoice', function ($row) {
+                return $row->purchase_invoice ? '<a href="' . $row->purchase_invoice->getUrl() . '" target="_blank">' . trans('global.downloadFile') . '</a>' : '';
+            });
             $table->addColumn('purchase_order_date_purchase_order', function ($row) {
                 return $row->purchase_order ? $row->purchase_order->date_purchase_order : '';
             });
 
-            $table->editColumn('total', function ($row) {
-                return $row->total ? $row->total : '';
+            $table->editColumn('bukti_pembayaran', function ($row) {
+                if ($photo = $row->bukti_pembayaran) {
+                    return sprintf(
+        '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
+        $photo->url,
+        $photo->thumbnail
+    );
+                }
+
+                return '';
             });
             $table->editColumn('status', function ($row) {
                 return $row->status ? PurchaseInvoice::STATUS_RADIO[$row->status] : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'purchase_order']);
+            $table->rawColumns(['actions', 'placeholder', 'purchase_invoice', 'purchase_order', 'bukti_pembayaran']);
 
             return $table->make(true);
         }
@@ -80,6 +93,18 @@ class PurchaseInvoiceController extends Controller
     {
         $purchaseInvoice = PurchaseInvoice::create($request->all());
 
+        if ($request->input('purchase_invoice', false)) {
+            $purchaseInvoice->addMedia(storage_path('tmp/uploads/' . basename($request->input('purchase_invoice'))))->toMediaCollection('purchase_invoice');
+        }
+
+        if ($request->input('bukti_pembayaran', false)) {
+            $purchaseInvoice->addMedia(storage_path('tmp/uploads/' . basename($request->input('bukti_pembayaran'))))->toMediaCollection('bukti_pembayaran');
+        }
+
+        if ($media = $request->input('ck-media', false)) {
+            Media::whereIn('id', $media)->update(['model_id' => $purchaseInvoice->id]);
+        }
+
         return redirect()->route('admin.purchase-invoices.index');
     }
 
@@ -97,6 +122,28 @@ class PurchaseInvoiceController extends Controller
     public function update(UpdatePurchaseInvoiceRequest $request, PurchaseInvoice $purchaseInvoice)
     {
         $purchaseInvoice->update($request->all());
+
+        if ($request->input('purchase_invoice', false)) {
+            if (!$purchaseInvoice->purchase_invoice || $request->input('purchase_invoice') !== $purchaseInvoice->purchase_invoice->file_name) {
+                if ($purchaseInvoice->purchase_invoice) {
+                    $purchaseInvoice->purchase_invoice->delete();
+                }
+                $purchaseInvoice->addMedia(storage_path('tmp/uploads/' . basename($request->input('purchase_invoice'))))->toMediaCollection('purchase_invoice');
+            }
+        } elseif ($purchaseInvoice->purchase_invoice) {
+            $purchaseInvoice->purchase_invoice->delete();
+        }
+
+        if ($request->input('bukti_pembayaran', false)) {
+            if (!$purchaseInvoice->bukti_pembayaran || $request->input('bukti_pembayaran') !== $purchaseInvoice->bukti_pembayaran->file_name) {
+                if ($purchaseInvoice->bukti_pembayaran) {
+                    $purchaseInvoice->bukti_pembayaran->delete();
+                }
+                $purchaseInvoice->addMedia(storage_path('tmp/uploads/' . basename($request->input('bukti_pembayaran'))))->toMediaCollection('bukti_pembayaran');
+            }
+        } elseif ($purchaseInvoice->bukti_pembayaran) {
+            $purchaseInvoice->bukti_pembayaran->delete();
+        }
 
         return redirect()->route('admin.purchase-invoices.index');
     }
@@ -124,5 +171,17 @@ class PurchaseInvoiceController extends Controller
         PurchaseInvoice::whereIn('id', request('ids'))->delete();
 
         return response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    public function storeCKEditorImages(Request $request)
+    {
+        abort_if(Gate::denies('purchase_invoice_create') && Gate::denies('purchase_invoice_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $model         = new PurchaseInvoice();
+        $model->id     = $request->input('crud_id', 0);
+        $model->exists = true;
+        $media         = $model->addMediaFromRequest('upload')->toMediaCollection('ck-media');
+
+        return response()->json(['id' => $media->id, 'url' => $media->getUrl()], Response::HTTP_CREATED);
     }
 }

@@ -29,19 +29,16 @@
                         {{ trans('cruds.salesInvoice.fields.no_sales_invoice') }}
                     </th>
                     <th>
+                        {{ trans('cruds.salesInvoice.fields.sales_invoice') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.salesInvoice.fields.sales_order') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.salesInvoice.fields.customer') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.salesInvoice.fields.tanggal') }}
                     </th>
                     <th>
                         {{ trans('cruds.salesInvoice.fields.jatuh_tempo') }}
                     </th>
                     <th>
-                        {{ trans('cruds.salesInvoice.fields.total') }}
+                        {{ trans('cruds.salesInvoice.fields.bukti_pembayaran') }}
                     </th>
                     <th>
                         {{ trans('cruds.salesInvoice.fields.status') }}
@@ -103,11 +100,10 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'no_sales_invoice', name: 'no_sales_invoice' },
+{ data: 'sales_invoice', name: 'sales_invoice', sortable: false, searchable: false },
 { data: 'sales_order_no_sales_order', name: 'sales_order.no_sales_order' },
-{ data: 'customer_first_name', name: 'customer.first_name' },
-{ data: 'tanggal', name: 'tanggal' },
 { data: 'jatuh_tempo', name: 'jatuh_tempo' },
-{ data: 'total', name: 'total' },
+{ data: 'bukti_pembayaran', name: 'bukti_pembayaran', sortable: false, searchable: false },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],

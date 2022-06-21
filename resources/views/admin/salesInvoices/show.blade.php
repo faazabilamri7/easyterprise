@@ -33,26 +33,22 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.salesInvoice.fields.sales_invoice') }}
+                        </th>
+                        <td>
+                            @if($salesInvoice->sales_invoice)
+                                <a href="{{ $salesInvoice->sales_invoice->getUrl() }}" target="_blank">
+                                    {{ trans('global.view_file') }}
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.salesInvoice.fields.sales_order') }}
                         </th>
                         <td>
                             {{ $salesInvoice->sales_order->no_sales_order ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.salesInvoice.fields.customer') }}
-                        </th>
-                        <td>
-                            {{ $salesInvoice->customer->first_name ?? '' }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.salesInvoice.fields.tanggal') }}
-                        </th>
-                        <td>
-                            {{ $salesInvoice->tanggal }}
                         </td>
                     </tr>
                     <tr>
@@ -65,10 +61,14 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.salesInvoice.fields.total') }}
+                            {{ trans('cruds.salesInvoice.fields.bukti_pembayaran') }}
                         </th>
                         <td>
-                            {{ $salesInvoice->total }}
+                            @if($salesInvoice->bukti_pembayaran)
+                                <a href="{{ $salesInvoice->bukti_pembayaran->getUrl() }}" target="_blank" style="display: inline-block">
+                                    <img src="{{ $salesInvoice->bukti_pembayaran->getUrl('thumb') }}">
+                                </a>
+                            @endif
                         </td>
                     </tr>
                     <tr>

@@ -99,12 +99,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Sales Invoice
     Route::delete('sales-invoices/destroy', 'SalesInvoiceController@massDestroy')->name('sales-invoices.massDestroy');
+    Route::post('sales-invoices/media', 'SalesInvoiceController@storeMedia')->name('sales-invoices.storeMedia');
+    Route::post('sales-invoices/ckmedia', 'SalesInvoiceController@storeCKEditorImages')->name('sales-invoices.storeCKEditorImages');
     Route::post('sales-invoices/parse-csv-import', 'SalesInvoiceController@parseCsvImport')->name('sales-invoices.parseCsvImport');
     Route::post('sales-invoices/process-csv-import', 'SalesInvoiceController@processCsvImport')->name('sales-invoices.processCsvImport');
     Route::resource('sales-invoices', 'SalesInvoiceController');
 
     // Purchase Invoice
     Route::delete('purchase-invoices/destroy', 'PurchaseInvoiceController@massDestroy')->name('purchase-invoices.massDestroy');
+    Route::post('purchase-invoices/media', 'PurchaseInvoiceController@storeMedia')->name('purchase-invoices.storeMedia');
+    Route::post('purchase-invoices/ckmedia', 'PurchaseInvoiceController@storeCKEditorImages')->name('purchase-invoices.storeCKEditorImages');
     Route::post('purchase-invoices/parse-csv-import', 'PurchaseInvoiceController@parseCsvImport')->name('purchase-invoices.parseCsvImport');
     Route::post('purchase-invoices/process-csv-import', 'PurchaseInvoiceController@processCsvImport')->name('purchase-invoices.processCsvImport');
     Route::resource('purchase-invoices', 'PurchaseInvoiceController');
