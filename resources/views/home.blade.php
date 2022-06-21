@@ -16,7 +16,7 @@
                     @endif
 
                     <div class="row">
-                    @can('sales_marketing_access')
+                    @can('sales_quotation_create')
                         <div class="{{ $settings1['column_class'] }}">
                             <div class="card text-white bg-primary">
                                 <div class="card-body pb-0">
