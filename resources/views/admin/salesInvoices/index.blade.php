@@ -26,7 +26,25 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.salesInvoice.fields.id_invoice') }}
+                        {{ trans('cruds.salesInvoice.fields.no_sales_invoice') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.sales_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.customer') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.tanggal') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.jatuh_tempo') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.total') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.salesInvoice.fields.status') }}
                     </th>
                     <th>
                         &nbsp;
@@ -84,7 +102,13 @@
     ajax: "{{ route('admin.sales-invoices.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id_invoice', name: 'id_invoice' },
+{ data: 'no_sales_invoice', name: 'no_sales_invoice' },
+{ data: 'sales_order_no_sales_order', name: 'sales_order.no_sales_order' },
+{ data: 'customer_first_name', name: 'customer.first_name' },
+{ data: 'tanggal', name: 'tanggal' },
+{ data: 'jatuh_tempo', name: 'jatuh_tempo' },
+{ data: 'total', name: 'total' },
+{ data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

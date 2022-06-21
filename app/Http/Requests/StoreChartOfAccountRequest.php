@@ -25,9 +25,6 @@ class StoreChartOfAccountRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'category' => [
-                'required',
-            ],
         ];
     }
 }

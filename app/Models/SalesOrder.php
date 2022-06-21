@@ -36,7 +36,6 @@ class SalesOrder extends Model
         'tanggal',
         'detail_order',
         'status',
-        'finance',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -46,11 +45,6 @@ class SalesOrder extends Model
     {
         parent::boot();
         SalesOrder::observe(new \App\Observers\SalesOrderActionObserver());
-    }
-
-    public function salesProductTransaksiKeuangans()
-    {
-        return $this->hasMany(TransaksiKeuangan::class, 'sales_product_id', 'id');
     }
 
     public function noSalesOrderPengirimen()

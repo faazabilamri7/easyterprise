@@ -43,7 +43,7 @@ class JurnalPenyelesaian extends Model
 
     public function akun()
     {
-        return $this->belongsTo(Akun::class, 'akun_id');
+        return $this->belongsTo(ChartOfAccount::class, 'akun_id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

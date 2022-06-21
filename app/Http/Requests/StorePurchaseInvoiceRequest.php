@@ -17,11 +17,13 @@ class StorePurchaseInvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_invoice' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+            'no_purchase_invoice' => [
+                'string',
+                'nullable',
+            ],
+            'tanggal' => [
+                'date_format:' . config('panel.date_format'),
+                'nullable',
             ],
         ];
     }

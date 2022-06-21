@@ -31,21 +31,6 @@
                 <span class="help-block">{{ trans('cruds.chartOfAccount.fields.account_name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required">{{ trans('cruds.chartOfAccount.fields.category') }}</label>
-                <select class="form-control {{ $errors->has('category') ? 'is-invalid' : '' }}" name="category" id="category" required>
-                    <option value disabled {{ old('category', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Models\ChartOfAccount::CATEGORY_SELECT as $key => $label)
-                        <option value="{{ $key }}" {{ old('category', $chartOfAccount->category) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('category'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('category') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.chartOfAccount.fields.category_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

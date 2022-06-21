@@ -55,11 +55,6 @@ class CrmCustomer extends Model
         return $this->hasMany(SalesInquiry::class, 'id_customer_id', 'id');
     }
 
-    public function customerInvoicePembelians()
-    {
-        return $this->hasMany(InvoicePembelian::class, 'customer_id', 'id');
-    }
-
     public function status()
     {
         return $this->belongsTo(CrmStatus::class, 'status_id');

@@ -14,14 +14,6 @@ class ChartOfAccount extends Model
     use Auditable;
     use HasFactory;
 
-    public const CATEGORY_SELECT = [
-        '1' => 'Assets',
-        '2' => 'Liabilities',
-        '3' => 'Equity',
-        '4' => 'Income',
-        '5' => 'Expenses',
-    ];
-
     public $table = 'chart_of_accounts';
 
     protected $dates = [
@@ -33,7 +25,6 @@ class ChartOfAccount extends Model
     protected $fillable = [
         'account_code',
         'account_name',
-        'category',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -43,6 +34,26 @@ class ChartOfAccount extends Model
     {
         parent::boot();
         ChartOfAccount::observe(new \App\Observers\ChartOfAccountActionObserver());
+    }
+
+    public function akunJurnalUmums()
+    {
+        return $this->hasMany(JurnalUmum::class, 'akun_id', 'id');
+    }
+
+    public function akunBukuBesars()
+    {
+        return $this->hasMany(BukuBesar::class, 'akun_id', 'id');
+    }
+
+    public function akunNecaraSaldos()
+    {
+        return $this->hasMany(NecaraSaldo::class, 'akun_id', 'id');
+    }
+
+    public function akunJurnalPenyelesaians()
+    {
+        return $this->hasMany(JurnalPenyelesaian::class, 'akun_id', 'id');
     }
 
     protected function serializeDate(DateTimeInterface $date)

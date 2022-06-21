@@ -7,7 +7,9 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroySalesInvoiceRequest;
 use App\Http\Requests\StoreSalesInvoiceRequest;
 use App\Http\Requests\UpdateSalesInvoiceRequest;
+use App\Models\CrmCustomer;
 use App\Models\SalesInvoice;
+use App\Models\SalesOrder;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +24,7 @@ class SalesInvoiceController extends Controller
         abort_if(Gate::denies('sales_invoice_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = SalesInvoice::query()->select(sprintf('%s.*', (new SalesInvoice())->table));
+            $query = SalesInvoice::with(['sales_order', 'customer'])->select(sprintf('%s.*', (new SalesInvoice())->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -43,11 +45,25 @@ class SalesInvoiceController extends Controller
             ));
             });
 
-            $table->editColumn('id_invoice', function ($row) {
-                return $row->id_invoice ? $row->id_invoice : '';
+            $table->editColumn('no_sales_invoice', function ($row) {
+                return $row->no_sales_invoice ? $row->no_sales_invoice : '';
+            });
+            $table->addColumn('sales_order_no_sales_order', function ($row) {
+                return $row->sales_order ? $row->sales_order->no_sales_order : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder']);
+            $table->addColumn('customer_first_name', function ($row) {
+                return $row->customer ? $row->customer->first_name : '';
+            });
+
+            $table->editColumn('total', function ($row) {
+                return $row->total ? $row->total : '';
+            });
+            $table->editColumn('status', function ($row) {
+                return $row->status ? SalesInvoice::STATUS_RADIO[$row->status] : '';
+            });
+
+            $table->rawColumns(['actions', 'placeholder', 'sales_order', 'customer']);
 
             return $table->make(true);
         }
@@ -59,7 +75,11 @@ class SalesInvoiceController extends Controller
     {
         abort_if(Gate::denies('sales_invoice_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.salesInvoices.create');
+        $sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        return view('admin.salesInvoices.create', compact('customers', 'sales_orders'));
     }
 
     public function store(StoreSalesInvoiceRequest $request)
@@ -73,7 +93,13 @@ class SalesInvoiceController extends Controller
     {
         abort_if(Gate::denies('sales_invoice_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.salesInvoices.edit', compact('salesInvoice'));
+        $sales_orders = SalesOrder::pluck('no_sales_order', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $customers = CrmCustomer::pluck('first_name', 'id')->prepend(trans('global.pleaseSelect'), '');
+
+        $salesInvoice->load('sales_order', 'customer');
+
+        return view('admin.salesInvoices.edit', compact('customers', 'salesInvoice', 'sales_orders'));
     }
 
     public function update(UpdateSalesInvoiceRequest $request, SalesInvoice $salesInvoice)
@@ -86,6 +112,8 @@ class SalesInvoiceController extends Controller
     public function show(SalesInvoice $salesInvoice)
     {
         abort_if(Gate::denies('sales_invoice_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $salesInvoice->load('sales_order', 'customer');
 
         return view('admin.salesInvoices.show', compact('salesInvoice'));
     }

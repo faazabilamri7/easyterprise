@@ -61,11 +61,8 @@ class SalesOrderController extends Controller
             $table->editColumn('status', function ($row) {
                 return $row->status ? SalesOrder::STATUS_SELECT[$row->status] : '';
             });
-            $table->editColumn('finance', function ($row) {
-                return '<input type="checkbox" disabled ' . ($row->finance ? 'checked' : null) . '>';
-            });
 
-            $table->rawColumns(['actions', 'placeholder', 'id_sales_quotation', 'finance']);
+            $table->rawColumns(['actions', 'placeholder', 'id_sales_quotation']);
 
             return $table->make(true);
         }
@@ -111,7 +108,7 @@ class SalesOrderController extends Controller
     {
         abort_if(Gate::denies('sales_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $salesOrder->load('id_sales_quotation', 'salesProductTransaksiKeuangans', 'noSalesOrderPengirimen');
+        $salesOrder->load('id_sales_quotation', 'noSalesOrderPengirimen');
 
         return view('admin.salesOrders.show', compact('salesOrder'));
     }

@@ -26,7 +26,19 @@
 
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseInvoice.fields.id_invoice') }}
+                        {{ trans('cruds.purchaseInvoice.fields.no_purchase_invoice') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseInvoice.fields.purchase_order') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseInvoice.fields.total') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseInvoice.fields.status') }}
                     </th>
                     <th>
                         &nbsp;
@@ -84,7 +96,11 @@
     ajax: "{{ route('admin.purchase-invoices.index') }}",
     columns: [
       { data: 'placeholder', name: 'placeholder' },
-{ data: 'id_invoice', name: 'id_invoice' },
+{ data: 'no_purchase_invoice', name: 'no_purchase_invoice' },
+{ data: 'tanggal', name: 'tanggal' },
+{ data: 'purchase_order_date_purchase_order', name: 'purchase_order.date_purchase_order' },
+{ data: 'total', name: 'total' },
+{ data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

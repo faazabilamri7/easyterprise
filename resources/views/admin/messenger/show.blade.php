@@ -12,7 +12,7 @@
         @endif
     </p>
     <div class="col-lg-12">
-        <div class="list-group bg-white">
+        <div class="list-group">
             @foreach($topic->messages as $message)
                 <div class="row list-group-item">
                     <div class="row">

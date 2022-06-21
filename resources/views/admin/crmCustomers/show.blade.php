@@ -102,11 +102,6 @@
                 {{ trans('cruds.salesInquiry.title') }}
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#customer_invoice_pembelians" role="tab" data-toggle="tab">
-                {{ trans('cruds.invoicePembelian.title') }}
-            </a>
-        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="customer_crm_notes">
@@ -117,9 +112,6 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="id_customer_sales_inquiries">
             @includeIf('admin.crmCustomers.relationships.idCustomerSalesInquiries', ['salesInquiries' => $crmCustomer->idCustomerSalesInquiries])
-        </div>
-        <div class="tab-pane" role="tabpanel" id="customer_invoice_pembelians">
-            @includeIf('admin.crmCustomers.relationships.customerInvoicePembelians', ['invoicePembelians' => $crmCustomer->customerInvoicePembelians])
         </div>
     </div>
 </div>

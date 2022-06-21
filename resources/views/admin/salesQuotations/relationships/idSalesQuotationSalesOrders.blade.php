@@ -40,9 +40,6 @@
                             {{ trans('cruds.salesOrder.fields.status') }}
                         </th>
                         <th>
-                            {{ trans('cruds.salesOrder.fields.finance') }}
-                        </th>
-                        <th>
                             &nbsp;
                         </th>
                     </tr>
@@ -70,10 +67,6 @@
                             </td>
                             <td>
                                 {{ App\Models\SalesOrder::STATUS_SELECT[$salesOrder->status] ?? '' }}
-                            </td>
-                            <td>
-                                <span style="display:none">{{ $salesOrder->finance ?? '' }}</span>
-                                <input type="checkbox" disabled="disabled" {{ $salesOrder->finance ? 'checked' : '' }}>
                             </td>
                             <td>
                                 @can('sales_order_show')

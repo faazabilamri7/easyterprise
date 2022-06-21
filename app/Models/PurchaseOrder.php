@@ -51,6 +51,11 @@ class PurchaseOrder extends Model
         return $this->hasMany(PurchaseReturn::class, 'id_purchase_order_id', 'id');
     }
 
+    public function purchaseOrderPurchaseInvoices()
+    {
+        return $this->hasMany(PurchaseInvoice::class, 'purchase_order_id', 'id');
+    }
+
     public function id_purchase_quotation()
     {
         return $this->belongsTo(PurchaseQuotation::class, 'id_purchase_quotation_id');

@@ -53,8 +53,11 @@ class ProductController extends Controller
             $table->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });
-            $table->editColumn('foto_produk', function ($row) {
-                if ($photo = $row->foto_produk) {
+            $table->editColumn('description', function ($row) {
+                return $row->description ? $row->description : '';
+            });
+            $table->editColumn('photo', function ($row) {
+                if ($photo = $row->photo) {
                     return sprintf(
         '<a href="%s" target="_blank"><img src="%s" width="50px" height="50px"></a>',
         $photo->url,
@@ -64,9 +67,6 @@ class ProductController extends Controller
 
                 return '';
             });
-            $table->editColumn('description', function ($row) {
-                return $row->description ? $row->description : '';
-            });
             $table->editColumn('stok', function ($row) {
                 return $row->stok ? $row->stok : '';
             });
@@ -74,7 +74,7 @@ class ProductController extends Controller
                 return $row->harga_jual ? $row->harga_jual : '';
             });
 
-            $table->rawColumns(['actions', 'placeholder', 'foto_produk']);
+            $table->rawColumns(['actions', 'placeholder', 'photo']);
 
             return $table->make(true);
         }
@@ -95,8 +95,8 @@ class ProductController extends Controller
     {
         $product = Product::create($request->all());
         $product->categories()->sync($request->input('categories', []));
-        if ($request->input('foto_produk', false)) {
-            $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('foto_produk'))))->toMediaCollection('foto_produk');
+        if ($request->input('photo', false)) {
+            $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
         }
 
         if ($media = $request->input('ck-media', false)) {
@@ -121,15 +121,15 @@ class ProductController extends Controller
     {
         $product->update($request->all());
         $product->categories()->sync($request->input('categories', []));
-        if ($request->input('foto_produk', false)) {
-            if (!$product->foto_produk || $request->input('foto_produk') !== $product->foto_produk->file_name) {
-                if ($product->foto_produk) {
-                    $product->foto_produk->delete();
+        if ($request->input('photo', false)) {
+            if (!$product->photo || $request->input('photo') !== $product->photo->file_name) {
+                if ($product->photo) {
+                    $product->photo->delete();
                 }
-                $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('foto_produk'))))->toMediaCollection('foto_produk');
+                $product->addMedia(storage_path('tmp/uploads/' . basename($request->input('photo'))))->toMediaCollection('photo');
             }
-        } elseif ($product->foto_produk) {
-            $product->foto_produk->delete();
+        } elseif ($product->photo) {
+            $product->photo->delete();
         }
 
         return redirect()->route('admin.products.index');

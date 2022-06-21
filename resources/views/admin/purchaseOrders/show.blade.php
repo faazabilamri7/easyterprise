@@ -89,6 +89,11 @@
                 {{ trans('cruds.purchaseReturn.title') }}
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="#purchase_order_purchase_invoices" role="tab" data-toggle="tab">
+                {{ trans('cruds.purchaseInvoice.title') }}
+            </a>
+        </li>
     </ul>
     <div class="tab-content">
         <div class="tab-pane" role="tabpanel" id="id_purchase_order_material_entries">
@@ -96,6 +101,9 @@
         </div>
         <div class="tab-pane" role="tabpanel" id="id_purchase_order_purchase_returns">
             @includeIf('admin.purchaseOrders.relationships.idPurchaseOrderPurchaseReturns', ['purchaseReturns' => $purchaseOrder->idPurchaseOrderPurchaseReturns])
+        </div>
+        <div class="tab-pane" role="tabpanel" id="purchase_order_purchase_invoices">
+            @includeIf('admin.purchaseOrders.relationships.purchaseOrderPurchaseInvoices', ['purchaseInvoices' => $purchaseOrder->purchaseOrderPurchaseInvoices])
         </div>
     </div>
 </div>

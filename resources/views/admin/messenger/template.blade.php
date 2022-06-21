@@ -14,11 +14,11 @@
                     {{ trans('global.new_message') }}
                 </a>
             </p>
-            <div class="list-group text-dark bg-white ">
-                <a href="{{ route('admin.messenger.index') }}" class="list-group-item text-dark">
+            <div class="list-group">
+                <a href="{{ route('admin.messenger.index') }}" class="list-group-item">
                     {{ trans('global.all_messages') }}
                 </a>
-                <a href="{{ route('admin.messenger.showInbox') }}" class="list-group-item text-dark">
+                <a href="{{ route('admin.messenger.showInbox') }}" class="list-group-item">
                     @if($unreads['inbox'] > 0)
                         <strong>
                             {{ trans('global.inbox') }}
@@ -28,7 +28,7 @@
                         {{ trans('global.inbox') }}
                     @endif
                 </a>
-                <a href="{{ route('admin.messenger.showOutbox') }}" class="list-group-item text-dark">
+                <a href="{{ route('admin.messenger.showOutbox') }}" class="list-group-item">
                     @if($unreads['outbox'] > 0)
                         <strong>
                             {{ trans('global.outbox') }}

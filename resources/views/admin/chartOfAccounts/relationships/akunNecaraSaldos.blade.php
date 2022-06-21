@@ -1,8 +1,8 @@
-@can('product_create')
+@can('necara_saldo_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.products.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.necara-saldos.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.necaraSaldo.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,34 +10,43 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.necaraSaldo.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-categoryProducts">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-akunNecaraSaldos">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.id') }}
+                            {{ trans('cruds.necaraSaldo.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.necaraSaldo.fields.tanggal') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.description') }}
+                            {{ trans('cruds.necaraSaldo.fields.akun') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.photo') }}
+                            {{ trans('cruds.necaraSaldo.fields.debit') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.stok') }}
+                            {{ trans('cruds.necaraSaldo.fields.kredit') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.harga_jual') }}
+                            {{ trans('cruds.necaraSaldo.fields.total_debit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.total_kredit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.total') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.necaraSaldo.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -45,48 +54,53 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $key => $product)
-                        <tr data-entry-id="{{ $product->id }}">
+                    @foreach($necaraSaldos as $key => $necaraSaldo)
+                        <tr data-entry-id="{{ $necaraSaldo->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $product->id ?? '' }}
+                                {{ $necaraSaldo->id ?? '' }}
                             </td>
                             <td>
-                                {{ $product->name ?? '' }}
+                                {{ $necaraSaldo->tanggal ?? '' }}
                             </td>
                             <td>
-                                {{ $product->description ?? '' }}
+                                {{ $necaraSaldo->akun->account_name ?? '' }}
                             </td>
                             <td>
-                                @if($product->photo)
-                                    <a href="{{ $product->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $product->photo->getUrl('thumb') }}">
-                                    </a>
-                                @endif
+                                {{ $necaraSaldo->debit ?? '' }}
                             </td>
                             <td>
-                                {{ $product->stok ?? '' }}
+                                {{ $necaraSaldo->kredit ?? '' }}
                             </td>
                             <td>
-                                {{ $product->harga_jual ?? '' }}
+                                {{ $necaraSaldo->total_debit ?? '' }}
                             </td>
                             <td>
-                                @can('product_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.products.show', $product->id) }}">
+                                {{ $necaraSaldo->total_kredit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->total ?? '' }}
+                            </td>
+                            <td>
+                                {{ $necaraSaldo->status ?? '' }}
+                            </td>
+                            <td>
+                                @can('necara_saldo_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.necara-saldos.show', $necaraSaldo->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('product_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.products.edit', $product->id) }}">
+                                @can('necara_saldo_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.necara-saldos.edit', $necaraSaldo->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('product_delete')
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('necara_saldo_delete')
+                                    <form action="{{ route('admin.necara-saldos.destroy', $necaraSaldo->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -108,11 +122,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('product_delete')
+@can('necara_saldo_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.products.massDestroy') }}",
+    url: "{{ route('admin.necara-saldos.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -140,10 +154,10 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 2, 'desc' ]],
+    order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-categoryProducts:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-akunNecaraSaldos:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

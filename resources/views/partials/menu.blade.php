@@ -2,9 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
-            <center>
-                <img src="{{ asset('images/logoeasyterprise.png') }}" style="padding:0px 10px;margin: 0 auto;" width="70%" height="70%">
-        </center>
+            {{ trans('panel.site_title') }}
         </a>
     </div>
 
@@ -442,7 +440,7 @@
             </li>
         @endcan
         @can('finance_access')
-            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/chart-of-accounts*") ? "c-show" : "" }} {{ request()->is("admin/sales-invoices*") ? "c-show" : "" }} {{ request()->is("admin/purchase-invoices*") ? "c-show" : "" }} {{ request()->is("admin/akuns*") ? "c-show" : "" }} {{ request()->is("admin/buku-besars*") ? "c-show" : "" }} {{ request()->is("admin/jurnal-umums*") ? "c-show" : "" }} {{ request()->is("admin/necara-saldos*") ? "c-show" : "" }} {{ request()->is("admin/jurnal-penyelesaians*") ? "c-show" : "" }} {{ request()->is("admin/biaya-produksis*") ? "c-show" : "" }} {{ request()->is("admin/kas-banks*") ? "c-show" : "" }} {{ request()->is("admin/transaksi-keuangans*") ? "c-show" : "" }} {{ request()->is("admin/invoice-pembelians*") ? "c-show" : "" }}">
+            <li class="c-sidebar-nav-dropdown {{ request()->is("admin/sales-invoices*") ? "c-show" : "" }} {{ request()->is("admin/purchase-invoices*") ? "c-show" : "" }} {{ request()->is("admin/chart-of-accounts*") ? "c-show" : "" }} {{ request()->is("admin/buku-besars*") ? "c-show" : "" }} {{ request()->is("admin/jurnal-umums*") ? "c-show" : "" }} {{ request()->is("admin/necara-saldos*") ? "c-show" : "" }} {{ request()->is("admin/jurnal-penyelesaians*") ? "c-show" : "" }}">
                 <a class="c-sidebar-nav-dropdown-toggle" href="#">
                     <i class="fa-fw fas fa-hand-holding-usd c-sidebar-nav-icon">
 
@@ -450,16 +448,6 @@
                     {{ trans('cruds.finance.title') }}
                 </a>
                 <ul class="c-sidebar-nav-dropdown-items">
-                    @can('chart_of_account_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.chart-of-accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/chart-of-accounts") || request()->is("admin/chart-of-accounts/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.chartOfAccount.title') }}
-                            </a>
-                        </li>
-                    @endcan
                     @can('sales_invoice_access')
                         <li class="c-sidebar-nav-item">
                             <a href="{{ route("admin.sales-invoices.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/sales-invoices") || request()->is("admin/sales-invoices/*") ? "c-active" : "" }}">
@@ -480,13 +468,13 @@
                             </a>
                         </li>
                     @endcan
-                    @can('akun_access')
+                    @can('chart_of_account_access')
                         <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.akuns.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/akuns") || request()->is("admin/akuns/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-address-book c-sidebar-nav-icon">
+                            <a href="{{ route("admin.chart-of-accounts.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/chart-of-accounts") || request()->is("admin/chart-of-accounts/*") ? "c-active" : "" }}">
+                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
 
                                 </i>
-                                {{ trans('cruds.akun.title') }}
+                                {{ trans('cruds.chartOfAccount.title') }}
                             </a>
                         </li>
                     @endcan
@@ -527,46 +515,6 @@
 
                                 </i>
                                 {{ trans('cruds.jurnalPenyelesaian.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('biaya_produksi_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.biaya-produksis.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/biaya-produksis") || request()->is("admin/biaya-produksis/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.biayaProduksi.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('kas_bank_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.kas-banks.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/kas-banks") || request()->is("admin/kas-banks/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-cogs c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.kasBank.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('transaksi_keuangan_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.transaksi-keuangans.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/transaksi-keuangans") || request()->is("admin/transaksi-keuangans/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-dollar-sign c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.transaksiKeuangan.title') }}
-                            </a>
-                        </li>
-                    @endcan
-                    @can('invoice_pembelian_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.invoice-pembelians.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/invoice-pembelians") || request()->is("admin/invoice-pembelians/*") ? "c-active" : "" }}">
-                                <i class="fa-fw fas fa-envelope-square c-sidebar-nav-icon">
-
-                                </i>
-                                {{ trans('cruds.invoicePembelian.title') }}
                             </a>
                         </li>
                     @endcan

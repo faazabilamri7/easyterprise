@@ -35,9 +35,6 @@
                         {{ trans('cruds.chartOfAccount.fields.account_name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.chartOfAccount.fields.category') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -96,7 +93,6 @@
 { data: 'id', name: 'id' },
 { data: 'account_code', name: 'account_code' },
 { data: 'account_name', name: 'account_name' },
-{ data: 'category', name: 'category' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

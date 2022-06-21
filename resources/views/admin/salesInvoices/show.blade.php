@@ -25,10 +25,58 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.salesInvoice.fields.id_invoice') }}
+                            {{ trans('cruds.salesInvoice.fields.no_sales_invoice') }}
                         </th>
                         <td>
-                            {{ $salesInvoice->id_invoice }}
+                            {{ $salesInvoice->no_sales_invoice }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.sales_order') }}
+                        </th>
+                        <td>
+                            {{ $salesInvoice->sales_order->no_sales_order ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.customer') }}
+                        </th>
+                        <td>
+                            {{ $salesInvoice->customer->first_name ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.tanggal') }}
+                        </th>
+                        <td>
+                            {{ $salesInvoice->tanggal }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.jatuh_tempo') }}
+                        </th>
+                        <td>
+                            {{ $salesInvoice->jatuh_tempo }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.total') }}
+                        </th>
+                        <td>
+                            {{ $salesInvoice->total }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.salesInvoice.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\SalesInvoice::STATUS_RADIO[$salesInvoice->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

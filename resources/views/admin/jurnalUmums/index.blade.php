@@ -109,7 +109,7 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'akun_nama', name: 'akun.nama' },
+{ data: 'akun_account_code', name: 'akun.account_code' },
 { data: 'tanggal', name: 'tanggal' },
 { data: 'nama', name: 'nama' },
 { data: 'debit', name: 'debit' },

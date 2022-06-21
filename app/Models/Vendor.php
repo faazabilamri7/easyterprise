@@ -39,11 +39,6 @@ class Vendor extends Model
         Vendor::observe(new \App\Observers\VendorActionObserver());
     }
 
-    public function perusahaanInvoicePembelians()
-    {
-        return $this->hasMany(InvoicePembelian::class, 'perusahaan_id', 'id');
-    }
-
     public function vendorDocumentsVendors()
     {
         return $this->hasMany(DocumentsVendor::class, 'vendor_id', 'id');

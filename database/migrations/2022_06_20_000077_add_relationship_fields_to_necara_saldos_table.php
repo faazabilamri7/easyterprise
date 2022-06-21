@@ -10,7 +10,7 @@ class AddRelationshipFieldsToNecaraSaldosTable extends Migration
     {
         Schema::table('necara_saldos', function (Blueprint $table) {
             $table->unsignedBigInteger('akun_id')->nullable();
-            $table->foreign('akun_id', 'akun_fk_6651062')->references('id')->on('akuns');
+            $table->foreign('akun_id', 'akun_fk_6651062')->references('id')->on('chart_of_accounts');
         });
     }
 }
