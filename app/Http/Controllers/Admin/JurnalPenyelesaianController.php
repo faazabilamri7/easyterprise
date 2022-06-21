@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyJurnalPenyelesaianRequest;
 use App\Http\Requests\StoreJurnalPenyelesaianRequest;
 use App\Http\Requests\UpdateJurnalPenyelesaianRequest;
-use App\Models\Akun;
+use App\Models\ChartOfAccount;
 use App\Models\JurnalPenyelesaian;
 use Gate;
 use Illuminate\Http\Request;
@@ -47,8 +47,8 @@ class JurnalPenyelesaianController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('akun_nama', function ($row) {
-                return $row->akun ? $row->akun->nama : '';
+            $table->addColumn('akun_account_name', function ($row) {
+                return $row->akun ? $row->akun->account_name : '';
             });
 
             $table->editColumn('keterangan', function ($row) {
@@ -82,7 +82,7 @@ class JurnalPenyelesaianController extends Controller
     {
         abort_if(Gate::denies('jurnal_penyelesaian_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.jurnalPenyelesaians.create', compact('akuns'));
     }
@@ -98,7 +98,7 @@ class JurnalPenyelesaianController extends Controller
     {
         abort_if(Gate::denies('jurnal_penyelesaian_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $jurnalPenyelesaian->load('akun');
 

@@ -25,9 +25,6 @@ class UpdateChartOfAccountRequest extends FormRequest
                 'string',
                 'required',
             ],
-            'category' => [
-                'required',
-            ],
         ];
     }
 }

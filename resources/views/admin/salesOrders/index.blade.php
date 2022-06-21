@@ -44,9 +44,6 @@
                         {{ trans('cruds.salesOrder.fields.status') }}
                     </th>
                     <th>
-                        {{ trans('cruds.salesOrder.fields.finance') }}
-                    </th>
-                    <th>
                         &nbsp;
                     </th>
                 </tr>
@@ -108,7 +105,6 @@
 { data: 'tanggal', name: 'tanggal' },
 { data: 'detail_order', name: 'detail_order' },
 { data: 'status', name: 'status' },
-{ data: 'finance', name: 'finance' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
     orderCellsTop: true,

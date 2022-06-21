@@ -21,17 +21,6 @@
                 <span class="help-block">{{ trans('cruds.product.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="foto_produk">{{ trans('cruds.product.fields.foto_produk') }}</label>
-                <div class="needsclick dropzone {{ $errors->has('foto_produk') ? 'is-invalid' : '' }}" id="foto_produk-dropzone">
-                </div>
-                @if($errors->has('foto_produk'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('foto_produk') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.product.fields.foto_produk_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="description">{{ trans('cruds.product.fields.description') }}</label>
                 <textarea class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description', $product->description) }}</textarea>
                 @if($errors->has('description'))
@@ -40,6 +29,17 @@
                     </div>
                 @endif
                 <span class="help-block">{{ trans('cruds.product.fields.description_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="photo">{{ trans('cruds.product.fields.photo') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photo') ? 'is-invalid' : '' }}" id="photo-dropzone">
+                </div>
+                @if($errors->has('photo'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photo') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.product.fields.photo_helper') }}</span>
             </div>
             <div class="form-group">
                 <label class="required" for="categories">{{ trans('cruds.product.fields.category') }}</label>
@@ -109,7 +109,7 @@
 
 @section('scripts')
 <script>
-    Dropzone.options.fotoProdukDropzone = {
+    Dropzone.options.photoDropzone = {
     url: '{{ route('admin.products.storeMedia') }}',
     maxFilesize: 2, // MB
     acceptedFiles: '.jpeg,.jpg,.png,.gif',
@@ -124,23 +124,23 @@
       height: 4096
     },
     success: function (file, response) {
-      $('form').find('input[name="foto_produk"]').remove()
-      $('form').append('<input type="hidden" name="foto_produk" value="' + response.name + '">')
+      $('form').find('input[name="photo"]').remove()
+      $('form').append('<input type="hidden" name="photo" value="' + response.name + '">')
     },
     removedfile: function (file) {
       file.previewElement.remove()
       if (file.status !== 'error') {
-        $('form').find('input[name="foto_produk"]').remove()
+        $('form').find('input[name="photo"]').remove()
         this.options.maxFiles = this.options.maxFiles + 1
       }
     },
     init: function () {
-@if(isset($product) && $product->foto_produk)
-      var file = {!! json_encode($product->foto_produk) !!}
+@if(isset($product) && $product->photo)
+      var file = {!! json_encode($product->photo) !!}
           this.options.addedfile.call(this, file)
       this.options.thumbnail.call(this, file, file.preview)
       file.previewElement.classList.add('dz-complete')
-      $('form').append('<input type="hidden" name="foto_produk" value="' + file.file_name + '">')
+      $('form').append('<input type="hidden" name="photo" value="' + file.file_name + '">')
       this.options.maxFiles = this.options.maxFiles - 1
 @endif
     },

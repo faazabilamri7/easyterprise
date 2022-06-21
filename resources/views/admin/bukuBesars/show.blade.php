@@ -36,7 +36,7 @@
                             {{ trans('cruds.bukuBesar.fields.akun') }}
                         </th>
                         <td>
-                            {{ $bukuBesar->akun->nama ?? '' }}
+                            {{ $bukuBesar->akun->account_name ?? '' }}
                         </td>
                     </tr>
                     <tr>

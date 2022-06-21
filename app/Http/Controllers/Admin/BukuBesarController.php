@@ -7,8 +7,8 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyBukuBesarRequest;
 use App\Http\Requests\StoreBukuBesarRequest;
 use App\Http\Requests\UpdateBukuBesarRequest;
-use App\Models\Akun;
 use App\Models\BukuBesar;
+use App\Models\ChartOfAccount;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -48,8 +48,8 @@ class BukuBesarController extends Controller
                 return $row->id ? $row->id : '';
             });
 
-            $table->addColumn('akun_nama', function ($row) {
-                return $row->akun ? $row->akun->nama : '';
+            $table->addColumn('akun_account_name', function ($row) {
+                return $row->akun ? $row->akun->account_name : '';
             });
 
             $table->editColumn('keterangan', function ($row) {
@@ -83,7 +83,7 @@ class BukuBesarController extends Controller
     {
         abort_if(Gate::denies('buku_besar_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.bukuBesars.create', compact('akuns'));
     }
@@ -99,7 +99,7 @@ class BukuBesarController extends Controller
     {
         abort_if(Gate::denies('buku_besar_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $bukuBesar->load('akun');
 

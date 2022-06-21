@@ -1,8 +1,8 @@
-@can('product_create')
+@can('jurnal_umum_create')
     <div style="margin-bottom: 10px;" class="row">
         <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.products.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.product.title_singular') }}
+            <a class="btn btn-success" href="{{ route('admin.jurnal-umums.create') }}">
+                {{ trans('global.add') }} {{ trans('cruds.jurnalUmum.title_singular') }}
             </a>
         </div>
     </div>
@@ -10,34 +10,43 @@
 
 <div class="card">
     <div class="card-header">
-        {{ trans('cruds.product.title_singular') }} {{ trans('global.list') }}
+        {{ trans('cruds.jurnalUmum.title_singular') }} {{ trans('global.list') }}
     </div>
 
     <div class="card-body">
         <div class="table-responsive">
-            <table class=" table table-bordered table-striped table-hover datatable datatable-categoryProducts">
+            <table class=" table table-bordered table-striped table-hover datatable datatable-akunJurnalUmums">
                 <thead>
                     <tr>
                         <th width="10">
 
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.id') }}
+                            {{ trans('cruds.jurnalUmum.fields.id') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.name') }}
+                            {{ trans('cruds.jurnalUmum.fields.akun') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.description') }}
+                            {{ trans('cruds.jurnalUmum.fields.tanggal') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.photo') }}
+                            {{ trans('cruds.jurnalUmum.fields.nama') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.stok') }}
+                            {{ trans('cruds.jurnalUmum.fields.debit') }}
                         </th>
                         <th>
-                            {{ trans('cruds.product.fields.harga_jual') }}
+                            {{ trans('cruds.jurnalUmum.fields.kredit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.jurnalUmum.fields.total_debit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.jurnalUmum.fields.total_kredit') }}
+                        </th>
+                        <th>
+                            {{ trans('cruds.jurnalUmum.fields.status') }}
                         </th>
                         <th>
                             &nbsp;
@@ -45,48 +54,53 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $key => $product)
-                        <tr data-entry-id="{{ $product->id }}">
+                    @foreach($jurnalUmums as $key => $jurnalUmum)
+                        <tr data-entry-id="{{ $jurnalUmum->id }}">
                             <td>
 
                             </td>
                             <td>
-                                {{ $product->id ?? '' }}
+                                {{ $jurnalUmum->id ?? '' }}
                             </td>
                             <td>
-                                {{ $product->name ?? '' }}
+                                {{ $jurnalUmum->akun->account_code ?? '' }}
                             </td>
                             <td>
-                                {{ $product->description ?? '' }}
+                                {{ $jurnalUmum->tanggal ?? '' }}
                             </td>
                             <td>
-                                @if($product->photo)
-                                    <a href="{{ $product->photo->getUrl() }}" target="_blank" style="display: inline-block">
-                                        <img src="{{ $product->photo->getUrl('thumb') }}">
-                                    </a>
-                                @endif
+                                {{ $jurnalUmum->nama ?? '' }}
                             </td>
                             <td>
-                                {{ $product->stok ?? '' }}
+                                {{ $jurnalUmum->debit ?? '' }}
                             </td>
                             <td>
-                                {{ $product->harga_jual ?? '' }}
+                                {{ $jurnalUmum->kredit ?? '' }}
                             </td>
                             <td>
-                                @can('product_show')
-                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.products.show', $product->id) }}">
+                                {{ $jurnalUmum->total_debit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $jurnalUmum->total_kredit ?? '' }}
+                            </td>
+                            <td>
+                                {{ $jurnalUmum->status ?? '' }}
+                            </td>
+                            <td>
+                                @can('jurnal_umum_show')
+                                    <a class="btn btn-xs btn-primary" href="{{ route('admin.jurnal-umums.show', $jurnalUmum->id) }}">
                                         {{ trans('global.view') }}
                                     </a>
                                 @endcan
 
-                                @can('product_edit')
-                                    <a class="btn btn-xs btn-info" href="{{ route('admin.products.edit', $product->id) }}">
+                                @can('jurnal_umum_edit')
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.jurnal-umums.edit', $jurnalUmum->id) }}">
                                         {{ trans('global.edit') }}
                                     </a>
                                 @endcan
 
-                                @can('product_delete')
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                @can('jurnal_umum_delete')
+                                    <form action="{{ route('admin.jurnal-umums.destroy', $jurnalUmum->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                         <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
@@ -108,11 +122,11 @@
 <script>
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
-@can('product_delete')
+@can('jurnal_umum_delete')
   let deleteButtonTrans = '{{ trans('global.datatables.delete') }}'
   let deleteButton = {
     text: deleteButtonTrans,
-    url: "{{ route('admin.products.massDestroy') }}",
+    url: "{{ route('admin.jurnal-umums.massDestroy') }}",
     className: 'btn-danger',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).nodes(), function (entry) {
@@ -140,10 +154,10 @@
 
   $.extend(true, $.fn.dataTable.defaults, {
     orderCellsTop: true,
-    order: [[ 2, 'desc' ]],
+    order: [[ 1, 'desc' ]],
     pageLength: 100,
   });
-  let table = $('.datatable-categoryProducts:not(.ajaxTable)').DataTable({ buttons: dtButtons })
+  let table = $('.datatable-akunJurnalUmums:not(.ajaxTable)').DataTable({ buttons: dtButtons })
   $('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
       $($.fn.dataTable.tables(true)).DataTable()
           .columns.adjust();

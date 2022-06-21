@@ -14,7 +14,6 @@ class CreateSalesOrdersTable extends Migration
             $table->date('tanggal');
             $table->string('detail_order')->nullable();
             $table->string('status')->nullable();
-            $table->boolean('finance')->default(0)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,11 +17,17 @@ class UpdateSalesInvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_invoice' => [
-                'required',
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+            'no_sales_invoice' => [
+                'string',
+                'nullable',
+            ],
+            'tanggal' => [
+                'date_format:' . config('panel.date_format'),
+                'nullable',
+            ],
+            'jatuh_tempo' => [
+                'date_format:' . config('panel.date_format'),
+                'nullable',
             ],
         ];
     }

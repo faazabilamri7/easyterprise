@@ -25,10 +25,42 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.purchaseInvoice.fields.id_invoice') }}
+                            {{ trans('cruds.purchaseInvoice.fields.no_purchase_invoice') }}
                         </th>
                         <td>
-                            {{ $purchaseInvoice->id_invoice }}
+                            {{ $purchaseInvoice->no_purchase_invoice }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                        </th>
+                        <td>
+                            {{ $purchaseInvoice->tanggal }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseInvoice.fields.purchase_order') }}
+                        </th>
+                        <td>
+                            {{ $purchaseInvoice->purchase_order->date_purchase_order ?? '' }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseInvoice.fields.total') }}
+                        </th>
+                        <td>
+                            {{ $purchaseInvoice->total }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.purchaseInvoice.fields.status') }}
+                        </th>
+                        <td>
+                            {{ App\Models\PurchaseInvoice::STATUS_RADIO[$purchaseInvoice->status] ?? '' }}
                         </td>
                     </tr>
                 </tbody>

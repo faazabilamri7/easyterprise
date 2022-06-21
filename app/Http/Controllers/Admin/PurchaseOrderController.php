@@ -110,7 +110,7 @@ class PurchaseOrderController extends Controller
     {
         abort_if(Gate::denies('purchase_order_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $purchaseOrder->load('id_purchase_quotation', 'material_name', 'idPurchaseOrderMaterialEntries', 'idPurchaseOrderPurchaseReturns');
+        $purchaseOrder->load('id_purchase_quotation', 'material_name', 'idPurchaseOrderMaterialEntries', 'idPurchaseOrderPurchaseReturns', 'purchaseOrderPurchaseInvoices');
 
         return view('admin.purchaseOrders.show', compact('purchaseOrder'));
     }

@@ -80,11 +80,6 @@
     </div>
     <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
         <li class="nav-item">
-            <a class="nav-link" href="#perusahaan_invoice_pembelians" role="tab" data-toggle="tab">
-                {{ trans('cruds.invoicePembelian.title') }}
-            </a>
-        </li>
-        <li class="nav-item">
             <a class="nav-link" href="#vendor_documents_vendors" role="tab" data-toggle="tab">
                 {{ trans('cruds.documentsVendor.title') }}
             </a>
@@ -106,9 +101,6 @@
         </li>
     </ul>
     <div class="tab-content">
-        <div class="tab-pane" role="tabpanel" id="perusahaan_invoice_pembelians">
-            @includeIf('admin.vendors.relationships.perusahaanInvoicePembelians', ['invoicePembelians' => $vendor->perusahaanInvoicePembelians])
-        </div>
         <div class="tab-pane" role="tabpanel" id="vendor_documents_vendors">
             @includeIf('admin.vendors.relationships.vendorDocumentsVendors', ['documentsVendors' => $vendor->vendorDocumentsVendors])
         </div>

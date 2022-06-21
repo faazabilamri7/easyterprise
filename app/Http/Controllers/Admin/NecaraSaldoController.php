@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyNecaraSaldoRequest;
 use App\Http\Requests\StoreNecaraSaldoRequest;
 use App\Http\Requests\UpdateNecaraSaldoRequest;
-use App\Models\Akun;
+use App\Models\ChartOfAccount;
 use App\Models\NecaraSaldo;
 use Gate;
 use Illuminate\Http\Request;
@@ -48,8 +48,8 @@ class NecaraSaldoController extends Controller
                 return $row->id ? $row->id : '';
             });
 
-            $table->addColumn('akun_nama', function ($row) {
-                return $row->akun ? $row->akun->nama : '';
+            $table->addColumn('akun_account_name', function ($row) {
+                return $row->akun ? $row->akun->account_name : '';
             });
 
             $table->editColumn('debit', function ($row) {
@@ -83,7 +83,7 @@ class NecaraSaldoController extends Controller
     {
         abort_if(Gate::denies('necara_saldo_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.necaraSaldos.create', compact('akuns'));
     }
@@ -99,7 +99,7 @@ class NecaraSaldoController extends Controller
     {
         abort_if(Gate::denies('necara_saldo_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $necaraSaldo->load('akun');
 

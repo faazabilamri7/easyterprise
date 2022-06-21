@@ -69,19 +69,6 @@
                 <span class="help-block">{{ trans('cruds.salesOrder.fields.status_helper') }}</span>
             </div>
             <div class="form-group">
-                <div class="form-check {{ $errors->has('finance') ? 'is-invalid' : '' }}">
-                    <input type="hidden" name="finance" value="0">
-                    <input class="form-check-input" type="checkbox" name="finance" id="finance" value="1" {{ old('finance', 0) == 1 ? 'checked' : '' }}>
-                    <label class="form-check-label" for="finance">{{ trans('cruds.salesOrder.fields.finance') }}</label>
-                </div>
-                @if($errors->has('finance'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('finance') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesOrder.fields.finance_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

@@ -52,9 +52,6 @@ class ChartOfAccountController extends Controller
             $table->editColumn('account_name', function ($row) {
                 return $row->account_name ? $row->account_name : '';
             });
-            $table->editColumn('category', function ($row) {
-                return $row->category ? ChartOfAccount::CATEGORY_SELECT[$row->category] : '';
-            });
 
             $table->rawColumns(['actions', 'placeholder']);
 
@@ -95,6 +92,8 @@ class ChartOfAccountController extends Controller
     public function show(ChartOfAccount $chartOfAccount)
     {
         abort_if(Gate::denies('chart_of_account_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $chartOfAccount->load('akunJurnalUmums', 'akunBukuBesars', 'akunNecaraSaldos', 'akunJurnalPenyelesaians');
 
         return view('admin.chartOfAccounts.show', compact('chartOfAccount'));
     }

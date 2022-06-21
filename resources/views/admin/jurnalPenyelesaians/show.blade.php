@@ -28,7 +28,7 @@
                             {{ trans('cruds.jurnalPenyelesaian.fields.akun') }}
                         </th>
                         <td>
-                            {{ $jurnalPenyelesaian->akun->nama ?? '' }}
+                            {{ $jurnalPenyelesaian->akun->account_name ?? '' }}
                         </td>
                     </tr>
                     <tr>

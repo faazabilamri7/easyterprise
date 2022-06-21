@@ -26,7 +26,7 @@ class Product extends Model implements HasMedia
     public $table = 'products';
 
     protected $appends = [
-        'foto_produk',
+        'photo',
     ];
 
     protected $dates = [
@@ -78,9 +78,9 @@ class Product extends Model implements HasMedia
         return $this->hasMany(Task::class, 'product_name_id', 'id');
     }
 
-    public function getFotoProdukAttribute()
+    public function getPhotoAttribute()
     {
-        $file = $this->getMedia('foto_produk')->last();
+        $file = $this->getMedia('photo')->last();
         if ($file) {
             $file->url       = $file->getUrl();
             $file->thumbnail = $file->getUrl('thumb');

@@ -36,7 +36,7 @@
                             {{ trans('cruds.necaraSaldo.fields.akun') }}
                         </th>
                         <td>
-                            {{ $necaraSaldo->akun->nama ?? '' }}
+                            {{ $necaraSaldo->akun->account_name ?? '' }}
                         </td>
                     </tr>
                     <tr>

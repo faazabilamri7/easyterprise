@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\CsvImportTrait;
 use App\Http\Requests\MassDestroyJurnalUmumRequest;
 use App\Http\Requests\StoreJurnalUmumRequest;
 use App\Http\Requests\UpdateJurnalUmumRequest;
-use App\Models\Akun;
+use App\Models\ChartOfAccount;
 use App\Models\JurnalUmum;
 use Gate;
 use Illuminate\Http\Request;
@@ -47,8 +47,8 @@ class JurnalUmumController extends Controller
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
             });
-            $table->addColumn('akun_nama', function ($row) {
-                return $row->akun ? $row->akun->nama : '';
+            $table->addColumn('akun_account_code', function ($row) {
+                return $row->akun ? $row->akun->account_code : '';
             });
 
             $table->editColumn('nama', function ($row) {
@@ -82,7 +82,7 @@ class JurnalUmumController extends Controller
     {
         abort_if(Gate::denies('jurnal_umum_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         return view('admin.jurnalUmums.create', compact('akuns'));
     }
@@ -98,7 +98,7 @@ class JurnalUmumController extends Controller
     {
         abort_if(Gate::denies('jurnal_umum_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $akuns = Akun::pluck('nama', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $akuns = ChartOfAccount::pluck('account_code', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $jurnalUmum->load('akun');
 

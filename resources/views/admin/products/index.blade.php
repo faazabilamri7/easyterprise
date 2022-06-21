@@ -32,10 +32,10 @@
                         {{ trans('cruds.product.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.foto_produk') }}
+                        {{ trans('cruds.product.fields.description') }}
                     </th>
                     <th>
-                        {{ trans('cruds.product.fields.description') }}
+                        {{ trans('cruds.product.fields.photo') }}
                     </th>
                     <th>
                         {{ trans('cruds.product.fields.stok') }}
@@ -101,8 +101,8 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'name', name: 'name' },
-{ data: 'foto_produk', name: 'foto_produk', sortable: false, searchable: false },
 { data: 'description', name: 'description' },
+{ data: 'photo', name: 'photo', sortable: false, searchable: false },
 { data: 'stok', name: 'stok' },
 { data: 'harga_jual', name: 'harga_jual' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }

@@ -5,7 +5,7 @@
 @section('messenger-content')
 
 <div class="row">
-    <div class="col-lg-12 text-dark">
+    <div class="col-lg-12">
         <form action="{{ route("admin.messenger.reply", [$topic->id]) }}" method="POST">
             @csrf
             <div class="card card-default">

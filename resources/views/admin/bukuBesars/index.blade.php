@@ -110,7 +110,7 @@
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
 { data: 'tanggal', name: 'tanggal' },
-{ data: 'akun_nama', name: 'akun.nama' },
+{ data: 'akun_account_name', name: 'akun.account_name' },
 { data: 'keterangan', name: 'keterangan' },
 { data: 'debit', name: 'debit' },
 { data: 'kredit', name: 'kredit' },

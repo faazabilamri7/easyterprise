@@ -185,12 +185,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::delete('expense-reports/destroy', 'ExpenseReportController@massDestroy')->name('expense-reports.massDestroy');
     Route::resource('expense-reports', 'ExpenseReportController');
 
-    // Akun
-    Route::delete('akuns/destroy', 'AkunController@massDestroy')->name('akuns.massDestroy');
-    Route::post('akuns/parse-csv-import', 'AkunController@parseCsvImport')->name('akuns.parseCsvImport');
-    Route::post('akuns/process-csv-import', 'AkunController@processCsvImport')->name('akuns.processCsvImport');
-    Route::resource('akuns', 'AkunController');
-
     // Jurnal Umum
     Route::delete('jurnal-umums/destroy', 'JurnalUmumController@massDestroy')->name('jurnal-umums.massDestroy');
     Route::post('jurnal-umums/parse-csv-import', 'JurnalUmumController@parseCsvImport')->name('jurnal-umums.parseCsvImport');
@@ -214,30 +208,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('jurnal-penyelesaians/parse-csv-import', 'JurnalPenyelesaianController@parseCsvImport')->name('jurnal-penyelesaians.parseCsvImport');
     Route::post('jurnal-penyelesaians/process-csv-import', 'JurnalPenyelesaianController@processCsvImport')->name('jurnal-penyelesaians.processCsvImport');
     Route::resource('jurnal-penyelesaians', 'JurnalPenyelesaianController');
-
-    // Biaya Produksi
-    Route::delete('biaya-produksis/destroy', 'BiayaProduksiController@massDestroy')->name('biaya-produksis.massDestroy');
-    Route::post('biaya-produksis/parse-csv-import', 'BiayaProduksiController@parseCsvImport')->name('biaya-produksis.parseCsvImport');
-    Route::post('biaya-produksis/process-csv-import', 'BiayaProduksiController@processCsvImport')->name('biaya-produksis.processCsvImport');
-    Route::resource('biaya-produksis', 'BiayaProduksiController');
-
-    // Kas Bank
-    Route::delete('kas-banks/destroy', 'KasBankController@massDestroy')->name('kas-banks.massDestroy');
-    Route::post('kas-banks/parse-csv-import', 'KasBankController@parseCsvImport')->name('kas-banks.parseCsvImport');
-    Route::post('kas-banks/process-csv-import', 'KasBankController@processCsvImport')->name('kas-banks.processCsvImport');
-    Route::resource('kas-banks', 'KasBankController');
-
-    // Transaksi Keuangan
-    Route::delete('transaksi-keuangans/destroy', 'TransaksiKeuanganController@massDestroy')->name('transaksi-keuangans.massDestroy');
-    Route::post('transaksi-keuangans/parse-csv-import', 'TransaksiKeuanganController@parseCsvImport')->name('transaksi-keuangans.parseCsvImport');
-    Route::post('transaksi-keuangans/process-csv-import', 'TransaksiKeuanganController@processCsvImport')->name('transaksi-keuangans.processCsvImport');
-    Route::resource('transaksi-keuangans', 'TransaksiKeuanganController');
-
-    // Invoice Pembelian
-    Route::delete('invoice-pembelians/destroy', 'InvoicePembelianController@massDestroy')->name('invoice-pembelians.massDestroy');
-    Route::post('invoice-pembelians/parse-csv-import', 'InvoicePembelianController@parseCsvImport')->name('invoice-pembelians.parseCsvImport');
-    Route::post('invoice-pembelians/process-csv-import', 'InvoicePembelianController@processCsvImport')->name('invoice-pembelians.processCsvImport');
-    Route::resource('invoice-pembelians', 'InvoicePembelianController');
 
     // Audit Logs
     Route::resource('audit-logs', 'AuditLogsController', ['except' => ['create', 'store', 'edit', 'update', 'destroy']]);

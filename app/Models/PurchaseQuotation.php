@@ -16,7 +16,7 @@ class PurchaseQuotation extends Model
 
     public const STATUS_SELECT = [
         'In Negotiation'  => 'In Negotiation',
-        'Negotiation end' => 'Negotiation End',
+        'Negotiation End' => 'Negotiation End',
     ];
 
     public const MATERIAL_NAME_SELECT = [
@@ -30,8 +30,8 @@ class PurchaseQuotation extends Model
 
     public const PAYMENT_METHOD_SELECT = [
         'Company Bank Account_BCA'     => 'BCA',
-        'Company Bank Account_BRI'     => 'BRI',
         'Company Bank Account_MANDIRI' => 'MANDIRI',
+        'Company Bank Account_BRI'     => 'BRI',
         'Company Bank Account_BNI'     => 'BNI',
         'Company Bank Account_PERMATA' => 'PERMATA',
         'Company Bank Account_PAYPAL'  => 'PAYPAL',
