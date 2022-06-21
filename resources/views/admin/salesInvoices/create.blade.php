@@ -20,6 +20,17 @@
                 <span class="help-block">{{ trans('cruds.salesInvoice.fields.no_sales_invoice_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="sales_invoice">{{ trans('cruds.salesInvoice.fields.sales_invoice') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('sales_invoice') ? 'is-invalid' : '' }}" id="sales_invoice-dropzone">
+                </div>
+                @if($errors->has('sales_invoice'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('sales_invoice') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.salesInvoice.fields.sales_invoice_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="sales_order_id">{{ trans('cruds.salesInvoice.fields.sales_order') }}</label>
                 <select class="form-control select2 {{ $errors->has('sales_order') ? 'is-invalid' : '' }}" name="sales_order_id" id="sales_order_id">
                     @foreach($sales_orders as $id => $entry)
@@ -34,30 +45,6 @@
                 <span class="help-block">{{ trans('cruds.salesInvoice.fields.sales_order_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="customer_id">{{ trans('cruds.salesInvoice.fields.customer') }}</label>
-                <select class="form-control select2 {{ $errors->has('customer') ? 'is-invalid' : '' }}" name="customer_id" id="customer_id">
-                    @foreach($customers as $id => $entry)
-                        <option value="{{ $id }}" {{ old('customer_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
-                    @endforeach
-                </select>
-                @if($errors->has('customer'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('customer') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesInvoice.fields.customer_helper') }}</span>
-            </div>
-            <div class="form-group">
-                <label for="tanggal">{{ trans('cruds.salesInvoice.fields.tanggal') }}</label>
-                <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
-                @if($errors->has('tanggal'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('tanggal') }}
-                    </div>
-                @endif
-                <span class="help-block">{{ trans('cruds.salesInvoice.fields.tanggal_helper') }}</span>
-            </div>
-            <div class="form-group">
                 <label for="jatuh_tempo">{{ trans('cruds.salesInvoice.fields.jatuh_tempo') }}</label>
                 <input class="form-control date {{ $errors->has('jatuh_tempo') ? 'is-invalid' : '' }}" type="text" name="jatuh_tempo" id="jatuh_tempo" value="{{ old('jatuh_tempo') }}">
                 @if($errors->has('jatuh_tempo'))
@@ -68,14 +55,15 @@
                 <span class="help-block">{{ trans('cruds.salesInvoice.fields.jatuh_tempo_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="total">{{ trans('cruds.salesInvoice.fields.total') }}</label>
-                <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total" id="total" value="{{ old('total', '') }}" step="0.01">
-                @if($errors->has('total'))
+                <label for="bukti_pembayaran">{{ trans('cruds.salesInvoice.fields.bukti_pembayaran') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('bukti_pembayaran') ? 'is-invalid' : '' }}" id="bukti_pembayaran-dropzone">
+                </div>
+                @if($errors->has('bukti_pembayaran'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('total') }}
+                        {{ $errors->first('bukti_pembayaran') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.salesInvoice.fields.total_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.salesInvoice.fields.bukti_pembayaran_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.salesInvoice.fields.status') }}</label>
@@ -103,4 +91,111 @@
 
 
 
+@endsection
+
+@section('scripts')
+<script>
+    Dropzone.options.salesInvoiceDropzone = {
+    url: '{{ route('admin.sales-invoices.storeMedia') }}',
+    maxFilesize: 2, // MB
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2
+    },
+    success: function (file, response) {
+      $('form').find('input[name="sales_invoice"]').remove()
+      $('form').append('<input type="hidden" name="sales_invoice" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="sales_invoice"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($salesInvoice) && $salesInvoice->sales_invoice)
+      var file = {!! json_encode($salesInvoice->sales_invoice) !!}
+          this.options.addedfile.call(this, file)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="sales_invoice" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
+</script>
+<script>
+    Dropzone.options.buktiPembayaranDropzone = {
+    url: '{{ route('admin.sales-invoices.storeMedia') }}',
+    maxFilesize: 2, // MB
+    acceptedFiles: '.jpeg,.jpg,.png,.gif',
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2,
+      width: 4096,
+      height: 4096
+    },
+    success: function (file, response) {
+      $('form').find('input[name="bukti_pembayaran"]').remove()
+      $('form').append('<input type="hidden" name="bukti_pembayaran" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="bukti_pembayaran"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($salesInvoice) && $salesInvoice->bukti_pembayaran)
+      var file = {!! json_encode($salesInvoice->bukti_pembayaran) !!}
+          this.options.addedfile.call(this, file)
+      this.options.thumbnail.call(this, file, file.preview)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="bukti_pembayaran" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+    error: function (file, response) {
+        if ($.type(response) === 'string') {
+            var message = response //dropzone sends it's own error messages in string
+        } else {
+            var message = response.errors.file
+        }
+        file.previewElement.classList.add('dz-error')
+        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+        _results = []
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i]
+            _results.push(node.textContent = message)
+        }
+
+        return _results
+    }
+}
+</script>
 @endsection

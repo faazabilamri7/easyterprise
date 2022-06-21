@@ -11,9 +11,7 @@ class CreateSalesInvoicesTable extends Migration
         Schema::create('sales_invoices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_sales_invoice')->nullable();
-            $table->date('tanggal')->nullable();
             $table->date('jatuh_tempo')->nullable();
-            $table->decimal('total', 15, 2)->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
             $table->softDeletes();

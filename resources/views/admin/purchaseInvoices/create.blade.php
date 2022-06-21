@@ -20,14 +20,15 @@
                 <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.no_purchase_invoice_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="tanggal">{{ trans('cruds.purchaseInvoice.fields.tanggal') }}</label>
-                <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
-                @if($errors->has('tanggal'))
+                <label for="purchase_invoice">{{ trans('cruds.purchaseInvoice.fields.purchase_invoice') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('purchase_invoice') ? 'is-invalid' : '' }}" id="purchase_invoice-dropzone">
+                </div>
+                @if($errors->has('purchase_invoice'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('tanggal') }}
+                        {{ $errors->first('purchase_invoice') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.tanggal_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.purchase_invoice_helper') }}</span>
             </div>
             <div class="form-group">
                 <label for="purchase_order_id">{{ trans('cruds.purchaseInvoice.fields.purchase_order') }}</label>
@@ -44,14 +45,25 @@
                 <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.purchase_order_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="total">{{ trans('cruds.purchaseInvoice.fields.total') }}</label>
-                <input class="form-control {{ $errors->has('total') ? 'is-invalid' : '' }}" type="number" name="total" id="total" value="{{ old('total', '') }}" step="0.01">
-                @if($errors->has('total'))
+                <label for="tanggal">{{ trans('cruds.purchaseInvoice.fields.tanggal') }}</label>
+                <input class="form-control date {{ $errors->has('tanggal') ? 'is-invalid' : '' }}" type="text" name="tanggal" id="tanggal" value="{{ old('tanggal') }}">
+                @if($errors->has('tanggal'))
                     <div class="invalid-feedback">
-                        {{ $errors->first('total') }}
+                        {{ $errors->first('tanggal') }}
                     </div>
                 @endif
-                <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.total_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.tanggal_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="bukti_pembayaran">{{ trans('cruds.purchaseInvoice.fields.bukti_pembayaran') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('bukti_pembayaran') ? 'is-invalid' : '' }}" id="bukti_pembayaran-dropzone">
+                </div>
+                @if($errors->has('bukti_pembayaran'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('bukti_pembayaran') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.purchaseInvoice.fields.bukti_pembayaran_helper') }}</span>
             </div>
             <div class="form-group">
                 <label>{{ trans('cruds.purchaseInvoice.fields.status') }}</label>
@@ -79,4 +91,111 @@
 
 
 
+@endsection
+
+@section('scripts')
+<script>
+    Dropzone.options.purchaseInvoiceDropzone = {
+    url: '{{ route('admin.purchase-invoices.storeMedia') }}',
+    maxFilesize: 2, // MB
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2
+    },
+    success: function (file, response) {
+      $('form').find('input[name="purchase_invoice"]').remove()
+      $('form').append('<input type="hidden" name="purchase_invoice" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="purchase_invoice"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($purchaseInvoice) && $purchaseInvoice->purchase_invoice)
+      var file = {!! json_encode($purchaseInvoice->purchase_invoice) !!}
+          this.options.addedfile.call(this, file)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="purchase_invoice" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
+</script>
+<script>
+    Dropzone.options.buktiPembayaranDropzone = {
+    url: '{{ route('admin.purchase-invoices.storeMedia') }}',
+    maxFilesize: 2, // MB
+    acceptedFiles: '.jpeg,.jpg,.png,.gif',
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2,
+      width: 4096,
+      height: 4096
+    },
+    success: function (file, response) {
+      $('form').find('input[name="bukti_pembayaran"]').remove()
+      $('form').append('<input type="hidden" name="bukti_pembayaran" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="bukti_pembayaran"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($purchaseInvoice) && $purchaseInvoice->bukti_pembayaran)
+      var file = {!! json_encode($purchaseInvoice->bukti_pembayaran) !!}
+          this.options.addedfile.call(this, file)
+      this.options.thumbnail.call(this, file, file.preview)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="bukti_pembayaran" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+    error: function (file, response) {
+        if ($.type(response) === 'string') {
+            var message = response //dropzone sends it's own error messages in string
+        } else {
+            var message = response.errors.file
+        }
+        file.previewElement.classList.add('dz-error')
+        _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+        _results = []
+        for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            node = _ref[_i]
+            _results.push(node.textContent = message)
+        }
+
+        return _results
+    }
+}
+</script>
 @endsection

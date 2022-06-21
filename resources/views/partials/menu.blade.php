@@ -2,9 +2,7 @@
 
     <div class="c-sidebar-brand d-md-down-none">
         <a class="c-sidebar-brand-full h4" href="#">
-        <center>
-                <img src="{{ asset('images/logoeasyterprise.png') }}" style="padding:0px 10px;margin: 0 auto;" width="70%" height="70%">
-        </center>
+            {{ trans('panel.site_title') }}
         </a>
     </div>
 

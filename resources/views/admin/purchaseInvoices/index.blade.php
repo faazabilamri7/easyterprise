@@ -29,13 +29,16 @@
                         {{ trans('cruds.purchaseInvoice.fields.no_purchase_invoice') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                        {{ trans('cruds.purchaseInvoice.fields.purchase_invoice') }}
                     </th>
                     <th>
                         {{ trans('cruds.purchaseInvoice.fields.purchase_order') }}
                     </th>
                     <th>
-                        {{ trans('cruds.purchaseInvoice.fields.total') }}
+                        {{ trans('cruds.purchaseInvoice.fields.tanggal') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.purchaseInvoice.fields.bukti_pembayaran') }}
                     </th>
                     <th>
                         {{ trans('cruds.purchaseInvoice.fields.status') }}
@@ -97,9 +100,10 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'no_purchase_invoice', name: 'no_purchase_invoice' },
-{ data: 'tanggal', name: 'tanggal' },
+{ data: 'purchase_invoice', name: 'purchase_invoice', sortable: false, searchable: false },
 { data: 'purchase_order_date_purchase_order', name: 'purchase_order.date_purchase_order' },
-{ data: 'total', name: 'total' },
+{ data: 'tanggal', name: 'tanggal' },
+{ data: 'bukti_pembayaran', name: 'bukti_pembayaran', sortable: false, searchable: false },
 { data: 'status', name: 'status' },
 { data: 'actions', name: '{{ trans('global.actions') }}' }
     ],
